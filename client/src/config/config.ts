@@ -1,18 +1,12 @@
-// TODO Cree la variable d'env
-// TODO Switch en fonction la en variable
+let API_URL: string;
+let SOCKET_URL: string;
 
-// let apiurl = '';
-// let socketurl = '';
-//
-// const NODE_ENV = '';
-//
-// if (NODE_ENV === 'production') {
-//     apiurl = '';
-//     socketurl = '';
-// } else {
-//     apiurl = 'http://localhost:5000';
-//     socketurl = 'http://localhost:5000';
-// }
+if (process.env.NODE_ENV === 'production') {
+    API_URL = '';
+    SOCKET_URL = '';
+} else {
+    API_URL = 'http://localhost:5000';
+    SOCKET_URL = 'http://localhost:5000';
+}
 
-export const API_URL = 'http://localhost:5000';
-export const SOCKET_URL = 'http://localhost:5000';
+export { API_URL, SOCKET_URL };
