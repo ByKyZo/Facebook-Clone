@@ -6,10 +6,10 @@ const loaderSlice = createSlice({
     name: 'loader',
     initialState: initialState,
     reducers: {
-        startLoading: (state, action) => {
+        startLoading: (state, action: PayloadAction<boolean>) => {
             return state;
         },
-        endLoading: (state, action) => {
+        endLoading: (state, action: PayloadAction<boolean>) => {
             return state;
         },
     },

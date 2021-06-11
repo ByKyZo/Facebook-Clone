@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 export const isEmpty = (value: any) => {
     return (
         value === undefined ||
@@ -6,3 +8,7 @@ export const isEmpty = (value: any) => {
         (typeof value === 'string' && value.trim().length === 0)
     );
 };
+
+// export const toastCatchError = () => {
+//     toast.warn()
+// }
