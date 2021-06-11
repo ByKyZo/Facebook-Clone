@@ -106,7 +106,9 @@ const Signup = ({ isOpen, setIsOpen }: IProps) => {
                     setIsEmailAlreadyExist(false);
                     toastSuccess('Sign Up Successful');
                     resetForm({});
-                    setIsOpen(false);
+                    setTimeout(() => {
+                        setIsOpen(false);
+                    }, 300);
                 })
                 .catch((err) => {
                     if (err.response.status === 409) {

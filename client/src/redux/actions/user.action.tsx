@@ -3,6 +3,9 @@ import { AppDispatch } from '../store';
 import axios from '../../config/axios';
 import { toastCatchError, toastSuccess } from '../../utils/utils';
 
+// TODO Gerer les jwt avec le header x-access-token
+// TODO Faire un middleware en back pour verifier si autorisé a chaque page
+
 export const userLogin = (email: string, password: string) => (dispatch: AppDispatch) => {
     dispatch(startUserLoading());
     axios
