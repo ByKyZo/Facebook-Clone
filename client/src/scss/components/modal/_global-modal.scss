@@ -1,0 +1,39 @@
+@import './signup';
+
+/**
+* MODAL OVERLAY ANIMATION CONFIG
+**/
+.ReactModal__Overlay {
+    z-index: 99999999999;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+}
+
+/**
+* MODAL CONTENT ANIMATION CONFIG
+**/
+.ReactModal__Content {
+    transform: scale(0.4);
+    transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ReactModal__Content--after-open {
+    transform: scale(1);
+}
+
+.ReactModal__Content--before-close {
+    transform: scale(0.4);
+    opacity: 0;
+}

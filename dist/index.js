@@ -25,11 +25,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const path = __importStar(require("path"));
-dotenv_1.default.config({ path: path.join(__dirname, "..", "config", ".env.local") });
+dotenv_1.default.config({ path: path.join(__dirname, '..', 'config', '.env.local') });
 require("./database/database");
+const user_routes_1 = __importDefault(require("./routes/user.routes"));
+const cors_1 = __importDefault(require("cors"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const server = express_1.default();
 // @ts-ignore
 const PORT = process.env.PORT | 5000;
+const CORS_ORIGIN = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000';
+server.use(cookie_parser_1.default());
+server.use(express_1.default.json());
+server.use(cors_1.default({ origin: CORS_ORIGIN, credentials: true }));
+server.use(express_1.default.urlencoded({ extended: true }));
+server.use('/user', user_routes_1.default);
 server.listen(PORT, () => {
     console.log(`listen on port ${PORT}`);
 });

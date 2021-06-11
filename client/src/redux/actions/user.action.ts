@@ -2,14 +2,16 @@ import { IUser, login } from '../reducers/user.reducer';
 import { AppDispatch } from '../store';
 import axios from '../../config/axios';
 
-export const fetchUser = () => (dispatch: AppDispatch) => {
+export const userLogin = (email: string, password: string) => (dispatch: AppDispatch) => {
+    console.log('userLogin');
     axios
-        .post('/login')
+        .post('/user/signup', { email, password })
         .then((res) => {
             const user: IUser = res.data;
-            // dispatch(login(user))
+            dispatch(login(user));
         })
         .catch((err) => {
-            dispatch(login({ pseudo: 'test', email: 'test@', password: 'password' }));
+            console.log('LOGIN ERROR SEND TOAST ERROR');
+            console.log(err.response);
         });
 };
