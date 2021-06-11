@@ -5,7 +5,7 @@ if (process.env.NODE_ENV === 'production') {
     API_URL = '';
     SOCKET_URL = '';
 } else {
-    API_URL = 'http://localhost:5000';
+    API_URL = 'http://localhost:5000/api';
     SOCKET_URL = 'http://localhost:5000';
 }
 

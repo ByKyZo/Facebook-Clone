@@ -4,11 +4,17 @@ import { RiCloseLine } from 'react-icons/ri';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from '../../config/axios';
+import { toastCatchError, toastSuccess } from '../../utils/utils';
 
 interface IProps {
     isOpen: boolean;
     setIsOpen: (arg: boolean) => void;
 }
+
+// TODO Focus le premier input vides si le user essayer de créer un compte
+// TODO Gerer les messages d'erreurs avec des popups
+// TODO Rajouter les années automatiquement dans le select
+// TODO Gerer le formik des select
 
 const Signup = ({ isOpen, setIsOpen }: IProps) => {
     const [isEmailAlreadyExist, setIsEmailAlreadyExist] = useState(false);
@@ -23,21 +29,6 @@ const Signup = ({ isOpen, setIsOpen }: IProps) => {
             );
         }
         return options;
-    };
-
-    const handleSignup = (user: object) => {
-        axios
-            .post('/user/signup', user)
-            .then((res) => {
-                console.log(res);
-                setIsEmailAlreadyExist(false);
-            })
-            .catch((err) => {
-                if (err.response.status === 409) {
-                    console.log('Email already exist');
-                    setIsEmailAlreadyExist(true);
-                }
-            });
     };
 
     const isFieldErrorBorder = (fieldName: any) => {
@@ -90,7 +81,7 @@ const Signup = ({ isOpen, setIsOpen }: IProps) => {
             year: Yup.string().required(),
             gender: Yup.string().required(),
         }),
-        onSubmit: (values) => {
+        onSubmit: (values, { resetForm }) => {
             const dayFormat = parseInt(values.day) < 10 ? `0${values.day}` : values.day;
             const monthFormat = parseInt(values.month) < 10 ? `0${values.month}` : values.month;
             const birthdayFormat = `${dayFormat}/${monthFormat}/${values.year}`;
@@ -107,7 +98,23 @@ const Signup = ({ isOpen, setIsOpen }: IProps) => {
                 },
                 gender: values.gender,
             };
-            handleSignup(user);
+
+            axios
+                .post('/auth/signup', user)
+                .then((res) => {
+                    console.log(res);
+                    setIsEmailAlreadyExist(false);
+                    toastSuccess('Sign Up Successful');
+                    resetForm({});
+                    setIsOpen(false);
+                })
+                .catch((err) => {
+                    if (err.response.status === 409) {
+                        console.log('Email already exist');
+                        return setIsEmailAlreadyExist(true);
+                    }
+                    toastCatchError();
+                });
         },
     });
 
@@ -188,7 +195,6 @@ const Signup = ({ isOpen, setIsOpen }: IProps) => {
                             <option value="2021">2021</option>
                             <option value="2020">2020</option>
                             <option value="2019">2019</option>
-                            // TODO Rajouter les années automatiquement
                         </select>
                     </div>
                 </div>

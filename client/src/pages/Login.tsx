@@ -1,14 +1,12 @@
-import React, { FormEvent, useState } from 'react';
-import { toast } from 'react-toastify';
-import Signup from '../components/Modal/Signup';
+import React, { FormEvent, useRef, useState } from 'react';
+import Signup from '../components/modal/Signup';
 import { userLogin } from '../redux/actions/user.action';
 import { useAppDispatch } from '../redux/redux.hook';
 
-// TODO Formik le register / login
-// TODO Crée une fonction avec un toast custom error
-
 const Login = () => {
     const dispatch = useAppDispatch();
+    const inputEmailRef = useRef<HTMLInputElement>(null);
+    const inputPasswordRef = useRef<HTMLInputElement>(null);
     const [registerIsOpen, setIsOpen] = useState(false);
     const [userLoginInfos, setUserLoginInfos] = useState({
         email: '',
@@ -17,7 +15,12 @@ const Login = () => {
 
     const handleLoginIn = (e: FormEvent) => {
         e.preventDefault();
-        // toast.error("Une erreur s'est produite");
+        if (!userLoginInfos.email || !userLoginInfos.password) {
+            if (inputEmailRef.current && inputPasswordRef.current) {
+                if (!userLoginInfos.email) return inputEmailRef.current.focus();
+                if (!userLoginInfos.password) return inputPasswordRef.current.focus();
+            }
+        }
         dispatch(userLogin(userLoginInfos.email, userLoginInfos.password));
     };
 
@@ -37,6 +40,7 @@ const Login = () => {
                         noValidate>
                         <div className="login__content__form__connexion">
                             <input
+                                ref={inputEmailRef}
                                 type="email"
                                 placeholder="Adresse e-mail"
                                 value={userLoginInfos.email}
@@ -45,6 +49,7 @@ const Login = () => {
                                 }
                             />
                             <input
+                                ref={inputPasswordRef}
                                 type="password"
                                 placeholder="Mot de passe"
                                 value={userLoginInfos.password}

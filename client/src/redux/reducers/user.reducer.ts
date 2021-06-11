@@ -18,16 +18,23 @@ export interface IUser {
     gender: string;
     createdAt: Date;
     updateAt: Date;
+    isLoading: boolean;
 }
 
 type UserState = IUser | null;
 
-let initialState = null as UserState;
+let initialState: UserState = null as UserState;
 
 const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
+        startUserLoading: (state, action: PayloadAction<undefined>) => {
+            return { ...state!, isLoading: true };
+        },
+        endUserLoading: (state, action: PayloadAction<undefined>) => {
+            return { ...state!, isLoading: false };
+        },
         login: (state, action: PayloadAction<IUser>) => {
             return { ...action.payload };
         },
@@ -35,7 +42,7 @@ const userSlice = createSlice({
     },
 });
 
-export const { login } = userSlice.actions;
+export const { login, startUserLoading, endUserLoading } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
 

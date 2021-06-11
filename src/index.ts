@@ -4,6 +4,7 @@ import * as path from 'path';
 dotenv.config({ path: path.join(__dirname, '..', 'config', '.env.local') });
 import './database/database';
 import UserRoutes from './routes/user.routes';
+import AuthRoutes from './routes/auth.routes';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
@@ -17,7 +18,8 @@ server.use(express.json());
 server.use(cors({ origin: CORS_ORIGIN, credentials: true }));
 server.use(express.urlencoded({ extended: true }));
 
-server.use('/user', UserRoutes);
+server.use('/api/auth', AuthRoutes);
+server.use('/api/user', UserRoutes);
 
 server.listen(PORT, () => {
     console.log(`listen on port ${PORT}`);
