@@ -53,3 +53,9 @@
         box-shadow: 0 0 0 1px $focus-color, 0 0 0 3px rgba(0, 0, 0, 0.1);
     }
 }
+
+@mixin display-justify-align($display, $justify, $align){
+    display: $display;
+    justify-content: $justify;
+    align-items: $align;
+}
