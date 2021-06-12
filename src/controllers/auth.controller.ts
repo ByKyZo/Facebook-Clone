@@ -19,7 +19,7 @@ export default class AuthController {
                 birthday,
                 gender,
             });
-            res.status(200).send('Sign Up successfully');
+            res.status(201).send('Sign Up successfully');
         } catch (err) {
             console.log(err.message);
             if (err.code === 11000) return res.sendStatus(409);
@@ -55,12 +55,16 @@ export default class AuthController {
                         console.log('compare password error', err);
                         return res.sendStatus(500);
                     }
+
                     if (!result) {
                         console.log('wrong password', result);
                         return res.sendStatus(403);
                     }
-                    console.log('good password', result);
-                    const token = jwtHandler.createToken({ toto: 'teete' });
+
+                    console.log('good password');
+
+                    const token = jwtHandler.createToken({ user: userFindByEmail });
+
                     res.status(200).send({ token, user: userFindByEmail });
                 });
             });
@@ -71,25 +75,26 @@ export default class AuthController {
     }
 
     public static rememberMe(req: Request, res: Response) {
-        if (!req.headers.authorization) return console.log('no token');
+        if (!req.headers.authorization) return res.sendStatus(401);
+
         const token = req.headers.authorization.replace('Bearer', '').trim();
-        console.log(token);
+
         try {
             const tokenDecoded: any = jwtHandler.verifyTokenAndDecode(token);
 
-            if (!tokenDecoded) res.sendStatus(500);
+            if (!tokenDecoded) {
+                console.log('remember me token invalid');
+                res.sendStatus(400);
+            }
 
-            const newToken = jwtHandler.createToken(tokenDecoded.toto);
+            const newToken = jwtHandler.createToken({ user: tokenDecoded.user });
 
-            console.log(tokenDecoded);
+            console.log('remember me is good');
 
-            res.status(200).send({ token: newToken });
+            res.status(200).send({ token: newToken, user: tokenDecoded.user });
         } catch (err) {
             console.log(err.message);
             res.sendStatus(500);
         }
-        // const tokenDecoded =
-        // console.log(token);
-        // console.log('REMEMBER_ME');
     }
 }

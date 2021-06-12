@@ -46,6 +46,7 @@ const userSlice = createSlice({
     initialState: initialState,
     reducers: {
         startUserLoading: (state, action: PayloadAction<undefined>) => {
+            console.log('LOADGINzezezzzezs');
             return { ...state, isLoading: true };
         },
         endUserLoading: (state, action: PayloadAction<undefined>) => {
@@ -54,10 +55,9 @@ const userSlice = createSlice({
         login: (state, action: PayloadAction<IUser>) => {
             return { ...action.payload, isAuth: true };
         },
-        // rememberMe: (state, action: PayloadAction<IUser>) => {
-        //     return { ...action.payload, isAuth: true };
-        // },
-        test: (state, action) => {},
+        rememberMe: (state, action: PayloadAction<IUser>) => {
+            return { ...action.payload, isAuth: true };
+        },
     },
 });
 

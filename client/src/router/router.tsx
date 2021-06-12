@@ -1,16 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from '../pages/Login';
-
-/**
- * TODO Faire des routes personnalisées
- */
+import Home from '../pages/Home';
+import Profile from '../pages/Profile';
+import PrivateRoute from '../components/route/PrivateRoute';
 
 const MainRouter = () => {
     return (
         <Router>
             <Switch>
-                <Route path="/login" component={Login} />
+                <PrivateRoute exact path="/" component={Home} />
+                <PrivateRoute exact path="/profile/:id" component={Profile} />
+                <Route exact path="/login" component={Login} />
+                <h1>Error 404</h1>
             </Switch>
         </Router>
     );

@@ -2,11 +2,18 @@ import React, { FormEvent, useRef, useState } from 'react';
 import Signup from '../components/modal/Signup';
 import { userLogin } from '../redux/actions/user.action';
 import { useAppDispatch, useAppSelector } from '../redux/redux.hook';
-import Dropdown from '../components/utils/Dropdown';
+import { Redirect, useLocation } from 'react-router-dom';
+import PageTemplate from '../components/templates/PageTemplate';
+
+interface ILocationState {
+    from: {
+        pathname: string;
+    };
+}
 
 const Login = () => {
-    const [isTest, setIsTest] = useState(false);
     const dispatch = useAppDispatch();
+    const { state } = useLocation<ILocationState>();
     const user = useAppSelector((state) => state.user);
     const inputEmailRef = useRef<HTMLInputElement>(null);
     const inputPasswordRef = useRef<HTMLInputElement>(null);
@@ -28,8 +35,12 @@ const Login = () => {
         dispatch(userLogin(userLoginInfos.email, userLoginInfos.password));
     };
 
+    if (user.isAuth) {
+        return <Redirect to={state?.from.pathname || '/'} />;
+    }
+
     return (
-        <>
+        <PageTemplate pageTitle="Sign In">
             <Signup isOpen={registerIsOpen} setIsOpen={setIsOpen} />
 
             <div className="login">
@@ -84,7 +95,7 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-        </>
+        </PageTemplate>
     );
 };
 
