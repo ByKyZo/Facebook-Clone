@@ -16,28 +16,47 @@ export interface IUser {
         format: string;
     };
     gender: string;
-    createdAt: Date;
-    updateAt: Date;
+    createdAt?: Date;
+    updateAt?: Date;
+    isAuth: boolean;
     isLoading: boolean;
 }
 
-type UserState = IUser | null;
-
-let initialState: UserState = null as UserState;
+let initialState: IUser = {
+    _id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    birthday: {
+        day: '',
+        month: '',
+        year: '',
+        format: '',
+    },
+    gender: '',
+    createdAt: undefined,
+    updateAt: undefined,
+    isAuth: false,
+    isLoading: false,
+};
 
 const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
         startUserLoading: (state, action: PayloadAction<undefined>) => {
-            return { ...state!, isLoading: true };
+            return { ...state, isLoading: true };
         },
         endUserLoading: (state, action: PayloadAction<undefined>) => {
-            return { ...state!, isLoading: false };
+            return { ...state, isLoading: false };
         },
         login: (state, action: PayloadAction<IUser>) => {
-            return { ...action.payload };
+            return { ...action.payload, isAuth: true };
         },
+        // rememberMe: (state, action: PayloadAction<IUser>) => {
+        //     return { ...action.payload, isAuth: true };
+        // },
         test: (state, action) => {},
     },
 });

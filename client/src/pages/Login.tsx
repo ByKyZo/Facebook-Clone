@@ -1,10 +1,13 @@
 import React, { FormEvent, useRef, useState } from 'react';
 import Signup from '../components/modal/Signup';
 import { userLogin } from '../redux/actions/user.action';
-import { useAppDispatch } from '../redux/redux.hook';
+import { useAppDispatch, useAppSelector } from '../redux/redux.hook';
+import Dropdown from '../components/utils/Dropdown';
 
 const Login = () => {
+    const [isTest, setIsTest] = useState(false);
     const dispatch = useAppDispatch();
+    const user = useAppSelector((state) => state.user);
     const inputEmailRef = useRef<HTMLInputElement>(null);
     const inputPasswordRef = useRef<HTMLInputElement>(null);
     const [registerIsOpen, setIsOpen] = useState(false);
@@ -15,6 +18,7 @@ const Login = () => {
 
     const handleLoginIn = (e: FormEvent) => {
         e.preventDefault();
+        if (user.isLoading) return;
         if (!userLoginInfos.email || !userLoginInfos.password) {
             if (inputEmailRef.current && inputPasswordRef.current) {
                 if (!userLoginInfos.email) return inputEmailRef.current.focus();
@@ -60,7 +64,13 @@ const Login = () => {
                                     })
                                 }
                             />
-                            <button className="login__content__form__connexion__btn-connexion">
+                            <button
+                                className={`login__content__form__connexion__btn-connexion 
+                                ${
+                                    user.isLoading
+                                        ? 'login__content__form__connexion__btn-connexion--disabled'
+                                        : ''
+                                }`}>
                                 Connexion
                             </button>
                             <span>Mot de passe oublié ?</span>

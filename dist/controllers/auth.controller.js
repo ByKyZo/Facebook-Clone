@@ -75,8 +75,28 @@ class AuthController {
                 console.log(err.message);
                 res.sendStatus(500);
             }
-            // console.log('LOGIN');
         });
+    }
+    static rememberMe(req, res) {
+        if (!req.headers.authorization)
+            return console.log('no token');
+        const token = req.headers.authorization.replace('Bearer', '').trim();
+        console.log(token);
+        try {
+            const tokenDecoded = JwtHandler_1.default.verifyTokenAndDecode(token);
+            if (!tokenDecoded)
+                res.sendStatus(500);
+            const newToken = JwtHandler_1.default.createToken(tokenDecoded.toto);
+            console.log(tokenDecoded);
+            res.status(200).send({ token: newToken });
+        }
+        catch (err) {
+            console.log(err.message);
+            res.sendStatus(500);
+        }
+        // const tokenDecoded =
+        // console.log(token);
+        // console.log('REMEMBER_ME');
     }
 }
 exports.default = AuthController;

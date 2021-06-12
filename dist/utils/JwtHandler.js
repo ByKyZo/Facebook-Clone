@@ -11,7 +11,9 @@ class JwtHandler {
             expiresIn: maxAge,
         });
     }
-    static verifyToken() { }
+    static verifyTokenAndDecode(token) {
+        return jsonwebtoken_1.default.verify(token, process.env.SECRET_TOKEN);
+    }
     static getUserByToken() { }
 }
 exports.default = JwtHandler;

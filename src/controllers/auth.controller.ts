@@ -4,6 +4,7 @@ import { Response } from 'express/ts4.0';
 import bcrypt from 'bcrypt';
 import * as Mongoose from 'mongoose';
 import jwtHandler from '../utils/JwtHandler';
+import jwt from 'jsonwebtoken';
 
 export default class AuthController {
     public static async signup(req: Request, res: Response) {
@@ -67,6 +68,28 @@ export default class AuthController {
             console.log(err.message);
             res.sendStatus(500);
         }
-        // console.log('LOGIN');
+    }
+
+    public static rememberMe(req: Request, res: Response) {
+        if (!req.headers.authorization) return console.log('no token');
+        const token = req.headers.authorization.replace('Bearer', '').trim();
+        console.log(token);
+        try {
+            const tokenDecoded: any = jwtHandler.verifyTokenAndDecode(token);
+
+            if (!tokenDecoded) res.sendStatus(500);
+
+            const newToken = jwtHandler.createToken(tokenDecoded.toto);
+
+            console.log(tokenDecoded);
+
+            res.status(200).send({ token: newToken });
+        } catch (err) {
+            console.log(err.message);
+            res.sendStatus(500);
+        }
+        // const tokenDecoded =
+        // console.log(token);
+        // console.log('REMEMBER_ME');
     }
 }

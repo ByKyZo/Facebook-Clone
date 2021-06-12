@@ -1,7 +1,7 @@
 .signup-modal {
     max-width: 432px;
     margin: 0 12px;
-    background: var(--secondaryLightest);
+    background: var(--color-white-00);
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: opacity 0.2s;
@@ -118,8 +118,8 @@
         }
 
         &__btn-submit {
-            @include button();
-            background: var(--fds-green-55);
+            @include button('button');
+            background: var(--color-green-55);
             height: 36px;
             font-weight: 600;
             padding: 0 50px;
