@@ -28,7 +28,7 @@ class AuthController {
                     birthday,
                     gender,
                 });
-                res.status(200).send('Sign Up successfully');
+                res.status(201).send('Sign Up successfully');
             }
             catch (err) {
                 console.log(err.message);
@@ -65,8 +65,8 @@ class AuthController {
                             console.log('wrong password', result);
                             return res.sendStatus(403);
                         }
-                        console.log('good password', result);
-                        const token = JwtHandler_1.default.createToken({ toto: 'teete' });
+                        console.log('good password');
+                        const token = JwtHandler_1.default.createToken({ user: userFindByEmail });
                         res.status(200).send({ token, user: userFindByEmail });
                     });
                 });
@@ -75,8 +75,26 @@ class AuthController {
                 console.log(err.message);
                 res.sendStatus(500);
             }
-            // console.log('LOGIN');
         });
+    }
+    static rememberMe(req, res) {
+        if (!req.headers.authorization)
+            return res.sendStatus(401);
+        const token = req.headers.authorization.replace('Bearer', '').trim();
+        try {
+            const tokenDecoded = JwtHandler_1.default.verifyTokenAndDecode(token);
+            if (!tokenDecoded) {
+                console.log('remember me token invalid');
+                res.sendStatus(400);
+            }
+            const newToken = JwtHandler_1.default.createToken({ user: tokenDecoded.user });
+            console.log('remember me is good');
+            res.status(200).send({ token: newToken, user: tokenDecoded.user });
+        }
+        catch (err) {
+            console.log(err.message);
+            res.sendStatus(500);
+        }
     }
 }
 exports.default = AuthController;

@@ -1,6 +1,6 @@
 .login {
     min-height: 100vh;
-    background: var(--secondaryLight);
+    background: var(--color-white-05);
     display: flex;
     justify-content: center;
 
@@ -26,8 +26,9 @@
             }
 
             > h1 {
-                color: var(--fds-blue-60);
+                color: var(--color-blue-60);
                 font-size: 3.2rem;
+                font-weight: 800;
             }
             > h2 {
                 font-size: 1.6rem;
@@ -42,7 +43,7 @@
         }
 
         &__form {
-            background: var(--secondaryLightest);
+            background: var(--color-white-00);
             width: 396px;
             padding: 14px;
             border-radius: 8px;
@@ -66,29 +67,31 @@
                     padding: 12px;
                     margin-bottom: 16px;
                     font-size: 1.2rem;
-                    //&:focus{
-                    //
-                    //}
                 }
 
-                > button {
-                    @include button();
-                    background: var(--fds-blue-60);
+                &__btn-connexion {
+                    @include button('button');
+                    background: var(--color-blue-60);
+
+                    &--disabled {
+                        cursor: not-allowed;
+                        //background: black !important;
+                    }
                 }
 
                 > span {
                     display: block;
                     text-align: center;
                     margin: 14px 0;
-                    color: var(--fds-blue-60);
+                    color: var(--color-blue-60);
                     font-size: 0.9rem;
                 }
             }
 
             &__btn-register {
-                @include button();
+                @include button('button');
                 margin: 14px auto;
-                background: var(--fds-green-55);
+                background: var(--color-green-55);
             }
         }
     }

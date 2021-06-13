@@ -1,53 +1,90 @@
-@mixin button($button-hover-type: 'dark', $button-text: white, $button-padding: 14px) {
-    display: block;
-    border: none;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 6px;
+@mixin button(
+    $button-type,
+    $button-hover-type: 'dark',
+    $button-text: white,
+    $button-padding: 14px
+) {
     cursor: pointer;
-    transition: 0.3s ease;
-    color: $button-text;
-    padding: $button-padding;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    user-select: none;
-    &:before {
-        content: '';
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        z-index: -1;
+    @if ($button-type == 'button') {
+        display: block;
+        border: none;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: 0.3s ease;
+        color: $button-text;
+        padding: $button-padding;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        user-select: none;
+        &:before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -1;
+            background: transparent;
+            transition: background 0.2s ease;
+        }
+
+        &:hover {
+            &:before {
+                @if ($button-hover-type == 'dark') {
+                    background: rgba(black, 0.1);
+                } @else if($button-hover-type == 'light') {
+                    background: rgba(white, 0.1);
+                }
+            }
+        }
+
+        &:active {
+            &:before {
+                @if ($button-hover-type == 'dark') {
+                    background: rgba(black, 0.2);
+                } @else if($button-hover-type == 'light') {
+                    background: rgba(white, 0.2);
+                }
+            }
+        }
+    } @else if($button-type == 'reset') {
+        display: flex;
+        border: none;
         background: transparent;
-        transition: background 0.2s ease;
-    }
-
-    &:hover {
-        &:before {
-            @if ($button-hover-type == 'dark') {
-                background: rgba(black, 0.1);
-            } @else if($button-hover-type == 'light') {
-                background: rgba(white, 0.1);
-            }
-        }
-    }
-
-    &:active {
-        &:before {
-            @if ($button-hover-type == 'dark') {
-                background: rgba(black, 0.2);
-            } @else if($button-hover-type == 'light') {
-                background: rgba(white, 0.2);
-            }
-        }
     }
 }
 
-@mixin focus($focus-color: var(--fds-blue-60)) {
+@mixin border-radius($size) {
+    @if ($size == 'tiny') {
+        border-radius: 3px;
+    } @else if ($size == 'small') {
+        border-radius: 6px;
+    } @else if ($size == 'medium') {
+        border-radius: 9px;
+    } @else if ($size == 'big') {
+        border-radius: 12px;
+    } @else if($size == 'rounded') {
+        border-radius: 9999px;
+    }
+}
+
+@mixin display-justify-align($display, $justify, $align) {
+    @if ($display == 'fullcenter') {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    } @else {
+        display: $display;
+        justify-content: $justify;
+        align-items: $align;
+    }
+}
+
+@mixin focus($focus-color: var(--color-blue-60)) {
     &:focus {
         outline: none;
         box-shadow: 0 0 0 1px $focus-color, 0 0 0 3px rgba(0, 0, 0, 0.1);
