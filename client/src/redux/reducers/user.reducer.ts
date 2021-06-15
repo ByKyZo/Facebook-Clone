@@ -46,7 +46,6 @@ const userSlice = createSlice({
     initialState: initialState,
     reducers: {
         startUserLoading: (state, action: PayloadAction<undefined>) => {
-            console.log('LOADGINzezezzzezs');
             return { ...state, isLoading: true };
         },
         endUserLoading: (state, action: PayloadAction<undefined>) => {

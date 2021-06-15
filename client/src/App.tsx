@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MainRouter from './router/router';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
@@ -7,6 +7,13 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 function App() {
+    useEffect(() => {
+        const darkModeValue = localStorage.getItem('DARK-MODE');
+        if (!darkModeValue)
+            return document.querySelector('html')!.setAttribute('data-darkmode', 'off');
+        document.querySelector('html')!.setAttribute('data-darkmode', darkModeValue);
+    }, []);
+
     return (
         <div className="app">
             <ToastContainer

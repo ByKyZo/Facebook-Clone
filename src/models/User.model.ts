@@ -2,6 +2,13 @@ import mongoose from 'mongoose';
 import { NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 
+export interface IUserPhoto {
+    path: string;
+    likes: number;
+    emoticons: string[];
+    createdAt: Date;
+}
+
 export interface IUser extends mongoose.Document {
     _id: string;
     firstName: string;
@@ -15,6 +22,12 @@ export interface IUser extends mongoose.Document {
         format: string;
     };
     gender: string;
+
+    notifications: string[];
+    posts: string[];
+    friends: string[];
+    photos: string[];
+
     createdAt: Date;
     updateAt: Date;
 }

@@ -46,35 +46,32 @@ const Dropdown = ({
     const dropdownContentRef = useRef<HTMLDivElement>(null);
     const currentRef = isVertical ? dropdownContentRef : contentRef;
     const isBreakPoint = useMediaQuery({ query: `(max-width: ${maxWidthResponsive}px)` });
-    const duration = 200;
+    const duration = 100;
     const defaultStyle = {
         transition: `${duration}ms ease`,
         position: 'absolute',
         transformOrigin: 'top',
-        // transform: 'scaleY(0)',
         transform: 'scale(0.95)',
+        boxShadow: '0 0 16px rgb(0 0 0 / 20%)',
+        borderRadius: '6px',
     };
 
     const transitionStyles = {
         entering: {
-            // transform: 'scaleY(0)',
             opacity: '0',
-            transform: 'scale(0.95)',
+            transform: 'scale(0.98)',
         },
         entered: {
-            // transform: 'scaleY(1)',
             opacity: '1',
             transform: 'scale(1)',
         },
         exiting: {
-            // transform: 'scaleY(0)',
             opacity: '0',
-            transform: 'scale(0.95)',
+            transform: 'scale(0.98)',
         },
         exited: {
-            // transform: 'scaleY(0)',
             opacity: '0',
-            transform: 'scale(0.95)',
+            transform: 'scale(0.98)',
         },
     };
 
@@ -95,9 +92,12 @@ const Dropdown = ({
                 }
             }
         };
+        window.addEventListener('pointerdown', handleCloseDropDown);
         window.addEventListener('mousedown', handleCloseDropDown);
+
         if (!currentRef.current) return setIsOpen(false);
         if (!isOpen) {
+            window.removeEventListener('pointerdown', handleCloseDropDown);
             window.removeEventListener('mousedown', handleCloseDropDown);
         }
     }, [isOpen, setIsOpen, currentRef, isVertical, notCloseOnRefs]);
@@ -136,7 +136,6 @@ const Dropdown = ({
                                 // @ts-ignore
                                 ...transitionStyles[state],
                                 ...styleResponsive,
-                                background: 'red',
                             }}>
                             {children}
                         </div>

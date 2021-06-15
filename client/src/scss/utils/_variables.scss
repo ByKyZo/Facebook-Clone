@@ -8,7 +8,34 @@
 
     --color-green-55: #42b72a;
 
-    // TODO Change le nom de ces variables
-    --color-white-05: #f0f2f5;
+    --color-black-00: #000000;
+    --color-black-05: #050505;
+    --color-black-10: #65676b;
+    --color-black-15: #e4e6eb;
+
     --color-white-00: #ffffff; // White
+    --color-white-05: #f0f2f5;
+
+    --color-hover: 0, 0, 0;
+}
+
+html[data-darkmode='on'] {
+    --color-blue-05: #ecf3ff;
+    --color-blue-30: #aac9ff;
+    --color-blue-40: #77a7ff;
+    --color-blue-60: #1877f2; // Primary
+    --color-blue-70: #2851a3;
+    --color-blue-80: #1d3c78;
+
+    --color-green-55: #42b72a;
+
+    --color-black-00: #ffffff;
+    --color-black-05: #e4e6eb;
+    --color-black-10: #b0b3b8;
+    --color-black-15: #4e4f50;
+
+    --color-white-00: #242526; // White
+    --color-white-05: #565656;
+
+    --color-hover: 255, 255, 255;
 }

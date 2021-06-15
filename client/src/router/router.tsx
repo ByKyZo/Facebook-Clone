@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Profile from '../pages/Profile';
-import PrivateRoute from '../components/route/PrivateRoute';
+import PrivateRoute from '../components/router/PrivateRoute';
 
 const MainRouter = () => {
     return (
