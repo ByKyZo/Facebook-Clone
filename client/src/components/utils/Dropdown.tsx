@@ -136,7 +136,7 @@ const Dropdown = ({
                                 // @ts-ignore
                                 ...transitionStyles[state],
                                 ...styleResponsive,
-                                background: 'red',
+                                // background: ,
                             }}>
                             {children}
                         </div>

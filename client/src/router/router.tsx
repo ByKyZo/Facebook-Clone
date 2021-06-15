@@ -10,7 +10,7 @@ const MainRouter = () => {
     return (
         <Router>
             <Switch>
-                {/* <Route path="/navbar" component={Navbar} /> */}
+                <Route path="/navbar" component={Navbar} />
                 <PrivateRoute exact path="/" component={Home} />
                 <PrivateRoute exact path="/profile/:id" component={Profile} />
                 <Route exact path="/login" component={Login} />

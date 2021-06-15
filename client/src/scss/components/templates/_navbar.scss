@@ -1,36 +1,47 @@
 .navbar {
+    @include display-direction-justify-align(flex, row, space-between, center);
     height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #ffffff;
-    box-shadow: 0px 2px 1px #dbdbdb;
+    background-color: var(--color-white-00);
+    box-shadow: 0px 2px 2.1px var(--color-white-10);
     padding: 0 20px;
 
-    &__search__content {
+    button {
         display: flex;
-        align-items: center;
+        border: none;
+        cursor: pointer;
+        background: transparent; 
+        padding: 0; 
+    }
 
-        > svg {
-            cursor: pointer;
-            color:#0574E7;
-            width: 40px;
-            height: 40px;
+    &__search__content {
+        @include display-direction-justify-align(flex, row, unset, center);
+        width: 280px;
+
+        button {
+            transition: .2s;
         }
+        &--logoFb {
+            @include svg(41px, var(--color-blue-60));    
+        }
+        &--logoArrow {
+            @include svg(20px, --color--grey--00);  
+            z-index: 2;  
+        }
+
         label {
-            width: 232px;
-            display: flex;
-            align-items: center;
+            position: relative;
+            @include display-direction-justify-align(flex, row, unset, center);
+            width: 225px;
             margin-left: 10px;
             padding-left: 10px;
-            background-color: #F0F2F5;
-            border-radius: 50px;
+            background-color: var(--color-white-05);
+            @include border-radius(rounded);
+            z-index: 1;
 
-            > svg {
-                width: 22px;
-                height: 22px;
+            button > svg {
+                @include svg(20px, --color--grey--00);
+                cursor:text;
             }
-
         }
         input {
             font-size: .87rem;
@@ -38,21 +49,20 @@
             border: none;
             outline: none;
             background-color: transparent;
+            z-index: 999999;
         }
     }
     &__navigation__content {
+        @include display-direction-justify-align(fullcenter, unset, unset);
         position: relative;
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         width: 111px;
         height: 46px;
-        border-radius: 7px;
+        @include border-radius(medium);
         transition: .2s;
 
         &:hover {
-            background-color:#F2F2F2;
+            background-color:var(--color-white-05);
         }
         &:after {
             content: "";
@@ -60,22 +70,20 @@
             display: block;
             width: 100%;
             height: 3px;
-            background-color: var(--fds-blue-60);
+            background-color: var(--color-blue-60);
             bottom: -5px;
         }
-        > svg {
-           color:#0B83ED;
-           width: 28px;
-           height: 28px;
+        button > svg {
+            @include svg(28px, var(--color-blue-60));
         }
     }
     &__settings__content {
-        display: flex;
-        align-items: center;
+        @include display-direction-justify-align(flex, row, unset, center);
+
         
         &__profil {
-            display: flex;
-            align-items: center;
+            @include display-direction-justify-align(flex, row, unset, center);
+            cursor: pointer;
             margin-right: 20px;
             transition: .3s;
             padding: 4px 12px 4px 3px;
@@ -83,53 +91,78 @@
             height: 100%;
 
             &:hover {
-                cursor: pointer;
-                background-color:#F2F2F2;
+                background-color:var(--color-white-05);
             }    
             span {
                 font-weight: 600;
             }
-            > svg {
-                width: 28px;
-                height: 28px;
+            button > svg {
+                @include svg(28px, --color-grey--00);
                 margin-right: 10px;
             }
         }
         &__notif, &__arrow{
-            cursor: pointer;
+            @include display-direction-justify-align(fullcenter, unset, unset);
             margin-right: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             width: 40px;
             height: 40px;
-            background-color: #E4E6EB;
-            border-radius: 50%;
+            background-color: var(--color-white-10);
+            @include border-radius(rounded);
             transition: .3s;
 
             &:hover {
-                background-color: #D8DADF;
+                background-color: var(--color-white-15);
             }
 
-            > svg {
-                width: 20px;
-                height: 20px;
+            button > svg {
+                @include svg(20px, var(--color--black-10));
             }
         }
     }
 }
 
-button {
-    display: flex;
-        border: none;
-        background: transparent;
 
-      
-}
+.dropdown__search{
+    width: 320px;
+    background-color: var(--color-white-00);
+    box-shadow: 0px 2px 2.1px var(--color-white-20);
+    @include border-radius(big);
+    padding-bottom: 10px;
 
-svg {
-    font-size: 2.2rem;
-    // font-size: 40px;
-    color:#0574E7;
+    &__title {
+        display: flex;
+        align-items: center;
+        font-size: 17px;
+        color: var(--color--black-10);
+        padding-left: 10px;
+    }
 
+    &__user__content {
+        height: 50px;
+        @include display-direction-justify-align(flex, row, space-between, center);
+        @include border-radius(big);
+        margin: 0 10px;
+        padding: 0 10px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--color-white-10);
+        }
+        
+        &__delete svg {   
+            font-size: 25px ;
+            color: var(--color-grey--00);
+        }
+        &__profile {
+            @include display-direction-justify-align(flex, row, unset, center);
+        
+            span {
+                @include svg(36px, unset);
+                margin-right: 10px;
+            }
+            div {
+                font-size: 15px;
+            }
+        }
+    }
 }
