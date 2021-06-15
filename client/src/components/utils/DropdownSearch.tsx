@@ -33,7 +33,7 @@ const DropdownSearch = ({
     bottomResponsive,
     leftResponsive,
 }: IProps) => {
-    const ref = useRef<HTMLDivElement>(null);
+    const dropdownContentRef = useRef<HTMLDivElement>(null);
     const duration = 200;
     // const isBreakPoint = useMediaQuery({ query: `(max-width: ${maxWidthResponsive}px)` });
     const defaultStyle = {
@@ -79,17 +79,17 @@ const DropdownSearch = ({
     //         : { top, right, bottom, left };
     // };
 
-    const handleClickOutside = (e: any) => {
-        if (ref.current && !ref.current.contains(e.target)) setIsOpenSearch(false);
-    };
-
     useEffect(() => {
-        document.addEventListener('click', handleClickOutside, true);
+        const handleClickOutside = (e: any) => {
+            if (dropdownContentRef.current && !dropdownContentRef.current.contains(e.target))
+                setIsOpenSearch(false);
+        };
+        document.addEventListener('mousedown', handleClickOutside, true);
         return () => {
-            document.removeEventListener('click', handleClickOutside, true);
+            document.removeEventListener('mousedown', handleClickOutside, true);
         };
         // eslint-disable-next-line
-    }, [ref, isOpenSearch, setIsOpenSearch]);
+    }, [dropdownContentRef, isOpenSearch, setIsOpenSearch]);
 
     // const styleResponsive = handleStyleResponsive();
 
@@ -97,7 +97,7 @@ const DropdownSearch = ({
         <Transition unmountOnExit in={isOpenSearch} timeout={duration}>
             {(state) => (
                 <div
-                    ref={ref}
+                    ref={dropdownContentRef}
                     className={className}
                     style={{
                         ...defaultStyle,

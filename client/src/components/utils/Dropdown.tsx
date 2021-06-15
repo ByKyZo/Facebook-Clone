@@ -95,7 +95,7 @@ const Dropdown = ({
                 }
             }
         };
-        window.addEventListener('mousedown', handleCloseDropDown);
+        window.addEventListener('', handleCloseDropDown);
         if (!currentRef.current) return setIsOpen(false);
         if (!isOpen) {
             window.removeEventListener('mousedown', handleCloseDropDown);
@@ -136,7 +136,7 @@ const Dropdown = ({
                                 // @ts-ignore
                                 ...transitionStyles[state],
                                 ...styleResponsive,
-                                // background: ,
+                                background: 'red',
                             }}>
                             {children}
                         </div>
