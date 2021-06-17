@@ -43,7 +43,7 @@ export default class UserController {
         }
 
         if (!message && isEmpty(attachments)) {
-            console.log('addPost() -> Message and attachments empty');
+            console.log('addPost() -> Message and attachment empty');
             res.sendStatus(400);
             return;
         }

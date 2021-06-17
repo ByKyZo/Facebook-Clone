@@ -50,7 +50,7 @@ class UserController {
                 return;
             }
             if (!message && utils_1.isEmpty(attachments)) {
-                console.log('addPost() -> Message and attachments empty');
+                console.log('addPost() -> Message and attachment empty');
                 res.sendStatus(400);
                 return;
             }
