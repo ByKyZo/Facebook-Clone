@@ -7,17 +7,12 @@ import ProfileMenuActionItem from './components/ProfileMenuActionItem';
 import CustomLink from '../../router/CustomLink';
 import ProfileMenuPart from './components/ProfileMenuPart';
 import ThemeAndAccessibility from './menuPart/ThemeAndAccessibility';
+import { useAppSelector } from '../../../redux/redux.hook';
 
 export enum Menu {
     HOME,
     SETTING_PRIVACY,
     THEME_MODE,
-    TEST,
-}
-
-interface IProps {
-    isOpen: boolean;
-    setIsOpen: (arg: boolean) => void;
 }
 
 // TODO Factoriser / Simplifier le code ! et gerer les sous menu
@@ -25,6 +20,7 @@ interface IProps {
 // TODO Créer composant template qui gere automatiquement (avec des data attribute , object , enum etc...)
 
 const ProfileMenu = ({ isOpen, setIsOpen, ...rest }: IDropdownProps) => {
+    const userID = useAppSelector((state) => state.user._id);
     const homeRef = useRef<HTMLDivElement>(null);
     const settingPrivacyRef = useRef<HTMLDivElement>(null);
     const themeModeRef = useRef<HTMLDivElement>(null);
@@ -71,7 +67,7 @@ const ProfileMenu = ({ isOpen, setIsOpen, ...rest }: IDropdownProps) => {
                         isHomeCurrentPart() ? '' : 'dropdown-profile-menu__home--not-active'
                     }`}>
                     <CustomLink
-                        to="/profile/alex"
+                        to={`/profile/${userID}`}
                         className="dropdown-profile-menu__profile dropdown-profile-menu__item">
                         <div className="dropdown-profile-menu__profile__img" />
                         {/*<img className="dropdown-profile-menu__profile__img" src="" alt="profile" />*/}

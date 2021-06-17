@@ -1,8 +1,9 @@
-%dropdown-preset{
+%dropdown-preset {
     @include border-radius(medium);
+    //padding: 10px;
     background: var(--color-white-00);
     width: 360px;
     overflow: hidden;
-    box-shadow: 0 0 16px rgba(0 ,0, 0 ,.2);
-    border: 1px solid  var(--color-black-15);;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--color-black-15);
 }

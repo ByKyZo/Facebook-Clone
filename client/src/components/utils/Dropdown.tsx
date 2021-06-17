@@ -75,32 +75,29 @@ const Dropdown = ({
 
     useEffect(() => {
         if (!isOpen || !currentRef?.current) return;
-
+        // TODO Regler le bug des dropdowns
+        // TODO Le probleme viens peut etre du ...rest du profile dropdown
+        // TODO Finir le back add post
         const handleCloseDropDown = (e: any) => {
-            // if (isEmpty(notCloseOnRefs)) {
-            //     if (!currentRef.current) return setIsOpen(false);
-            //     !currentRef.current.contains(e.target) && setIsOpen(false);
-            // } else {
-            //     if (!currentRef.current || !notCloseOnRefs?.current) return setIsOpen(false);
-            //     if (
-            //         !currentRef.current.contains(e.target) &&
-            //         !notCloseOnRefs?.current.contains(e.target)
-            //     ) {
-            //         setIsOpen(false);
-            //     }
-            // }
-            if (!currentRef.current) return setIsOpen(false);
-            !currentRef.current.contains(e.target) && setIsOpen(false);
+            if (isEmpty(notCloseOnRefs) || !notCloseOnRefs?.current) {
+                if (!currentRef.current) return setIsOpen(false);
+                !currentRef.current.contains(e.target) && setIsOpen(false);
+            } else {
+                if (!currentRef.current || !notCloseOnRefs.current) return setIsOpen(false);
+                if (
+                    !currentRef.current.contains(e.target) &&
+                    !notCloseOnRefs.current.contains(e.target)
+                ) {
+                    setIsOpen(false);
+                }
+            }
         };
-        window.addEventListener('pointerdown', handleCloseDropDown);
-        window.addEventListener('mousedown', handleCloseDropDown);
+        document.addEventListener('mousedown', handleCloseDropDown);
 
-        if (!currentRef.current) return setIsOpen(false);
         if (!isOpen) {
-            window.removeEventListener('pointerdown', handleCloseDropDown);
-            window.removeEventListener('mousedown', handleCloseDropDown);
+            document.removeEventListener('mousedown', handleCloseDropDown);
         }
-    }, [isOpen, setIsOpen, currentRef, isVertical, notCloseOnRefs]);
+    }, [isOpen, setIsOpen, currentRef, notCloseOnRefs]);
 
     const closeOneEscape = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Escape') {
@@ -125,7 +122,7 @@ const Dropdown = ({
         <>
             <Transition unmountOnExit in={isOpen} timeout={duration}>
                 {(state) => (
-                    <FocusTrap>
+                    <FocusTrap active={isOpen}>
                         <div
                             className={contentClass}
                             onKeyDown={(e) => closeOneEscape(e)}

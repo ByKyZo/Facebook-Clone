@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Modal from '../utils/Modal';
+import Modal from '../../utils/Modal';
 import { RiCloseLine } from 'react-icons/ri';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from '../../config/axios';
-import { toastCatchError, toastSuccess } from '../../utils/utils';
+import axios from '../../../config/axios';
+import { toastCatchError, toastSuccess } from '../../../utils/utils';
 
 interface IProps {
     isOpen: boolean;

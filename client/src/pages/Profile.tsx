@@ -1,10 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PageTemplate from '../components/templates/PageTemplate';
+import Head from '../components/layouts/Profile/global/Head';
+import ProfileNav from '../components/layouts/Profile/global/ProfileNav';
+import Home from '../components/layouts/Profile/Home';
+import About from '../components/layouts/Profile/About';
+import Friends from '../components/layouts/Profile/Friends';
+import Photos from '../components/layouts/Profile/Photos';
+import Archive from '../components/layouts/Profile/Archive';
+import Videos from '../components/layouts/Profile/Videos';
+import { useAppSelector } from '../redux/redux.hook';
 
-const Profile = () => {
+export enum ProfileNavRoute {
+    HOME,
+    ABOUT,
+    FRIENDS,
+    PHOTOS,
+    ARCHIVE,
+    VIDEOS,
+}
+
+interface IProps {
+    currentNav: ProfileNavRoute;
+}
+
+const Profile = ({ currentNav }: IProps) => {
+    const user = useAppSelector((state) => state.user);
+
+    const currentNavRender = () => {
+        switch (currentNav) {
+            case ProfileNavRoute.HOME:
+                return <Home />;
+            case ProfileNavRoute.ABOUT:
+                return <About />;
+            case ProfileNavRoute.FRIENDS:
+                return <Friends />;
+            case ProfileNavRoute.PHOTOS:
+                return <Photos />;
+            case ProfileNavRoute.ARCHIVE:
+                return <Archive />;
+            case ProfileNavRoute.VIDEOS:
+                return <Videos />;
+            default:
+                return <Home />;
+        }
+    };
+
     return (
-        <PageTemplate hasNavbar pageTitle="Profile - Username">
-            <h1>Profile</h1>
+        <PageTemplate pageTitle={`${user.firstName} ${user.lastName}`}>
+            <Head />
+            <ProfileNav />
+            <div style={{ color: 'red', fontSize: '3rem', textAlign: 'center' }}>
+                {currentNavRender()}
+            </div>
         </PageTemplate>
     );
 };

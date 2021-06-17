@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Modal from 'react-modal';
 import SocketHandler from './socket/SocketHandler';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 Modal.setAppElement('#root');
 
@@ -29,7 +30,9 @@ function App() {
                 pauseOnHover
             />
             <SocketHandler />
-            <MainRouter />
+            <Router>
+                <MainRouter />
+            </Router>
         </div>
     );
 }

@@ -1,27 +1,22 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { useAppSelector } from '../../redux/redux.hook';
 
-interface IProps {
-    component: any;
-    path: string;
-    exact?: boolean;
-}
-
-const PrivateRoute = ({ component: Component, ...rest }: IProps) => {
+const PrivateRoute = ({ ...rest }: RouteProps) => {
     const user = useAppSelector((state) => state.user);
 
     return (
-        <Route
-            {...rest}
-            render={({ location }) =>
-                user.isAuth ? (
-                    <Component />
-                ) : (
-                    <Redirect to={{ pathname: '/login', state: { from: location } }} />
-                )
-            }
-        />
+        <div>
+            {user.isAuth ? (
+                <Route {...rest} />
+            ) : (
+                <Route
+                    render={({ location }) => (
+                        <Redirect to={{ pathname: '/login', state: { from: location } }} />
+                    )}
+                />
+            )}
+        </div>
     );
 };
 

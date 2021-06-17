@@ -3,7 +3,7 @@ import PageTemplate from '../components/templates/PageTemplate';
 
 const Home = () => {
     return (
-        <PageTemplate hasNavbar>
+        <PageTemplate>
             <h1>Home</h1>
         </PageTemplate>
     );

@@ -8,15 +8,18 @@ import CustomLink from '../router/CustomLink';
 import ProfileMenu from '../dropdown/ProfileMenu/ProfileMenu';
 import Notifications from '../dropdown/Notifications/Notifications';
 import NavSearch from '../dropdown/NavSearch/NavSearch';
+import { useAppSelector } from '../../redux/redux.hook';
 
 const dropdownTop = '52px';
 const dropdownRight = '20px';
 
 const Navbar = () => {
+    const userID = useAppSelector((state) => state.user._id);
     const [isOpenSearch, setIsOpenSearch] = useState(false);
     const [isOpenNotif, setIsOpenNotif] = useState(false);
     const [isOpenProfileMenu, setIsOpenProfileMenu] = useState(false);
     const [valueInputSearch, setValueInputSearch] = useState('');
+
     return (
         <div className="navbar">
             <div className="navbar__search">
@@ -29,9 +32,6 @@ const Navbar = () => {
                     </button>
                     <label>
                         {!isOpenSearch && <AiOutlineSearch />}
-                        {/* <span>
-                                <AiOutlineSearch /> Rechercher sur Facebook
-                            </span> */}
                         <input
                             type="text"
                             value={valueInputSearch}
@@ -52,19 +52,28 @@ const Navbar = () => {
             </div>
             <div className="navbar__settings">
                 <div className="navbar__settings__content">
-                    <div tabIndex={0} className="navbar__settings__content__profil">
+                    <CustomLink
+                        to={`/profile/${userID}`}
+                        tabIndex={0}
+                        className="navbar__settings__content__profil">
                         <CgProfile />
                         <span>Jeff</span>
-                    </div>
+                    </CustomLink>
                     <button
                         className="navbar__settings__content__notif"
-                        onClick={() => setIsOpenNotif(true)}>
+                        onClick={() => {
+                            // console.log('open notifications');
+                            setIsOpenNotif(true);
+                        }}>
                         <IoMdNotifications />
                     </button>
 
                     <button
                         className="navbar__settings__content__arrow"
-                        onClick={() => setIsOpenProfileMenu(true)}>
+                        onClick={() => {
+                            // console.log('open profile menu');
+                            setIsOpenProfileMenu(true);
+                        }}>
                         <IoIosArrowDown />
                     </button>
                 </div>

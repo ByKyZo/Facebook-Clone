@@ -1,5 +1,5 @@
 import React, { FormEvent, useRef, useState } from 'react';
-import Signup from '../components/modal/Signup';
+import Signup from '../components/templates/modal/Signup';
 import { userLogin } from '../redux/actions/user.action';
 import { useAppDispatch, useAppSelector } from '../redux/redux.hook';
 import { Redirect, useLocation } from 'react-router-dom';

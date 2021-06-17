@@ -5,7 +5,7 @@ import { CgProfile } from 'react-icons/cg';
 
 const Notifications = ({ ...rest }: IDropdownProps) => {
     return (
-        <Dropdown contentClass="dropdown__notif" {...rest}>
+        <Dropdown {...rest} contentClass="dropdown__notif">
             <div className="dropdown__notif__wrapper">
                 <h1 className="dropdown__notif__title" style={{ height: '50px' }}>
                     Notifications
