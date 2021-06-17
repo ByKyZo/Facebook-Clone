@@ -30,8 +30,10 @@
         font-size: 2rem;
         overflow: hidden;
         padding: 2px;
+        flex-shrink: 0;
         // SI JUSTE BESOIN D'UN BUTTON RESET (enleve le hover par default du button)
     } @else if($button-type == reset) {
+        display: flex;
         @include hover($button-hover-type);
         // AFFICHE UN BOUTON DESACTIVE (sans hover + cursor (not allowed) + grisé)
     } @else if($button-type == disabled) {
@@ -139,4 +141,9 @@
         outline: none;
         box-shadow: 0 0 0 1px $focus-color, 0 0 0 3px rgba(0, 0, 0, 0.1);
     }
+}
+
+@mixin svg($font-size, $color){
+    font-size: $font-size;
+    color: $color;
 }

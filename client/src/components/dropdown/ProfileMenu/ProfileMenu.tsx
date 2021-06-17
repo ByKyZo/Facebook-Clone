@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Dropdown from '../../utils/Dropdown';
+import Dropdown, { IDropdownProps } from '../../utils/Dropdown';
 import { FaMoon } from 'react-icons/fa';
 import { ImExit } from 'react-icons/im';
 import { RiSettings5Fill } from 'react-icons/ri';
@@ -22,7 +22,7 @@ interface IProps {
 // TODO Factoriser / Simplifier le code ! et gerer les sous menu
 // TODO Utiliser la nouvelle mixin display
 
-const ProfileMenu = ({ isOpen, setIsOpen }: IProps) => {
+const ProfileMenu = ({ isOpen, setIsOpen, ...rest }: IDropdownProps) => {
     const homeRef = useRef<HTMLDivElement>(null);
     const settingPrivacyRef = useRef<HTMLDivElement>(null);
     const themeModeRef = useRef<HTMLDivElement>(null);
@@ -54,7 +54,11 @@ const ProfileMenu = ({ isOpen, setIsOpen }: IProps) => {
     }, [isOpen, currentMenuPart, homeRef, themeModeRef]);
 
     return (
-        <Dropdown isOpen={isOpen} setIsOpen={setIsOpen} contentClass="dropdown-profile-menu">
+        <Dropdown
+            {...rest}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            contentClass="dropdown-profile-menu">
             <div
                 className="dropdown-profile-menu__wrapper"
                 style={{ height: currentMenuPartHeight || 'auto' }}>
