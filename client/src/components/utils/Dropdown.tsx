@@ -4,10 +4,10 @@ import { Transition } from 'react-transition-group';
 import { isEmpty } from '../../utils/utils';
 import FocusTrap from 'focus-trap-react';
 
-interface IProps {
-    children: JSX.Element | JSX.Element[];
+export interface IDropdownProps {
+    children?: JSX.Element | JSX.Element[];
     contentRef?: React.RefObject<HTMLInputElement>;
-    contentClass: string;
+    contentClass?: string;
     notCloseOnRefs?: React.RefObject<HTMLInputElement>;
     isOpen: boolean;
     setIsOpen: (arg: boolean) => void;
@@ -42,7 +42,7 @@ const Dropdown = ({
     rightResponsive,
     bottomResponsive,
     leftResponsive,
-}: IProps) => {
+}: IDropdownProps) => {
     const dropdownContentRef = useRef<HTMLDivElement>(null);
     const currentRef = isVertical ? dropdownContentRef : contentRef;
     const isBreakPoint = useMediaQuery({ query: `(max-width: ${maxWidthResponsive}px)` });
@@ -52,8 +52,6 @@ const Dropdown = ({
         position: 'absolute',
         transformOrigin: 'top',
         transform: 'scale(0.95)',
-        boxShadow: '0 0 16px rgb(0 0 0 / 20%)',
-        borderRadius: '6px',
     };
 
     const transitionStyles = {
@@ -79,18 +77,20 @@ const Dropdown = ({
         if (!isOpen || !currentRef?.current) return;
 
         const handleCloseDropDown = (e: any) => {
-            if (isEmpty(notCloseOnRefs)) {
-                if (!currentRef.current) return setIsOpen(false);
-                !currentRef.current.contains(e.target) && setIsOpen(false);
-            } else {
-                if (!currentRef.current || !notCloseOnRefs?.current) return setIsOpen(false);
-                if (
-                    !currentRef.current.contains(e.target) &&
-                    !notCloseOnRefs?.current.contains(e.target)
-                ) {
-                    setIsOpen(false);
-                }
-            }
+            // if (isEmpty(notCloseOnRefs)) {
+            //     if (!currentRef.current) return setIsOpen(false);
+            //     !currentRef.current.contains(e.target) && setIsOpen(false);
+            // } else {
+            //     if (!currentRef.current || !notCloseOnRefs?.current) return setIsOpen(false);
+            //     if (
+            //         !currentRef.current.contains(e.target) &&
+            //         !notCloseOnRefs?.current.contains(e.target)
+            //     ) {
+            //         setIsOpen(false);
+            //     }
+            // }
+            if (!currentRef.current) return setIsOpen(false);
+            !currentRef.current.contains(e.target) && setIsOpen(false);
         };
         window.addEventListener('pointerdown', handleCloseDropDown);
         window.addEventListener('mousedown', handleCloseDropDown);

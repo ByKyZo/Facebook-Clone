@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Dropdown from '../../utils/Dropdown';
+import Dropdown, { IDropdownProps } from '../../utils/Dropdown';
 import { FaMoon } from 'react-icons/fa';
 import { ImExit } from 'react-icons/im';
 import { RiSettings5Fill } from 'react-icons/ri';
@@ -24,7 +24,7 @@ interface IProps {
 // TODO Utiliser la nouvelle mixin display
 // TODO Créer composant template qui gere automatiquement (avec des data attribute , object , enum etc...)
 
-const ProfileMenu = ({ isOpen, setIsOpen }: IProps) => {
+const ProfileMenu = ({ isOpen, setIsOpen, ...rest }: IDropdownProps) => {
     const homeRef = useRef<HTMLDivElement>(null);
     const settingPrivacyRef = useRef<HTMLDivElement>(null);
     const themeModeRef = useRef<HTMLDivElement>(null);
@@ -57,7 +57,11 @@ const ProfileMenu = ({ isOpen, setIsOpen }: IProps) => {
     }, [isOpen, currentMenuPart, homeRef, themeModeRef]);
 
     return (
-        <Dropdown isOpen={isOpen} setIsOpen={setIsOpen} contentClass="dropdown-profile-menu">
+        <Dropdown
+            {...rest}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            contentClass="dropdown-profile-menu">
             <div
                 className="dropdown-profile-menu__wrapper"
                 style={{ height: currentMenuPartHeight || 'auto' }}>
