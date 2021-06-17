@@ -12,15 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const User_model_1 = __importDefault(require("../models/User.model"));
+const user_model_1 = __importDefault(require("../models/user.model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const JwtHandler_1 = __importDefault(require("../utils/JwtHandler"));
+const jwtHandler_1 = __importDefault(require("../utils/jwtHandler"));
 class AuthController {
     static signup(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { firstName, lastName, email, password, birthday, gender } = req.body;
             try {
-                yield User_model_1.default.create({
+                yield user_model_1.default.create({
                     firstName,
                     lastName,
                     email,
@@ -46,7 +46,7 @@ class AuthController {
                     console.log('email or password empty');
                     return res.sendStatus(400);
                 }
-                User_model_1.default.findOne({ email }, (err, docs) => {
+                user_model_1.default.findOne({ email }, (err, docs) => {
                     if (err || !docs)
                         return res.sendStatus(500);
                     const userFindByEmail = docs.toObject();
@@ -66,7 +66,7 @@ class AuthController {
                             return res.sendStatus(403);
                         }
                         console.log('good password');
-                        const token = JwtHandler_1.default.createToken({ user: userFindByEmail });
+                        const token = jwtHandler_1.default.createToken({ user: userFindByEmail });
                         res.status(200).send({ token, user: userFindByEmail });
                     });
                 });
@@ -82,12 +82,12 @@ class AuthController {
             return res.sendStatus(401);
         const token = req.headers.authorization.replace('Bearer', '').trim();
         try {
-            const tokenDecoded = JwtHandler_1.default.verifyTokenAndDecode(token);
+            const tokenDecoded = jwtHandler_1.default.verifyTokenAndDecode(token);
             if (!tokenDecoded) {
                 console.log('remember me token invalid');
                 res.sendStatus(400);
             }
-            const newToken = JwtHandler_1.default.createToken({ user: tokenDecoded.user });
+            const newToken = jwtHandler_1.default.createToken({ user: tokenDecoded.user });
             console.log('remember me is good');
             res.status(200).send({ token: newToken, user: tokenDecoded.user });
         }

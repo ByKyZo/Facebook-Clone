@@ -12,6 +12,7 @@ export enum Menu {
     HOME,
     SETTING_PRIVACY,
     THEME_MODE,
+    TEST,
 }
 
 interface IProps {
@@ -21,6 +22,7 @@ interface IProps {
 
 // TODO Factoriser / Simplifier le code ! et gerer les sous menu
 // TODO Utiliser la nouvelle mixin display
+// TODO Créer composant template qui gere automatiquement (avec des data attribute , object , enum etc...)
 
 const ProfileMenu = ({ isOpen, setIsOpen }: IProps) => {
     const homeRef = useRef<HTMLDivElement>(null);
@@ -35,6 +37,7 @@ const ProfileMenu = ({ isOpen, setIsOpen }: IProps) => {
 
     useEffect(() => {
         if (!homeRef.current || !themeModeRef.current || !settingPrivacyRef.current) return;
+
         switch (currentMenuPart) {
             case Menu.HOME:
                 setCurrentMenuPartHeight(homeRef.current.clientHeight);

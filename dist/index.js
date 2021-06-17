@@ -31,17 +31,44 @@ const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const server = express_1.default();
-// @ts-ignore
-const PORT = process.env.PORT | 5000;
+const socket_io_1 = require("socket.io");
+const http = __importStar(require("http"));
+const user_socket_listeners_1 = __importDefault(require("./socket.listeners/user.socket.listeners"));
+// TODO Faire la connexion avec postman
+// TODO Gerer le add post avec socket
+// TODO Finir les types
+// **** CONFIG ****
+const PORT = process.env.PORT;
 const CORS_ORIGIN = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000';
+// **** STARTER ****
+const server = express_1.default();
+const httpServer = http.createServer(server);
+const io = new socket_io_1.Server(httpServer, {
+    cors: {
+        origin: '*',
+        credentials: true,
+    },
+});
+// **** MIDDLEWARE ****
 server.use(cookie_parser_1.default());
 server.use(express_1.default.json());
-// REMETTER CORS_ORIGIN
-server.use(cors_1.default({ origin: '*', credentials: true }));
+server.use(cors_1.default({ origin: '*', credentials: true })); // REMETTRE CORS_ORIGIN
 server.use(express_1.default.urlencoded({ extended: true }));
+// **** ROUTES ****
 server.use('/api/auth', auth_routes_1.default);
 server.use('/api/user', user_routes_1.default);
-server.listen(PORT, () => {
+server.use('/upload/image', express_1.default.static(path.join(__dirname, '..', 'dist', 'upload', 'images')));
+server.use('/upload/video', express_1.default.static(path.join(__dirname, '..', 'dist', 'upload', 'videos')));
+// **** SERVER LISTENER ****
+httpServer.listen(PORT, () => {
     console.log(`listen on port ${PORT}`);
+});
+const clients = [];
+io.on('connect', (socket) => {
+    user_socket_listeners_1.default(io, socket);
+    socket.on('error', (err) => {
+        console.log(`socket error : ${err}`);
+    });
+    clients.push(socket.id);
+    console.log(`user connected : ${socket.id}`);
 });

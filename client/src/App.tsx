@@ -3,6 +3,7 @@ import MainRouter from './router/router';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Modal from 'react-modal';
+import SocketHandler from './socket/SocketHandler';
 
 Modal.setAppElement('#root');
 
@@ -27,6 +28,7 @@ function App() {
                 draggable
                 pauseOnHover
             />
+            <SocketHandler />
             <MainRouter />
         </div>
     );

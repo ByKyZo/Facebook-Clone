@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const CommentsSchema = new mongoose_1.default.Schema({});
 const UserSchema = new mongoose_1.default.Schema({
     firstName: {
         type: String,
@@ -48,6 +49,67 @@ const UserSchema = new mongoose_1.default.Schema({
         type: String,
         required: [true, 'Gender is required'],
     },
+    posts: [
+        {
+            message: {
+                type: String,
+            },
+            photos: [
+                {
+                    fileName: {
+                        type: String,
+                    },
+                    genericFileType: {
+                        type: String,
+                        enum: ['image', 'video'],
+                    },
+                },
+            ],
+            videos: [
+                {
+                    fileName: {
+                        type: String,
+                    },
+                    genericFileType: {
+                        type: String,
+                        enum: ['image', 'video'],
+                    },
+                },
+            ],
+            reactions: {
+                like: {
+                    type: Number,
+                },
+                love: {
+                    type: Number,
+                },
+                care: {
+                    type: Number,
+                },
+                haha: {
+                    type: Number,
+                },
+                wow: {
+                    type: Number,
+                },
+                sad: {
+                    type: Number,
+                },
+                angry: {
+                    type: Number,
+                },
+            },
+            comments: [
+                {
+                    userID: String,
+                    content: String,
+                    reactions: [String],
+                    replies: [String],
+                },
+            ],
+        },
+        { timestamps: true },
+    ],
 }, { timestamps: true });
 UserSchema.post('save', function (err, next) {
     if (err.name === 'MongoError' && err.code === 11000) {

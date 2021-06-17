@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ProfileMenu from '../dropdown/ProfileMenu/ProfileMenu';
 // import { useSelector } from 'react-redux';
+import heatAnimated from '../../assets/emoji/sad.svg';
 
 interface IProps {
     pageTitle?: string;
@@ -28,6 +29,8 @@ const PageTemplate = ({ pageTitle, children, hasNavbar }: IProps) => {
                         justifyContent: 'center',
                         fontSize: '5rem',
                     }}>
+                    <img height={100} width={100} src={heatAnimated} alt="" />
+                    {/*{'\u{2764}\u{FE0F}'}*/}
                     <h1>NAVBAR</h1>
                     <div style={{ position: 'relative' }}>
                         <button onClick={() => setIsOpenProfileMenu(true)}>

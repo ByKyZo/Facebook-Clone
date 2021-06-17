@@ -12,24 +12,77 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const User_model_1 = __importDefault(require("../models/User.model"));
+const user_model_1 = __importDefault(require("../models/user.model"));
 const mongoose_1 = require("mongoose");
+const utils_1 = require("../utils/utils");
+const fileHandler_1 = __importDefault(require("../utils/fileHandler"));
 class UserController {
     static getUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userID = req.params.id;
             try {
                 if (!mongoose_1.isValidObjectId(userID)) {
-                    console.log('invalid user id');
-                    res.send(400);
+                    console.log('getUser() -> Invalid Object id');
+                    res.sendStatus(400);
                     return;
                 }
-                const user = yield User_model_1.default.findById(req.params.id).select('-password');
+                const user = (yield user_model_1.default.findById(req.params.id).select('-password'));
+                if (!user) {
+                    console.log('getUser() -> Empty user');
+                    res.sendStatus(400);
+                    return;
+                }
                 res.status(200).send(user);
             }
             catch (err) {
                 console.log(err.message);
-                res.send(500);
+                res.sendStatus(500);
+            }
+        });
+    }
+    static addPost(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { userID, message } = req.body;
+            const attachments = req.files;
+            if (!mongoose_1.isValidObjectId(userID)) {
+                console.log('addPost() -> Invalid Object id');
+                res.sendStatus(400);
+                return;
+            }
+            if (!message && utils_1.isEmpty(attachments)) {
+                console.log('addPost() -> Message and attachments empty');
+                res.sendStatus(400);
+                return;
+            }
+            try {
+                const filesNameUploaded = [];
+                for (let i = 0; i < attachments.length; i++) {
+                    filesNameUploaded.push(yield fileHandler_1.default.uploadPictureAndVideos(userID, 
+                    // @ts-ignore
+                    attachments[i]));
+                }
+                const photos = filesNameUploaded.filter((file) => file.genericFileType !== 'video');
+                const videos = filesNameUploaded.filter((file) => file.genericFileType !== 'image');
+                const posts = (yield user_model_1.default.findByIdAndUpdate(userID, {
+                    $push: {
+                        posts: {
+                            message: message,
+                            photos,
+                            videos,
+                        },
+                    },
+                }, { new: true }).select('posts -_id'));
+                if (!posts) {
+                    console.log('addPost() -> User not find');
+                    res.sendStatus(404);
+                    return;
+                }
+                console.log(posts);
+                // res.status(200).send(posts[0]);
+            }
+            catch (err) {
+                console.log(err.message);
+                res.sendStatus(500);
             }
         });
     }

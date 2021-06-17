@@ -1,9 +1,9 @@
-import UserModel, { IUser } from '../models/User.model';
+import UserModel, { IUser } from '../models/user.model';
 import { Request } from 'express';
 import { Response } from 'express/ts4.0';
 import bcrypt from 'bcrypt';
 import * as Mongoose from 'mongoose';
-import jwtHandler from '../utils/JwtHandler';
+import jwtHandler from '../utils/jwtHandler';
 import jwt from 'jsonwebtoken';
 
 export default class AuthController {
