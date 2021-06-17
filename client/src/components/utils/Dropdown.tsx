@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Transition } from 'react-transition-group';
-import { isEmpty } from '../../../utils/utils';
+import { isEmpty } from '../../utils/utils';
 import FocusTrap from 'focus-trap-react';
 
 export interface IDropdownProps {
@@ -52,8 +52,6 @@ const Dropdown = ({
         position: 'absolute',
         transformOrigin: 'top',
         transform: 'scale(0.95)',
-        boxShadow: '0 0 16px rgb(0 0 0 / 20%)',
-        borderRadius: '6px',
     };
 
     const transitionStyles = {

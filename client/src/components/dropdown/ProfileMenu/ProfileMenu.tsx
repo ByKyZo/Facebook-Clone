@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Dropdown, { IDropdownProps } from '../../utils/toasts/Dropdown';
+import Dropdown, { IDropdownProps } from '../../utils/Dropdown';
 import { FaMoon } from 'react-icons/fa';
 import { ImExit } from 'react-icons/im';
 import { RiSettings5Fill } from 'react-icons/ri';

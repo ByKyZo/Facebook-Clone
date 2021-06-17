@@ -1,7 +1,5 @@
 .dropdown-profile-menu {
-    background: var(--color-white-00);
-    width: 360px;
-    overflow: hidden;
+    @extend %dropdown-preset;
     &__wrapper {
         display: flex;
         box-sizing: border-box;
