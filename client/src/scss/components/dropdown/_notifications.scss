@@ -1,0 +1,83 @@
+.dropdown__notif {
+    width: 360px;
+    background-color: var(--color-white-00);
+    padding: 0.3125rem 0;
+    box-sizing: border-box;
+    max-height: 88vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 9px;
+    }
+    &::-webkit-scrollbar-thumb {
+        @include border-radius(big);
+        background-color: transparent;
+    }
+    &:hover  {
+
+        &::-webkit-scrollbar-thumb {
+            @include border-radius(big);
+            background-color: var(--color-black-15);
+            border: 1px solid var(--color-white-05); /* creates padding around scroll thumb */
+        }
+    }
+
+    &__title {
+        @include display-direction-justify-align(vrcenter);
+        font-weight: 600;
+        font-size: 1.4375rem;
+        color: var(--color--black-10);
+        margin-left: 0.9375rem;
+    }
+    &__content {
+        @include display-direction-justify-align(flex, column, unset, unset);
+        margin-top: 0.5rem;
+        &__type {
+            margin-left: 0.9375rem;
+            font-weight: 600;
+        }
+        &__info  {
+            @include hover();
+            @include border-radius(small);
+            display: flex;
+            max-height: 56px;
+            margin: 0.1875rem .4rem;
+            padding: 0.4375rem 0.3rem;
+            font-size: .85rem;
+            cursor: pointer;   
+            overflow: hidden;
+          
+            &__profil > svg {
+                font-size: 3.75rem;
+                margin-right: 0.5rem;
+            }
+            &__desc {
+                @include display-direction-justify-align(flex, column, space-between, unset);
+                max-width: 65%;
+
+               &__content > span    {
+                  font-weight: 600;
+                }
+               
+                &__time {
+                    color: var(--color-blue-60);
+                    font-size: .75rem;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+
+ .test {
+    //  background-color: cyan;
+     word-break: break-all;
+ }
+
+ .test2 {
+    width: 12px;
+    height: 12px;
+    border-radius: 999999px;
+    background-color: var(--color-blue-60);
+    margin: auto;
+ }

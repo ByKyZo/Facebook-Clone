@@ -4,6 +4,9 @@
 
 html {
     font-family: 'Poppins', sans-serif;
+    > * {
+        color: var(--color-black-05);
+    }
 }
 
 body {

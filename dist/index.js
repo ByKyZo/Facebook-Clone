@@ -37,7 +37,8 @@ const PORT = process.env.PORT | 5000;
 const CORS_ORIGIN = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000';
 server.use(cookie_parser_1.default());
 server.use(express_1.default.json());
-server.use(cors_1.default({ origin: CORS_ORIGIN, credentials: true }));
+// REMETTER CORS_ORIGIN
+server.use(cors_1.default({ origin: '*', credentials: true }));
 server.use(express_1.default.urlencoded({ extended: true }));
 server.use('/api/auth', auth_routes_1.default);
 server.use('/api/user', user_routes_1.default);

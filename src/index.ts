@@ -15,7 +15,8 @@ const CORS_ORIGIN: string = process.env.NODE_ENV === 'production' ? '' : 'http:/
 
 server.use(cookieParser());
 server.use(express.json());
-server.use(cors({ origin: CORS_ORIGIN, credentials: true }));
+// REMETTER CORS_ORIGIN
+server.use(cors({ origin: '*', credentials: true }));
 server.use(express.urlencoded({ extended: true }));
 
 server.use('/api/auth', AuthRoutes);

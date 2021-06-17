@@ -1,0 +1,173 @@
+.dropdown-profile-menu {
+    background: var(--color-white-00);
+    width: 360px;
+    overflow: hidden;
+    &__wrapper {
+        display: flex;
+        box-sizing: border-box;
+        transition: 0.3s;
+    }
+
+    &__home {
+        padding: 10px;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        width: 100%;
+        transition: right 0.3s;
+        position: fixed;
+        right: 0;
+
+        &--not-active {
+            right: 100%;
+            visibility: hidden;
+            pointer-events: none;
+        }
+    }
+
+    &__part {
+        padding: 10px;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        width: 100%;
+        transition: left 0.3s;
+        position: fixed;
+        left: 0;
+
+        &__head {
+            @include display-direction-justify-align(flex, row, flex-start, center);
+            margin-bottom: 18px;
+
+            > button {
+                @include button(icon);
+                @include border-radius(rounded);
+                margin-right: 12px;
+                color: var(--color-black-00);
+            }
+            > span {
+                font-size: 1.4rem;
+                font-weight: 600;
+            }
+        }
+
+        &--not-active {
+            left: 100%;
+            visibility: hidden;
+            pointer-events: none;
+        }
+    }
+
+    &__divider {
+        border: 0;
+        height: 1px;
+        background: #dadde1;
+        margin: 12px 6px;
+    }
+
+    &__item {
+        @include display-direction-justify-align(flex, row, flex-start, center);
+        @include border-radius(small);
+        @include button();
+        overflow: hidden;
+        padding: 8px;
+        font-size: 0.9rem;
+        color: var(--color-black-05);
+
+        &__icon {
+            @include border-radius(rounded);
+            @include display-direction-justify-align(fullcenter);
+            height: 36px;
+            width: 36px;
+            background: var(--color-black-15);
+            font-size: 1.2rem;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        &__label {
+            font-weight: 600;
+        }
+
+        &__chevron {
+            font-size: 1.4rem;
+            margin-left: auto;
+        }
+    }
+
+    &__profile {
+        display: flex;
+
+        &__img {
+            @include border-radius(rounded);
+            display: inline-block;
+            height: 60px;
+            width: 60px;
+            background: var(--color-blue-60);
+            margin-right: 12px;
+        }
+
+        &__right {
+            @include display-direction-justify-align(flex, column, center);
+
+            &__name {
+                display: inline-block;
+                font-weight: 600;
+                margin-bottom: 5px;
+                font-size: 1rem;
+            }
+
+            &__seeprofile {
+                color: var(--color-black-10);
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    &__display-accessibility {
+        &__section {
+            &__head {
+                display: flex;
+
+                &__right {
+                    font-size: 1rem;
+                    float: right;
+
+                    > span {
+                        display: inline-block;
+                        font-weight: 600;
+                        margin-bottom: 4px;
+                    }
+                    > p {
+                        font-size: 0.8rem;
+                        line-height: 18px;
+                        color: var(--color-black-10);
+                    }
+                }
+            }
+            &__content {
+                margin-top: 12px;
+                @include display-direction-justify-align(flex, column, stretch, flex-end);
+
+                > label {
+                    @include button();
+                    @include border-radius('medium');
+                    @include display-direction-justify-align(flex, row, space-between);
+                    letter-spacing: 1px;
+                    font-weight: 600;
+                    overflow: hidden;
+                    padding: 14px;
+                    font-size: 1rem;
+                    width: 82%;
+                }
+            }
+        }
+    }
+}
+
+@keyframes leaveHome {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

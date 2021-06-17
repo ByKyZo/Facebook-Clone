@@ -2,80 +2,89 @@
     @include display-direction-justify-align(flex, row, space-between, center);
     height: 56px;
     background-color: var(--color-white-00);
-    box-shadow: 0px 2px 2.1px var(--color-white-10);
+    box-shadow: 0px 2px 1.5px var(--color-black-15);
     padding: 0 20px;
-
-    button {
-        display: flex;
-        border: none;
-        cursor: pointer;
-        background: transparent; 
-        padding: 0; 
-    }
-
+    position: relative;
+  
     &__search__content {
         @include display-direction-justify-align(flex, row, unset, center);
-        width: 280px;
+        width: 300px;
 
         button {
             transition: .2s;
         }
         &--logoFb {
-            @include svg(41px, var(--color-blue-60));    
+            @include button(reset, disabled);
+            color: var(--color-blue-60);
+            font-size: 2.6rem;
         }
         &--logoArrow {
-            @include svg(20px, --color--grey--00);  
-            z-index: 2;  
+            @include button(icon);
+            @include border-radius(rounded);
+            font-size: 1.3rem;
+            color : var(--color-black-10);
+            padding: 6px;
+        
         }
 
         label {
-            position: relative;
             @include display-direction-justify-align(flex, row, unset, center);
-            width: 225px;
+            @include border-radius(rounded);
+            color: var(--color-black-10) ;
+            position: relative;
+            width: 100%;
             margin-left: 10px;
             padding-left: 10px;
             background-color: var(--color-white-05);
-            @include border-radius(rounded);
+            cursor:text;
             z-index: 1;
+      
+            input {
+                width: 90%;
+                font-size: .87rem;
+                color: var(--color-black-10) ;
+                padding: 12px 0px 13px 10px;
+                border: none;
+                outline: none;
+                background-color: transparent;
+                z-index: 999999;
 
-            button > svg {
-                @include svg(20px, --color--grey--00);
-                cursor:text;
+                &::placeholder {
+                    color: var(--color-black-10) ;
+
+                }
             }
-        }
-        input {
-            font-size: .87rem;
-            padding: 12px 0px 13px 10px;
-            border: none;
-            outline: none;
-            background-color: transparent;
-            z-index: 999999;
         }
     }
     &__navigation__content {
-        @include display-direction-justify-align(fullcenter, unset, unset);
-        position: relative;
-        cursor: pointer;
-        width: 111px;
-        height: 46px;
-        @include border-radius(medium);
-        transition: .2s;
+        @include display-direction-justify-align(fullcenter);
+       
+        &__item{
+            position: relative;
 
-        &:hover {
-            background-color:var(--color-white-05);
-        }
-        &:after {
-            content: "";
-            position: absolute;
-            display: block;
-            width: 100%;
-            height: 3px;
-            background-color: var(--color-blue-60);
-            bottom: -5px;
-        }
-        button > svg {
-            @include svg(28px, var(--color-blue-60));
-        }
+            > div {
+                @include hover();
+                @include border-radius(medium);
+                @include display-direction-justify-align(fullcenter);
+                overflow: hidden;
+                width: 111px;
+                height: 46px;
+                font-size: 1.9rem;
+
+                > svg {
+                    color: var(--color-blue-60);
+    
+                }
+            }
+            &::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 3.5px;
+                bottom: -5px;
+                background-color: var(--color-blue-60);  
+            }
+        }  
     }
     &__settings__content {
         @include display-direction-justify-align(flex, row, unset, center);
@@ -83,130 +92,37 @@
         
         &__profil {
             @include display-direction-justify-align(flex, row, unset, center);
-            cursor: pointer;
+            @include border-radius(rounded);
+            @include button();
+            overflow: hidden;
             margin-right: 20px;
             transition: .3s;
             padding: 4px 12px 4px 3px;
-            border-radius: 99999px;
             height: 100%;
 
-            &:hover {
-                background-color:var(--color-white-05);
-            }    
             span {
                 font-weight: 600;
             }
-            button > svg {
+
+            svg {
                 @include svg(28px, --color-grey--00);
                 margin-right: 10px;
             }
         }
-        &__notif {
-            position: relative;
-
-        }
         &__notif, &__arrow{
 
             @include display-direction-justify-align(fullcenter, unset, unset);
+            @include border-radius(rounded);
+            @include button(icon);
+            @include svg(20px, var(--color-black-05));
             margin-right: 8px;
             width: 40px;
             height: 40px;
-            background-color: var(--color-white-10);
-            @include border-radius(rounded);
-            transition: .3s;
-
-            &:hover {
-                background-color: var(--color-white-15);
-            }
-
-            button > svg {
-                @include svg(20px, var(--color--black-10));
-            }
+            background-color: var(--color-black-15);
         }
     }
 }
 
 
-.dropdown__search{
-    width: 320px;
-    background-color: var(--color-white-00);
-    box-shadow: 0px 2px 2.1px var(--color-white-20);
-    @include border-radius(big);
-    padding-bottom: 10px;
-
-    &__title {
-        display: flex;
-        align-items: center;
-        font-size: 17px;
-        color: var(--color--black-10);
-        padding-left: 10px;
-    }
-
-    &__user__content {
-        height: 50px;
-        @include display-direction-justify-align(flex, row, space-between, center);
-        @include border-radius(big);
-        margin: 0 10px;
-        padding: 0 10px;
-
-        &:hover {
-            cursor: pointer;
-            background-color: var(--color-white-10);
-        }
-        
-        &__delete svg {   
-            font-size: 25px ;
-            color: var(--color-grey--00);
-        }
-        &__profile {
-            @include display-direction-justify-align(flex, row, unset, center);
-        
-            span {
-                @include svg(36px, unset);
-                margin-right: 10px;
-            }
-            div {
-                font-size: 15px;
-            }
-        }
-    }
-}
 
 
-.dropdown__notif {
-    width: 360px;
-    background-color: var(--color-white-00) !important;
-    box-shadow: 0px 2px 2.1px var(--color-white-20);
-    @include border-radius(big);
-    padding-bottom: 10px;
-
-    &__title {
-        display: flex;
-        align-items: center;
-        font-weight: 600;
-        font-size: 23px;
-        color: var(--color--black-10);
-        padding-left: 10px;
-    }
-    &__news__content {
-        @include display-direction-justify-align(flex, column, unset, flex-start);
-        height: 50px;
-
-        &__title {
-            font-size: 17px;
-            color: var(--color--black-10);
-            padding-left: 10px;
-        }
-        &__infos {
-            display: flex;
-            width: 100%;
-
-            svg {
-                font-size: 45px;
-            }
-            span {
-                // display: block;
-            }
-        }
-    }
-}

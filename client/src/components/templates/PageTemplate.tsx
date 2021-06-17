@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ProfileMenu from '../dropdown/ProfileMenu/ProfileMenu';
 // import { useSelector } from 'react-redux';
 
 interface IProps {
@@ -7,10 +8,13 @@ interface IProps {
     hasNavbar?: boolean;
 }
 // TODO Rajouter le 'loading...' si chargement
+// TODO Voir pour mettre la navbar dans un react fragment dans le router
 const PageTemplate = ({ pageTitle, children, hasNavbar }: IProps) => {
     // const isLoading = useSelector((state) => state.loaderReducer);
     // document.title = `Facebook | ${isLoading ? 'Loading . . .' : pageTitle}`;
     document.title = !pageTitle ? 'Facebook' : `Facebook | ${pageTitle}`;
+
+    const [isOpenProfileMenu, setIsOpenProfileMenu] = useState(false);
 
     return (
         <>
@@ -24,7 +28,13 @@ const PageTemplate = ({ pageTitle, children, hasNavbar }: IProps) => {
                         justifyContent: 'center',
                         fontSize: '5rem',
                     }}>
-                    NAVBAR
+                    <h1>NAVBAR</h1>
+                    <div style={{ position: 'relative' }}>
+                        <button onClick={() => setIsOpenProfileMenu(true)}>
+                            OPEN PROFILE MENU
+                        </button>
+                        <ProfileMenu isOpen={isOpenProfileMenu} setIsOpen={setIsOpenProfileMenu} />
+                    </div>
                 </div>
             )}
 

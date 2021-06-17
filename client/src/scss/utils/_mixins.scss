@@ -30,8 +30,10 @@
         font-size: 2rem;
         overflow: hidden;
         padding: 2px;
+        flex-shrink: 0;
         // SI JUSTE BESOIN D'UN BUTTON RESET (enleve le hover par default du button)
     } @else if($button-type == reset) {
+        display: flex;
         @include hover($button-hover-type);
         // AFFICHE UN BOUTON DESACTIVE (sans hover + cursor (not allowed) + grisé)
     } @else if($button-type == disabled) {
@@ -42,6 +44,7 @@
 }
 
 @mixin hover($type: dark) {
+    $background-opacity: 0.06;
     position: relative;
     z-index: 1;
     // RIEN A COMPRENDRE VALEUR PAR DEFAUT DU BEFORE POUR QU'IL PRENNE LA TAILLE DE SON PARENT :)
@@ -65,10 +68,10 @@
         &:before {
             // APPLIQUE UN FILTRE DE COULEUR BLACK SUR BOUTON
             @if ($type == dark) {
-                background: rgba(black, 0.06);
+                background: rgba(var(--color-hover), $background-opacity);
                 // APPLIQUE UN FILTRE DE COULEUR WHITE SUR BOUTON
             } @else if($type == light) {
-                background: rgba(white, 0.06);
+                background: rgba(white, $background-opacity);
                 // DESACTIVE LE HOVER
             } @else if ($type == disabled) {
                 background: transparent !important;
@@ -79,9 +82,9 @@
     &:active {
         &:before {
             @if ($type == dark) {
-                background: rgba(black, 0.12);
+                background: rgba(var(--color-hover), $background-opacity * 2);
             } @else if($type == light) {
-                background: rgba(white, 0.12);
+                background: rgba(white, $background-opacity * 2);
             } @else if ($type == disabled) {
                 background: transparent !important;
             }

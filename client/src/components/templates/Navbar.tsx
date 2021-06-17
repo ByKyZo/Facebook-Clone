@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { FaFacebook } from 'react-icons/fa';
-import { AiFillHome } from 'react-icons/ai';
-import { IoMdNotifications } from 'react-icons/io';
-import { IoIosArrowDown } from 'react-icons/io';
+import { AiFillHome, AiOutlineSearch } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { TiDeleteOutline } from 'react-icons/ti';
 import { BiArrowBack } from 'react-icons/bi';
-import Dropdown from '../utils/Dropdown';
-import DropdownSearch from '../utils/DropdownSearch';
+import { IoMdNotifications, IoIosArrowDown } from 'react-icons/io';
+import CustomLink from '../router/CustomLink';
+import ProfileMenu from '../dropdown/ProfileMenu/ProfileMenu';
+import Notifications from '../dropdown/Notifications/Notifications';
+import NavSearch from '../dropdown/NavSearch/NavSearch';
+
+const dropdownTop = '52px';
+const dropdownRight = '20px';
 
 const Navbar = () => {
     const [isOpenSearch, setIsOpenSearch] = useState(false);
     const [isOpenNotif, setIsOpenNotif] = useState(false);
-
+    const [isOpenProfileMenu, setIsOpenProfileMenu] = useState(false);
+    const [valueInputSearch, setValueInputSearch] = useState('');
     return (
         <div className="navbar">
             <div className="navbar__search">
@@ -24,144 +27,62 @@ const Navbar = () => {
                         }`}>
                         {isOpenSearch ? <BiArrowBack /> : <FaFacebook />}
                     </button>
-                    <div>
-                        <label>
-                            {!isOpenSearch && (
-                                <button>
-                                    <AiOutlineSearch />
-                                </button>
-                            )}
-
-                            <input
-                                type="text"
-                                placeholder="Rechercher sur Facebook"
-                                onClick={() => setIsOpenSearch(true)}
-                            />
-                        </label>
-                    </div>
+                    <label>
+                        {!isOpenSearch && <AiOutlineSearch />}
+                        {/* <span>
+                                <AiOutlineSearch /> Rechercher sur Facebook
+                            </span> */}
+                        <input
+                            type="text"
+                            value={valueInputSearch}
+                            onChange={(e) => setValueInputSearch(e.target.value)}
+                            placeholder="Rechercher sur Facebook"
+                            onClick={() => setIsOpenSearch(true)}
+                        />
+                    </label>
                 </div>
-                <DropdownSearch
-                    className="dropdown__search"
-                    isOpenSearch={isOpenSearch}
-                    top="0"
-                    left="0"
-                    setIsOpenSearch={setIsOpenSearch}>
-                    <div style={{ height: '56px' }}></div>
-                    <div className="dropdown__search__title" style={{ height: '50px' }}>
-                        <h1>Recherches récentes</h1>
-                    </div>
-                    <div className="dropdown__search__user__content">
-                        <div className="dropdown__search__user__content__profile">
-                            <span>
-                                <CgProfile />
-                            </span>
-                            <div>Jeff</div>
-                        </div>
-                        <span className="dropdown__search__user__content__delete">
-                            <TiDeleteOutline />
-                        </span>
-                    </div>
-                    <div className="dropdown__search__user__content">
-                        <div className="dropdown__search__user__content__profile">
-                            <span>
-                                <CgProfile />
-                            </span>
-                            <div>Ky</div>
-                        </div>
-                        <span className="dropdown__search__user__content__delete">
-                            <TiDeleteOutline />
-                        </span>
-                    </div>
-                    <div className="dropdown__search__user__content">
-                        <div className="dropdown__search__user__content__profile">
-                            <span>
-                                <CgProfile />
-                            </span>
-                            <div>Antoine</div>
-                        </div>
-                        <span className="dropdown__search__user__content__delete">
-                            <TiDeleteOutline />
-                        </span>
-                    </div>
-                    <div className="dropdown__search__user__content">
-                        <div className="dropdown__search__user__content__profile">
-                            <span>
-                                <CgProfile />
-                            </span>
-                            <div>Jeremy</div>
-                        </div>
-                        <span className="dropdown__search__user__content__delete">
-                            <TiDeleteOutline />
-                        </span>
-                    </div>
-                </DropdownSearch>
+                <NavSearch isOpen={isOpenSearch} setIsOpen={setIsOpenSearch} top="0" left="0" />
             </div>
-
-            <div className="navbar__navigation">
-                <div className="navbar__navigation__content">
-                    <button>
+            <div className="navbar__navigation__content">
+                <CustomLink to="/" className="navbar__navigation__content__item">
+                    <div>
                         <AiFillHome />
-                    </button>
-                </div>
+                    </div>
+                </CustomLink>
             </div>
             <div className="navbar__settings">
                 <div className="navbar__settings__content">
-                    <div className="navbar__settings__content__profil">
-                        <button>
-                            <CgProfile />
-                        </button>
+                    <div tabIndex={0} className="navbar__settings__content__profil">
+                        <CgProfile />
                         <span>Jeff</span>
                     </div>
-                    <div className="navbar__settings__content__notif">
-                        <button onClick={() => setIsOpenNotif(true)}>
-                            <IoMdNotifications />
-                        </button>
-                        <Dropdown
-                            contentClass="dropdown__notif"
-                            isOpen={isOpenNotif}
-                            top="45px"
-                            left="-265px"
-                            setIsOpen={setIsOpenNotif}>
-                            <h1 className="dropdown__notif__title" style={{ height: '50px' }}>
-                                Notifications
-                            </h1>
-                            <button className="dropdown__notif__news__content">
-                                <div className="dropdown__notif__news__content__title">Nouveau</div>
-                                <div className="dropdown__notif__news__content__infos">
-                                    <CgProfile />
-                                    <p>
-                                        <div>
-                                            <span>Jeff</span> a ajouté 3 photos dans{' '}
-                                            <span>groupe</span>
-                                        </div>
-                                        <div>Il y a 3 minutes</div>
-                                    </p>
-                                </div>
-                            </button>
-                            <button style={{ display: 'block', height: '50px' }}>
-                                Ceci est un dropdown
-                            </button>
-                            <button style={{ display: 'block', height: '50px' }}>
-                                Ceci est un dropdown
-                            </button>
-                            <button style={{ display: 'block', height: '50px' }}>
-                                Ceci est un dropdown
-                            </button>
-                            <button style={{ display: 'block', height: '50px' }}>
-                                Ceci est un dropdown
-                            </button>
-                            <button style={{ display: 'block', height: '50px' }}>
-                                Ceci est un dropdown
-                            </button>
-                        </Dropdown>
-                    </div>
-                    <div className="navbar__settings__content__arrow">
-                        <button>
-                            <IoIosArrowDown />
-                        </button>
-                    </div>
+                    <button
+                        className="navbar__settings__content__notif"
+                        onClick={() => setIsOpenNotif(true)}>
+                        <IoMdNotifications />
+                    </button>
+
+                    <button
+                        className="navbar__settings__content__arrow"
+                        onClick={() => setIsOpenProfileMenu(true)}>
+                        <IoIosArrowDown />
+                    </button>
                 </div>
             </div>
+
+            <ProfileMenu
+                isOpen={isOpenProfileMenu}
+                setIsOpen={setIsOpenProfileMenu}
+                top={dropdownTop}
+                right={dropdownRight}
+            />
+
+            <Notifications
+                isOpen={isOpenNotif}
+                setIsOpen={setIsOpenNotif}
+                top={dropdownTop}
+                right={dropdownRight}
+            />
         </div>
     );
 };
