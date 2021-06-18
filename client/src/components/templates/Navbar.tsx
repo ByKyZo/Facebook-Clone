@@ -37,7 +37,7 @@ const Navbar = () => {
                             value={valueInputSearch}
                             onChange={(e) => setValueInputSearch(e.target.value)}
                             placeholder="Rechercher sur Facebook"
-                            onClick={() => setIsOpenSearch(true)}
+                            onFocus={() => setIsOpenSearch(true)}
                         />
                     </label>
                 </div>

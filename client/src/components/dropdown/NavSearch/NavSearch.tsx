@@ -11,7 +11,7 @@ const NavSearch = ({ ...rest }: IDropDownSearch) => {
             <div className="dropdown__search__title" style={{ height: '50px' }}>
                 <h1>Recherches récentes</h1>
             </div>
-            <div className="dropdown__search__user__content">
+            <div role="button" tabIndex={0} className="dropdown__search__user__content">
                 <div className="dropdown__search__user__content__profile">
                     <span>
                         <CgProfile />
@@ -22,7 +22,7 @@ const NavSearch = ({ ...rest }: IDropDownSearch) => {
                     <VscClose />
                 </span>
             </div>
-            <div className="dropdown__search__user__content">
+            <div role="button" tabIndex={0} className="dropdown__search__user__content">
                 <div className="dropdown__search__user__content__profile">
                     <span>
                         <CgProfile />
@@ -33,7 +33,7 @@ const NavSearch = ({ ...rest }: IDropDownSearch) => {
                     <VscClose />
                 </span>
             </div>
-            <div className="dropdown__search__user__content">
+            <div role="button" tabIndex={0} className="dropdown__search__user__content">
                 <div className="dropdown__search__user__content__profile">
                     <span>
                         <CgProfile />
@@ -44,7 +44,7 @@ const NavSearch = ({ ...rest }: IDropDownSearch) => {
                     <VscClose />
                 </span>
             </div>
-            <div className="dropdown__search__user__content">
+            <div role="button" tabIndex={0} className="dropdown__search__user__content">
                 <div className="dropdown__search__user__content__profile">
                     <span>
                         <CgProfile />

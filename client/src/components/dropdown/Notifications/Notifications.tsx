@@ -11,10 +11,10 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                     Notifications
                 </h1>
                 {/* NOUVEAU */}
-                <div role="button" tabIndex={0} className="dropdown__notif__content">
+                <div className="dropdown__notif__content">
                     <h2 className="dropdown__notif__content__type">Nouveau</h2>
 
-                    <div className="dropdown__notif__content__info">
+                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                         <div className="dropdown__notif__content__info__profil">
                             <CgProfile />
                         </div>
@@ -32,12 +32,12 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                     </div>
                 </div>
                 {/* PLUS TOT */}
-                <div role="button" tabIndex={0} className="dropdown__notif__content">
+                <div className="dropdown__notif__content">
                     <h2 style={{ marginTop: '10px' }} className="dropdown__notif__content__type">
                         Plus tôt
                     </h2>
 
-                    <div className="dropdown__notif__content__info">
+                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                         <div className="dropdown__notif__content__info__profil">
                             <CgProfile />
                         </div>
@@ -54,7 +54,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         <span className="test2"></span>
                     </div>
 
-                    <div className="dropdown__notif__content__info">
+                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                         <div className="dropdown__notif__content__info__profil">
                             <CgProfile />
                         </div>
@@ -70,24 +70,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         </div>
                         <span className="test2"></span>
                     </div>
-                    <div className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
-                        </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                vous invite à la fête de la musique de &nbsp;
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
-                        </div>
-                        <span className="test2"></span>
-                    </div>
-
-                    <div className="dropdown__notif__content__info">
+                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                         <div className="dropdown__notif__content__info__profil">
                             <CgProfile />
                         </div>
@@ -104,7 +87,24 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         <span className="test2"></span>
                     </div>
 
-                    <div className="dropdown__notif__content__info">
+                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                        <div className="dropdown__notif__content__info__profil">
+                            <CgProfile />
+                        </div>
+                        <div className="dropdown__notif__content__info__desc">
+                            <span className="dropdown__notif__content__info__desc__content">
+                                <span>Jeff &nbsp;</span>
+                                vous invite à la fête de la musique de &nbsp;
+                                <span>Bohème Bar</span>
+                            </span>
+                            <span className="dropdown__notif__content__info__desc__time">
+                                Il y a 3 minutes
+                            </span>
+                        </div>
+                        <span className="test2"></span>
+                    </div>
+
+                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                         <div className="dropdown__notif__content__info__profil">
                             <CgProfile />
                         </div>
@@ -124,7 +124,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         </div>
                         <span className="dropdown__notif__content__info__bubble"></span>
                     </div>
-                    <div className="dropdown__notif__content__info">
+                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                         <div className="dropdown__notif__content__info__profil">
                             <CgProfile />
                         </div>
@@ -140,7 +140,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         </div>
                         <span className="test2"></span>
                     </div>
-                    <div className="dropdown__notif__content__info">
+                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                         <div className="dropdown__notif__content__info__profil">
                             <CgProfile />
                         </div>
@@ -156,7 +156,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         </div>
                         <span className="test2"></span>
                     </div>
-                    <div className="dropdown__notif__content__info">
+                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                         <div className="dropdown__notif__content__info__profil">
                             <CgProfile />
                         </div>
@@ -172,7 +172,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         </div>
                         <span className="test2"></span>
                     </div>
-                    <div className="dropdown__notif__content__info">
+                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                         <div className="dropdown__notif__content__info__profil">
                             <CgProfile />
                         </div>
