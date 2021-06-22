@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Transition } from 'react-transition-group';
-// import { useMediaQuery } from 'react-responsive';
 
 export interface IDropDownSearch {
     className?: string;
@@ -8,6 +7,8 @@ export interface IDropDownSearch {
     setIsOpen: (arg: boolean) => void;
     top: string;
     left: string;
+    cursor: number;
+    setCursor: any;
     right?: string;
     bottom?: string;
     children?: JSX.Element | JSX.Element[];
@@ -24,6 +25,8 @@ const DropdownSearch = ({
     setIsOpen,
     top,
     left,
+    cursor,
+    setCursor,
     right,
     bottom,
     children,
@@ -34,8 +37,8 @@ const DropdownSearch = ({
     leftResponsive,
 }: IDropDownSearch) => {
     const dropdownContentRef = useRef<HTMLDivElement>(null);
-    const duration = 200;
-    // const isBreakPoint = useMediaQuery({ query: `(max-width: ${maxWidthResponsive}px)` });
+    const duration = 150;
+
     const defaultStyle = {
         transition: `${duration}ms ease`,
         position: 'absolute',
@@ -65,21 +68,11 @@ const DropdownSearch = ({
         },
     };
 
-    // const handleStyleResponsive = () => {
-    //     return isBreakPoint
-    //         ? {
-    //               top: topResponsive,
-    //               right: rightResponsive,
-    //               bottom: bottomResponsive,
-    //               left: leftResponsive,
-    //           }
-    //         : { top, right, bottom, left };
-    // };
-
     useEffect(() => {
         const handleClickOutside = (e: any) => {
             if (dropdownContentRef.current && !dropdownContentRef.current.contains(e.target))
                 setIsOpen(false);
+            // setCursor(0);
         };
         document.addEventListener('mousedown', handleClickOutside, true);
         return () => {
@@ -94,6 +87,7 @@ const DropdownSearch = ({
         <Transition unmountOnExit in={isOpen} timeout={duration}>
             {(state) => (
                 <div
+                    // onKeyDown={handleKeyDown}
                     ref={dropdownContentRef}
                     className={className}
                     style={{
