@@ -7,12 +7,23 @@ const SocketHandler = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        socket.on('add post', (test) => {
-            console.log(test);
-        });
-        socket.on('exception', () => {
-            // NE PAS METTRE LE MESSAGE
+        /**
+         * Gere les erreurs generer par le socket
+         */
+        socket.on('error', () => {
             toastCatchError();
+        });
+        /**
+         * Gere les erreurs generer par le serveur
+         */
+        socket.on('exception', () => {
+            toastCatchError();
+        });
+        /**
+         * Gere les erreurs d'Autorisation
+         */
+        socket.on('connect_error', () => {
+            toastCatchError('Unauthorized');
         });
     }, []);
 

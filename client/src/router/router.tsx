@@ -16,6 +16,7 @@ const MainRouter = () => {
             <Switch>
                 {/* PAGE POUR TESER LES SOCKETS A ENLEVER EN PRODUCTION */}
                 <Route exact path="/socket" component={SocketPageTester} />
+
                 <Route exact path="/login" component={Login} />
 
                 <PrivateRoute exact path="/" component={Home} />

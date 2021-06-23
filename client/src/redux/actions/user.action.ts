@@ -1,7 +1,8 @@
-import { endUserLoading, IUser, login, startUserLoading } from '../reducers/user.reducer';
+import { endUserLoading, login, startUserLoading } from '../reducers/user.reducer';
 import { AppDispatch } from '../store';
 import axios from '../../config/axios';
 import { toastCatchError, toastSuccess } from '../../utils/utils';
+import { IUser } from '../../typescript/types';
 
 // TODO Faire un middleware en back pour verifier si autorisé a chaque page
 

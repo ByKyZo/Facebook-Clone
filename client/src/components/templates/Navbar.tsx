@@ -9,6 +9,7 @@ import ProfileMenu from '../dropdown/ProfileMenu/ProfileMenu';
 import Notifications from '../dropdown/Notifications/Notifications';
 import NavSearch from '../dropdown/NavSearch/NavSearch';
 import { useAppSelector } from '../../redux/redux.hook';
+import CustomNavLink from '../router/CustomNavLink';
 
 const dropdownTop = '52px';
 const dropdownRight = '20px';
@@ -52,13 +53,14 @@ const Navbar = () => {
             </div>
             <div className="navbar__settings">
                 <div className="navbar__settings__content">
-                    <CustomLink
+                    <CustomNavLink
                         to={`/profile/${userID}`}
+                        activeClassName="TOTOTOTO"
                         tabIndex={0}
                         className="navbar__settings__content__profil">
                         <CgProfile />
                         <span>Jeff</span>
-                    </CustomLink>
+                    </CustomNavLink>
                     <button
                         className="navbar__settings__content__notif"
                         onClick={() => {

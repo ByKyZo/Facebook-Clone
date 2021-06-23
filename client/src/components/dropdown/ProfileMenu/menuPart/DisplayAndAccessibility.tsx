@@ -1,14 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import ProfileMenuPart from '../components/ProfileMenuPart';
 import ProfileMenuIcon from '../components/ProfileMenuIcon';
 import { FaMoon } from 'react-icons/fa';
 import { Menu } from '../ProfileMenu';
+import { setCurrentNestedMenu } from '../../../utils/NestedMenu/NestedMenu';
+import { ThemeContext } from '../../../../context/themeContext';
 
 interface IProps {
-    partRef: React.Ref<any>;
-    partValue: Menu;
-    currentMenuPart: Menu;
-    setCurrentMenuPart: (arg: Menu) => void;
+    setCurrentNestedMenu: setCurrentNestedMenu;
 }
 
 enum DarkModeState {
@@ -16,52 +15,32 @@ enum DarkModeState {
     ON = 'on',
 }
 
-const ThemeAndAccessibility = ({
-    partRef,
-    partValue,
-    currentMenuPart,
-    setCurrentMenuPart,
-}: IProps) => {
+const DisplayAndAccessibility = ({ setCurrentNestedMenu }: IProps) => {
+    const { darkModeState, setDarkModeState } = useContext(ThemeContext);
     const darkModeOffRef = useRef<HTMLInputElement>(null);
     const darkModeOnRef = useRef<HTMLInputElement>(null);
-
-    const [darkModeStateValue, setDarkModeStateValue] = useState<DarkModeState>(DarkModeState.OFF);
 
     const handleCheckOnEnter = (e: React.KeyboardEvent<HTMLLabelElement>) => {
         if (!darkModeOffRef.current || !darkModeOnRef.current) return;
         // @ts-ignore
-        const currentDarkModeValue = e.target.dataset.darkmodestate as DarkModeState;
         if (e.key === 'Enter') {
-            if (currentDarkModeValue === DarkModeState.OFF) {
+            if (darkModeState === DarkModeState.OFF) {
                 darkModeOffRef.current.checked = true;
-                setDarkModeStateValue(DarkModeState.OFF);
-            } else if (currentDarkModeValue === DarkModeState.ON) {
+                setDarkModeState(DarkModeState.OFF);
+            } else if (darkModeState === DarkModeState.ON) {
                 darkModeOnRef.current.checked = true;
-                setDarkModeStateValue(DarkModeState.ON);
+                setDarkModeState(DarkModeState.ON);
             }
         }
     };
-
-    useEffect(() => {
-        const htmlEl = document.querySelector('html')!;
-        const currentDarkModeValue = htmlEl.dataset.darkmode as DarkModeState;
-        setDarkModeStateValue(currentDarkModeValue);
-    }, []);
-
-    useEffect(() => {
-        document.querySelector('html')?.setAttribute('data-darkmode', darkModeStateValue);
-        localStorage.setItem('DARK-MODE', darkModeStateValue);
-    }, [darkModeStateValue]);
 
     return (
         <ProfileMenuPart
             className="display-accessibility"
             headLabel="Display & Accessibility"
-            partRef={partRef}
-            partValue={partValue}
-            currentMenuPart={currentMenuPart}
-            setCurrentMenuPart={setCurrentMenuPart}>
+            onBackMenuFunc={() => setCurrentNestedMenu(Menu.HOME, -1)}>
             <div className="dropdown-profile-menu__display-accessibility__section">
+                {/*<button onClick={() => setCurrentNestedMenu('home', -1)}>back</button>*/}
                 <div className="dropdown-profile-menu__display-accessibility__section__head">
                     <ProfileMenuIcon icon={<FaMoon />} />
                     <div className="dropdown-profile-menu__display-accessibility__section__head__right">
@@ -80,9 +59,9 @@ const ThemeAndAccessibility = ({
                         onKeyDown={(e) => handleCheckOnEnter(e)}>
                         <span>Off</span>
                         <input
-                            checked={darkModeStateValue === DarkModeState.OFF}
+                            checked={darkModeState === DarkModeState.OFF}
                             value={DarkModeState.OFF}
-                            onChange={(e) => setDarkModeStateValue(e.target.value as DarkModeState)}
+                            onChange={(e) => setDarkModeState(e.target.value as DarkModeState)}
                             tabIndex={-1}
                             ref={darkModeOffRef}
                             type="radio"
@@ -97,9 +76,9 @@ const ThemeAndAccessibility = ({
                         onKeyDown={(e) => handleCheckOnEnter(e)}>
                         <span>On</span>
                         <input
-                            checked={darkModeStateValue === DarkModeState.ON}
+                            checked={darkModeState === DarkModeState.ON}
                             value={DarkModeState.ON}
-                            onChange={(e) => setDarkModeStateValue(e.target.value as DarkModeState)}
+                            onChange={(e) => setDarkModeState(e.target.value as DarkModeState)}
                             tabIndex={-1}
                             ref={darkModeOnRef}
                             type="radio"
@@ -113,4 +92,4 @@ const ThemeAndAccessibility = ({
     );
 };
 
-export default ThemeAndAccessibility;
+export default DisplayAndAccessibility;

@@ -5,12 +5,12 @@ import { isEmpty } from '../../utils/utils';
 import FocusTrap from 'focus-trap-react';
 
 export interface IDropdownProps {
+    isOpen: boolean;
+    setIsOpen: (arg: boolean) => void;
     children?: JSX.Element | JSX.Element[];
     contentRef?: React.RefObject<HTMLInputElement>;
     contentClass?: string;
     notCloseOnRefs?: React.RefObject<HTMLInputElement>;
-    isOpen: boolean;
-    setIsOpen: (arg: boolean) => void;
     isResponsive?: boolean;
     maxWidthResponsive?: number;
     isVertical?: boolean;
@@ -75,9 +75,6 @@ const Dropdown = ({
 
     useEffect(() => {
         if (!isOpen || !currentRef?.current) return;
-        // TODO Regler le bug des dropdowns
-        // TODO Le probleme viens peut etre du ...rest du profile dropdown
-        // TODO Finir le back add post
         const handleCloseDropDown = (e: any) => {
             if (isEmpty(notCloseOnRefs) || !notCloseOnRefs?.current) {
                 if (!currentRef.current) return setIsOpen(false);
@@ -93,9 +90,11 @@ const Dropdown = ({
             }
         };
         document.addEventListener('mousedown', handleCloseDropDown);
+        document.addEventListener('touchstart', handleCloseDropDown);
 
         if (!isOpen) {
             document.removeEventListener('mousedown', handleCloseDropDown);
+            document.addEventListener('touchstart', handleCloseDropDown);
         }
     }, [isOpen, setIsOpen, currentRef, notCloseOnRefs]);
 
