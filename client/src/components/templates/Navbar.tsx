@@ -7,12 +7,8 @@ import ProfileMenu from '../dropdown/ProfileMenu/ProfileMenu';
 import Notifications from '../dropdown/Notifications/Notifications';
 import NavSearch from '../dropdown/NavSearch/NavSearch';
 import { useAppSelector } from '../../redux/redux.hook';
-<<<<<<< HEAD
-import CustomNavLink from '../router/CustomNavLink';
-=======
 import { useMediaQuery } from 'react-responsive';
 import LogoFb from '../../assets/logo-fb.svg';
->>>>>>> 16c092612be9dbedabfda2902eebb3599c1fe34e
 
 const dropdownTop = '52px';
 const dropdownRight = '7px';
@@ -115,21 +111,12 @@ const Navbar = () => {
             <div className="navbar__settings">
                 <div className="navbar__settings__content">
                     <CustomNavLink
-<<<<<<< HEAD
-                        to={`/profile/${userID}`}
-                        activeClassName="TOTOTOTO"
-=======
                         activeClassName=" navbar__settings__content__profile--active"
->>>>>>> 16c092612be9dbedabfda2902eebb3599c1fe34e
                         tabIndex={0}
                         to={`/profile/${userID}`}
                         className="navbar__settings__content__profile">
                         <CgProfile />
-<<<<<<< HEAD
-                        <span>Jeff</span>
-=======
                         {!isMobile && <span>Jeff</span>}
->>>>>>> 16c092612be9dbedabfda2902eebb3599c1fe34e
                     </CustomNavLink>
                     <button
                         className={isClassNameActive(
