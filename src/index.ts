@@ -10,10 +10,13 @@ import cookieParser from 'cookie-parser';
 import { Server } from 'socket.io';
 import * as http from 'http';
 import userSocketListener from './socket.listeners/user.socket.listeners';
-import UserSocketController from './socket.controllers/user.socket.controller';
+import uploadFileSocketListener from './socket.listeners/uploadfile.socket.listener';
+import JwtHandler from './utils/jwtHandler';
+import UserModel from './models/user.model';
+// import SocketIOFile from 'socket.io-file';
 
 // TODO Faire la connexion avec postman
-// TODO Gerer le add post avec socket
+// TODO Gerer le add post avec socket ?
 // TODO Finir les types
 
 // **** CONFIG ****
@@ -35,27 +38,41 @@ server.use(cookieParser());
 server.use(express.json());
 server.use(cors({ origin: '*', credentials: true })); // REMETTRE CORS_ORIGIN
 server.use(express.urlencoded({ extended: true }));
+// server.use((req, res, next) => {
+//     console.log('MIDDLEWARE HTTP', req.headers.authorization);
+//     next();
+// });
+// io.use(async (socket, next) => {
+//     try {
+//         const tokenDecoded: any = JwtHandler.verifyTokenAndDecode(socket.handshake.auth.token);
+//         if (!tokenDecoded) return next(new Error('unauthorized'));
+//         const user = await UserModel.findById(tokenDecoded.userID);
+//         if (!user) return next(new Error('unauthorized'));
+//         next();
+//         console.log('socket token', socket.handshake.auth.token);
+//     } catch {
+//         next(new Error('unauthorized'));
+//     }
+// });
 
 // **** ROUTES ****
 server.use('/api/auth', AuthRoutes);
 server.use('/api/user', UserRoutes);
-server.use('/upload/image', express.static(path.join(__dirname, '..', 'dist', 'upload', 'images')));
-server.use('/upload/video', express.static(path.join(__dirname, '..', 'dist', 'upload', 'videos')));
+server.use('/upload', express.static(path.join(__dirname, '..', 'dist', 'upload')));
 
 // **** SERVER LISTENER ****
 httpServer.listen(PORT, () => {
     console.log(`listen on port ${PORT}`);
 });
 
-const clients: string[] = [];
+let users: any = {};
 
 io.on('connect', (socket) => {
+    // users.push(socket.id);
     userSocketListener(io, socket);
+    uploadFileSocketListener(io, socket);
 
     socket.on('error', (err) => {
         console.log(`socket error : ${err}`);
     });
-
-    clients.push(socket.id);
-    console.log(`user connected : ${socket.id}`);
 });

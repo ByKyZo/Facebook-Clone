@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { NextFunction } from 'express';
 import bcrypt from 'bcrypt';
+import * as Mongoose from 'mongoose';
 
 // TODO RAJOUTER SHARE DANS PHOTO ET POST
 // TODO RASSEMEBLE PHOTO EST POST
@@ -18,21 +19,27 @@ export interface IReactions {
 export interface IComment {
     userID: string;
     reactions: IReactions;
-    content: string;
+    message: string;
+    attachment: {
+        path: string;
+        genericFileType: string;
+    };
 }
 
-export interface IUserComment {
+export interface IUserComment extends mongoose.Document {
     comment: IComment;
     replies: IComment[];
 }
 
-export interface IUserPost {
+export interface IUserPost extends mongoose.Document {
     message: string;
     photos: string[];
     videos: string[];
     reactions: IReactions;
     comments: IUserComment[];
+
     createdAt: Date;
+    updateAt: Date;
 }
 
 export interface IUser extends mongoose.Document {
@@ -48,20 +55,43 @@ export interface IUser extends mongoose.Document {
         format: string;
     };
     gender: string;
-
-    posts: IUserPost;
-
+    posts: IUserPost[];
     notifications: string[];
     friends: string[];
-    photos: string[];
-
     createdAt: Date;
     updateAt: Date;
 }
 
-type User = IUser | IUserPost | IUserComment | IReactions | IComment;
-
-const CommentsSchema = new mongoose.Schema({});
+const ReactionsSchemaTypes = {
+    like: {
+        type: Number,
+        default: 0,
+    },
+    love: {
+        type: Number,
+        default: 0,
+    },
+    care: {
+        type: Number,
+        default: 0,
+    },
+    haha: {
+        type: Number,
+        default: 0,
+    },
+    wow: {
+        type: Number,
+        default: 0,
+    },
+    sad: {
+        type: Number,
+        default: 0,
+    },
+    angry: {
+        type: Number,
+        default: 0,
+    },
+};
 
 const UserSchema = new mongoose.Schema(
     {
@@ -108,68 +138,83 @@ const UserSchema = new mongoose.Schema(
             required: [true, 'Gender is required'],
         },
         posts: [
-            {
-                message: {
-                    type: String,
+            new mongoose.Schema(
+                {
+                    message: {
+                        type: String,
+                    },
+                    photos: [
+                        {
+                            fileName: {
+                                type: String,
+                            },
+                            genericFileType: {
+                                type: String,
+                                enum: ['image', 'video'],
+                            },
+                        },
+                    ],
+                    videos: [
+                        {
+                            fileName: {
+                                type: String,
+                            },
+                            genericFileType: {
+                                type: String,
+                                enum: ['image', 'video'],
+                            },
+                        },
+                    ],
+                    reactions: ReactionsSchemaTypes,
+                    comments: [
+                        {
+                            userID: String,
+                            message: String,
+                            reactions: ReactionsSchemaTypes,
+                            attachment: {
+                                path: {
+                                    type: String,
+                                },
+                                genericFileType: {
+                                    type: String,
+                                    enum: ['image', 'video'],
+                                },
+                            },
+                            createdAt: {
+                                type: Date,
+                                default: Date.now,
+                            },
+                            replies: [
+                                {
+                                    userID: String,
+                                    message: String,
+                                    reactions: ReactionsSchemaTypes,
+                                    attachment: {
+                                        path: {
+                                            type: String,
+                                        },
+                                        genericFileType: {
+                                            type: String,
+                                            enum: ['image', 'video'],
+                                        },
+                                    },
+                                    createdAt: {
+                                        type: Date,
+                                        default: Date.now,
+                                    },
+                                },
+                            ],
+                        },
+                    ],
                 },
-                photos: [
-                    {
-                        fileName: {
-                            type: String,
-                        },
-                        genericFileType: {
-                            type: String,
-                            enum: ['image', 'video'],
-                        },
-                    },
-                ],
-                videos: [
-                    {
-                        fileName: {
-                            type: String,
-                        },
-                        genericFileType: {
-                            type: String,
-                            enum: ['image', 'video'],
-                        },
-                    },
-                ],
-                reactions: {
-                    like: {
-                        type: Number,
-                    },
-                    love: {
-                        type: Number,
-                    },
-                    care: {
-                        type: Number,
-                    },
-                    haha: {
-                        type: Number,
-                    },
-                    wow: {
-                        type: Number,
-                    },
-                    sad: {
-                        type: Number,
-                    },
-                    angry: {
-                        type: Number,
-                    },
-                },
-                comments: [
-                    {
-                        userID: String,
-                        content: String,
-                        reactions: [String],
-                        replies: [String],
-                    },
-                ],
-            },
-            { timestamps: true },
+                { timestamps: true }
+            ),
         ],
     },
-    { timestamps: true }
+    {
+        timestamps: true,
+        // toObject: { guetters: true, virtuals: true },
+    }
 );
 
 UserSchema.post('save', function (err: any, next: NextFunction) {
@@ -191,6 +236,6 @@ UserSchema.pre<IUser>('save', function (next: any) {
     });
 });
 
-const UserModel = mongoose.model<User>('user', UserSchema);
+const UserModel = mongoose.model<IUser>('user', UserSchema);
 
 export default UserModel;

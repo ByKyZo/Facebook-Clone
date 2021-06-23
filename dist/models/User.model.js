@@ -5,7 +5,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const CommentsSchema = new mongoose_1.default.Schema({});
+const ReactionsSchemaTypes = {
+    like: {
+        type: Number,
+        default: 0,
+    },
+    love: {
+        type: Number,
+        default: 0,
+    },
+    care: {
+        type: Number,
+        default: 0,
+    },
+    haha: {
+        type: Number,
+        default: 0,
+    },
+    wow: {
+        type: Number,
+        default: 0,
+    },
+    sad: {
+        type: Number,
+        default: 0,
+    },
+    angry: {
+        type: Number,
+        default: 0,
+    },
+};
 const UserSchema = new mongoose_1.default.Schema({
     firstName: {
         type: String,
@@ -50,7 +79,7 @@ const UserSchema = new mongoose_1.default.Schema({
         required: [true, 'Gender is required'],
     },
     posts: [
-        {
+        new mongoose_1.default.Schema({
             message: {
                 type: String,
             },
@@ -76,41 +105,53 @@ const UserSchema = new mongoose_1.default.Schema({
                     },
                 },
             ],
-            reactions: {
-                like: {
-                    type: Number,
-                },
-                love: {
-                    type: Number,
-                },
-                care: {
-                    type: Number,
-                },
-                haha: {
-                    type: Number,
-                },
-                wow: {
-                    type: Number,
-                },
-                sad: {
-                    type: Number,
-                },
-                angry: {
-                    type: Number,
-                },
-            },
+            reactions: ReactionsSchemaTypes,
             comments: [
                 {
                     userID: String,
-                    content: String,
-                    reactions: [String],
-                    replies: [String],
+                    message: String,
+                    reactions: ReactionsSchemaTypes,
+                    attachment: {
+                        path: {
+                            type: String,
+                        },
+                        genericFileType: {
+                            type: String,
+                            enum: ['image', 'video'],
+                        },
+                    },
+                    createdAt: {
+                        type: Date,
+                        default: Date.now,
+                    },
+                    replies: [
+                        {
+                            userID: String,
+                            message: String,
+                            reactions: ReactionsSchemaTypes,
+                            attachment: {
+                                path: {
+                                    type: String,
+                                },
+                                genericFileType: {
+                                    type: String,
+                                    enum: ['image', 'video'],
+                                },
+                            },
+                            createdAt: {
+                                type: Date,
+                                default: Date.now,
+                            },
+                        },
+                    ],
                 },
             ],
-        },
-        { timestamps: true },
+        }, { timestamps: true }),
     ],
-}, { timestamps: true });
+}, {
+    timestamps: true,
+    // toObject: { guetters: true, virtuals: true },
+});
 UserSchema.post('save', function (err, next) {
     if (err.name === 'MongoError' && err.code === 11000) {
         new Error('Field already exists');
