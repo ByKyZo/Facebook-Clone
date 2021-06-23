@@ -1,5 +1,6 @@
 :root {
     --color-blue-05: #ecf3ff;
+    --color-blue-10: #e2ecfd;
     --color-blue-30: #aac9ff;
     --color-blue-40: #77a7ff;
     --color-blue-60: #1877f2; // Primary
@@ -22,6 +23,7 @@
 
 html[data-darkmode='on'] {
     --color-blue-05: #ecf3ff;
+    --color-blue-10: #2e4058;
     --color-blue-30: #aac9ff;
     --color-blue-40: #77a7ff;
     --color-blue-60: #1877f2; // Primary

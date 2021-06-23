@@ -1,60 +1,38 @@
 import React from 'react';
-import { VscClose } from 'react-icons/vsc';
-import { CgProfile } from 'react-icons/cg';
+import { BiArrowBack } from 'react-icons/bi';
 import DropdownSearch from '../../utils/DropdownSearch';
 import { IDropDownSearch } from '../../utils/DropdownSearch';
-
-const NavSearch = ({ ...rest }: IDropDownSearch) => {
+import NavSearchProfiles from '../NavSearch/NavSearchProfiles';
+// setCursor, cursor, setIsOpen, items,
+const NavSearch = ({
+    cursor,
+    items,
+    isKeyPressed,
+    setIsKeyPressed,
+    setCursor,
+    ...rest
+}: IDropDownSearch | any) => {
     return (
-        <DropdownSearch {...rest} className="dropdown__search">
-            <div style={{ height: '56px' }}></div>
-            <div className="dropdown__search__title" style={{ height: '50px' }}>
-                <h1>Recherches récentes</h1>
-            </div>
-            <div className="dropdown__search__user__content">
-                <div className="dropdown__search__user__content__profile">
-                    <span>
-                        <CgProfile />
-                    </span>
-                    <div>Jeff</div>
-                </div>
-                <span className="dropdown__search__user__content__delete">
-                    <VscClose />
-                </span>
-            </div>
-            <div className="dropdown__search__user__content">
-                <div className="dropdown__search__user__content__profile">
-                    <span>
-                        <CgProfile />
-                    </span>
-                    <div>Ky</div>
-                </div>
-                <span className="dropdown__search__user__content__delete">
-                    <VscClose />
-                </span>
-            </div>
-            <div className="dropdown__search__user__content">
-                <div className="dropdown__search__user__content__profile">
-                    <span>
-                        <CgProfile />
-                    </span>
-                    <div>Antoine</div>
-                </div>
-                <span className="dropdown__search__user__content__delete">
-                    <VscClose />
-                </span>
-            </div>
-            <div className="dropdown__search__user__content">
-                <div className="dropdown__search__user__content__profile">
-                    <span>
-                        <CgProfile />
-                    </span>
-                    <div>Jeremy</div>
-                </div>
-                <span className="dropdown__search__user__content__delete">
-                    <VscClose />
-                </span>
-            </div>
+        <DropdownSearch
+            {...rest}
+            cursor={cursor}
+            setCursor={setCursor}
+            isKeyPressed={isKeyPressed}
+            setIsKeyPressed={setIsKeyPressed}
+            className="dropdown__search">
+            <button className="dropdown__search__close">
+                <BiArrowBack />
+            </button>
+            <h1 className="dropdown__search__title">Recherches récentes</h1>
+            {items.map((item: any, i: any) => {
+                return (
+                    <NavSearchProfiles
+                        key={item.id}
+                        className={isKeyPressed === true && cursor - 1 === i ? 'test' : null}
+                        name={item.name}
+                    />
+                );
+            })}
         </DropdownSearch>
     );
 };

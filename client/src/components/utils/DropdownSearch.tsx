@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Transition } from 'react-transition-group';
-// import { useMediaQuery } from 'react-responsive';
 
 export interface IDropDownSearch {
     className?: string;
@@ -8,6 +7,10 @@ export interface IDropDownSearch {
     setIsOpen: (arg: boolean) => void;
     top: string;
     left: string;
+    cursor: number;
+    setCursor: any;
+    isKeyPressed: any;
+    setIsKeyPressed: any;
     right?: string;
     bottom?: string;
     children?: JSX.Element | JSX.Element[];
@@ -24,6 +27,10 @@ const DropdownSearch = ({
     setIsOpen,
     top,
     left,
+    cursor,
+    setCursor,
+    isKeyPressed,
+    setIsKeyPressed,
     right,
     bottom,
     children,
@@ -34,8 +41,8 @@ const DropdownSearch = ({
     leftResponsive,
 }: IDropDownSearch) => {
     const dropdownContentRef = useRef<HTMLDivElement>(null);
-    const duration = 200;
-    // const isBreakPoint = useMediaQuery({ query: `(max-width: ${maxWidthResponsive}px)` });
+    const duration = 150;
+
     const defaultStyle = {
         transition: `${duration}ms ease`,
         position: 'absolute',
@@ -65,21 +72,12 @@ const DropdownSearch = ({
         },
     };
 
-    // const handleStyleResponsive = () => {
-    //     return isBreakPoint
-    //         ? {
-    //               top: topResponsive,
-    //               right: rightResponsive,
-    //               bottom: bottomResponsive,
-    //               left: leftResponsive,
-    //           }
-    //         : { top, right, bottom, left };
-    // };
-
     useEffect(() => {
         const handleClickOutside = (e: any) => {
             if (dropdownContentRef.current && !dropdownContentRef.current.contains(e.target))
                 setIsOpen(false);
+            setCursor(0);
+            setIsKeyPressed(false);
         };
         document.addEventListener('mousedown', handleClickOutside, true);
         return () => {
