@@ -39,10 +39,17 @@
         padding: 0 10px;
         border: 2px solid transparent;
         box-sizing: border-box;
-        
-        &__delete svg {   
+
+        > button { 
+            @include border-radius(rounded);
+            @include button(icon);
+
+        }
+        &__delete svg {  
             font-size: 18px ;
             color: var(--color-grey--00);
+
+            
         }
         &__profile {
             @include display-direction-justify-align(flex, row, unset, center);

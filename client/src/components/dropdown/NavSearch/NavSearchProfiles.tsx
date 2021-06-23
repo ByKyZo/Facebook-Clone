@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { VscClose } from 'react-icons/vsc';
 
@@ -9,17 +9,23 @@ interface IProps {
 }
 
 const NavSearchProfiles = ({ className, name, ...rest }: IProps) => {
+    const nameValue = useRef<any>(null);
+
+    console.log(nameValue.current);
     return (
-        <div role="button" className={`dropdown__search__user__content ${className}`}>
+        <div
+            ref={nameValue}
+            role="button"
+            className={`dropdown__search__user__content ${className}`}>
             <div className="dropdown__search__user__content__profile">
                 <span>
                     <CgProfile />
                 </span>
                 <div>{name}</div>
             </div>
-            <span className="dropdown__search__user__content__delete">
+            <button className="dropdown__search__user__content__delete">
                 <VscClose />
-            </span>
+            </button>
         </div>
     );
 };

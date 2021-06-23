@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiFillHome, AiOutlineSearch } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
 import { IoMdNotifications, IoIosArrowDown } from 'react-icons/io';
@@ -15,14 +15,14 @@ const dropdownRight = '7px';
 
 const Navbar = () => {
     const userID = useAppSelector((state) => state.user._id);
-    const [isOpenSearch, setIsOpenSearch] = useState(false);
-    const [isOpenNotif, setIsOpenNotif] = useState(false);
-    const [isOpenProfileMenu, setIsOpenProfileMenu] = useState(false);
-    const [valueInputSearch, setValueInputSearch] = useState('');
+    const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
+    const [isOpenNotif, setIsOpenNotif] = useState<boolean>(false);
+    const [isOpenProfileMenu, setIsOpenProfileMenu] = useState<boolean>(false);
+    const [valueInputSearch, setValueInputSearch] = useState<any>('');
     const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
 
-    const [cursor, setCursor] = useState(0);
-
+    const [cursor, setCursor] = useState<number>(0);
+    const [isKeyPressed, setIsKeyPressed] = useState<boolean>(false);
     const items = [
         { id: 1, name: 'Jeff' },
         { id: 2, name: 'Julie' },
@@ -31,13 +31,20 @@ const Navbar = () => {
     ];
 
     const handleKeyDown = (e: any) => {
-        console.log(cursor);
-        if (e.code === 'ArrowUp' && cursor > 0) {
-            setCursor((prevCursor) => prevCursor - 1);
-        } else if (e.code === 'ArrowDown' && cursor < items.length - 1) {
+        setIsKeyPressed(true);
+
+        // == UP
+        e.code === 'ArrowUp' && cursor > 0 && setCursor((prevCursor) => prevCursor - 1);
+        e.code === 'ArrowUp' && cursor <= 1 && setCursor(items.length);
+
+        // == DOWN
+        e.code === 'ArrowDown' &&
+            cursor <= items.length - 1 &&
             setCursor((prevCursor) => prevCursor + 1);
-        }
-        !isOpenSearch && setCursor(0);
+        e.code === 'ArrowDown' && cursor > 3 && setCursor(1);
+
+        // == Escape
+        e.code === 'Escape' && setIsOpenSearch(false);
     };
 
     const isClassNameActive = (className: string, state: any) => {
@@ -79,6 +86,8 @@ const Navbar = () => {
                     </label>
                 </div>
                 <NavSearch
+                    isKeyPressed={isKeyPressed}
+                    setIsKeyPressed={setIsKeyPressed}
                     items={items}
                     cursor={cursor}
                     setCursor={setCursor}

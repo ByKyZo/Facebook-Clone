@@ -9,6 +9,8 @@ export interface IDropDownSearch {
     left: string;
     cursor: number;
     setCursor: any;
+    isKeyPressed: any;
+    setIsKeyPressed: any;
     right?: string;
     bottom?: string;
     children?: JSX.Element | JSX.Element[];
@@ -27,6 +29,8 @@ const DropdownSearch = ({
     left,
     cursor,
     setCursor,
+    isKeyPressed,
+    setIsKeyPressed,
     right,
     bottom,
     children,
@@ -72,7 +76,8 @@ const DropdownSearch = ({
         const handleClickOutside = (e: any) => {
             if (dropdownContentRef.current && !dropdownContentRef.current.contains(e.target))
                 setIsOpen(false);
-            // setCursor(0);
+            setCursor(0);
+            setIsKeyPressed(false);
         };
         document.addEventListener('mousedown', handleClickOutside, true);
         return () => {
@@ -87,7 +92,6 @@ const DropdownSearch = ({
         <Transition unmountOnExit in={isOpen} timeout={duration}>
             {(state) => (
                 <div
-                    // onKeyDown={handleKeyDown}
                     ref={dropdownContentRef}
                     className={className}
                     style={{

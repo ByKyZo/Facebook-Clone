@@ -3,13 +3,22 @@ import { BiArrowBack } from 'react-icons/bi';
 import DropdownSearch from '../../utils/DropdownSearch';
 import { IDropDownSearch } from '../../utils/DropdownSearch';
 import NavSearchProfiles from '../NavSearch/NavSearchProfiles';
-
-const NavSearch = ({ setCursor, cursor, setIsOpen, items, ...rest }: IDropDownSearch | any) => {
+// setCursor, cursor, setIsOpen, items,
+const NavSearch = ({
+    cursor,
+    items,
+    isKeyPressed,
+    setIsKeyPressed,
+    setCursor,
+    ...rest
+}: IDropDownSearch | any) => {
     return (
         <DropdownSearch
             {...rest}
             cursor={cursor}
             setCursor={setCursor}
+            isKeyPressed={isKeyPressed}
+            setIsKeyPressed={setIsKeyPressed}
             className="dropdown__search">
             <button className="dropdown__search__close">
                 <BiArrowBack />
@@ -19,7 +28,7 @@ const NavSearch = ({ setCursor, cursor, setIsOpen, items, ...rest }: IDropDownSe
                 return (
                     <NavSearchProfiles
                         key={item.id}
-                        className={cursor === i ? 'test' : null}
+                        className={isKeyPressed === true && cursor - 1 === i ? 'test' : null}
                         name={item.name}
                     />
                 );
