@@ -3,7 +3,12 @@ import { useMediaQuery } from 'react-responsive';
 import { Transition } from 'react-transition-group';
 import { isEmpty } from '../../utils/utils';
 import FocusTrap from 'focus-trap-react';
-
+// @mixin placeholder-responsive{
+//     position: fixed !important;
+//     left : 50%;
+//     transform: translateX(-50%);
+//     width: 95%;
+// }
 export interface IDropdownProps {
     isOpen: boolean;
     setIsOpen: (arg: boolean) => void;
@@ -52,6 +57,7 @@ const Dropdown = ({
         position: 'absolute',
         transformOrigin: 'top',
         transform: 'scale(0.95)',
+        zIndex: '9999',
     };
 
     const transitionStyles = {

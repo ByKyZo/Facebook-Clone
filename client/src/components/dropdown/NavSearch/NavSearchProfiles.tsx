@@ -11,7 +11,6 @@ interface IProps {
 const NavSearchProfiles = ({ className, name, ...rest }: IProps) => {
     const nameValue = useRef<any>(null);
 
-    console.log(nameValue.current);
     return (
         <div
             ref={nameValue}

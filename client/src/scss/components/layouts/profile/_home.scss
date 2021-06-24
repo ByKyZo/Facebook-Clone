@@ -1,0 +1,29 @@
+.profile-home {
+    display: flex;
+    min-height: 600px;
+    padding: 16px;
+
+    @media (max-width: 900px) {
+        flex-direction: column;
+    }
+
+    &--aside {
+        flex-basis: 41%;
+        background: #1d3c78;
+        margin-right: 8px;
+
+        @media (max-width: 900px) {
+            margin-right: 0;
+        }
+    }
+
+    &--content {
+        margin-left: 8px;
+        flex-basis: 59%;
+        //background: rosybrown;
+
+        @media (max-width: 900px) {
+            margin-left: 0;
+        }
+    }
+}

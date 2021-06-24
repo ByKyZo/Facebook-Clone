@@ -2,7 +2,7 @@ import React from 'react';
 import PageTemplate from '../components/templates/PageTemplate';
 import Head from '../components/layouts/Profile/global/Head';
 import ProfileNav from '../components/layouts/Profile/global/ProfileNav';
-import Home from '../components/layouts/Profile/Home';
+import Home from '../components/layouts/Profile/Home-Posts/Home';
 import About from '../components/layouts/Profile/About';
 import Friends from '../components/layouts/Profile/Friends';
 import Photos from '../components/layouts/Profile/Photos';
@@ -49,9 +49,7 @@ const Profile = ({ currentNav }: IProps) => {
         <PageTemplate pageTitle={`${user.firstName} ${user.lastName}`}>
             <Head />
             <ProfileNav />
-            <div style={{ color: 'red', fontSize: '3rem', textAlign: 'center' }}>
-                {currentNavRender()}
-            </div>
+            <div className="profile__wrapper">{currentNavRender()}</div>
         </PageTemplate>
     );
 };
