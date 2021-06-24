@@ -108,10 +108,14 @@ const Dropdown = ({
     const handleStyleResponsive = () => {
         return isResponsive && isBreakPoint
             ? {
-                  top: topResponsive,
-                  right: rightResponsive,
-                  bottom: bottomResponsive,
-                  left: leftResponsive,
+                    top: top,
+                  //   right: rightResponsive,
+                  //   bottom: bottomResponsive,
+                  //   left: leftResponsive,
+                  position: 'fixed',
+                  left: '50%',
+                  transform: 'scale(1) translateX(-50%)',
+                  width: '95%',
               }
             : { top, right, bottom, left };
     };

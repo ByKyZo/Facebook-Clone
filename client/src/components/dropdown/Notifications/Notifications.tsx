@@ -10,183 +10,187 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                 <h1 className="dropdown__notif__title" style={{ height: '50px' }}>
                     Notifications
                 </h1>
-                {/* NOUVEAU */}
                 <div className="dropdown__notif__content">
-                    <h2 className="dropdown__notif__content__type">Nouveau</h2>
+                    {/* NOUVEAU */}
+                    <div className="dropdown__notif__content__item">
+                        <h2 className="dropdown__notif__content__type">Nouveau</h2>
 
-                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
-                        </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                vous invite à la fête de la musique de &nbsp;
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
-                        </div>
-                        <span className="test2"></span>
-                    </div>
-                </div>
-                {/* PLUS TOT */}
-                <div className="dropdown__notif__content">
-                    <h2 style={{ marginTop: '10px' }} className="dropdown__notif__content__type">
-                        Plus tôt
-                    </h2>
-
-                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
-                        </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                vous invite à la fête de la musique de &nbsp;
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
-                        </div>
-                        <span className="test2"></span>
-                    </div>
-
-                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
-                        </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                vous invite à la fête de la musique de &nbsp;
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
-                        </div>
-                        <span className="test2"></span>
-                    </div>
-                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
-                        </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                vous invite à la fête de la musique de &nbsp;
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
-                        </div>
-                        <span className="test2"></span>
-                    </div>
-
-                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
-                        </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                vous invite à la fête de la musique de &nbsp;
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
-                        </div>
-                        <span className="test2"></span>
-                    </div>
-
-                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
-                        </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                <span className="test">
-                                    vous invite à la fête de la
-                                    musiqueggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-                                    de &nbsp;
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <CgProfile />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    vous invite à la fête de la musique de &nbsp;
+                                    <span>Bohème Bar</span>
                                 </span>
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="test2"></span>
                         </div>
-                        <span className="dropdown__notif__content__info__bubble"></span>
                     </div>
-                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
+                    {/* PLUS TOT */}
+                    <div className="dropdown__notif__content__item">
+                        <h2
+                            style={{ marginTop: '10px' }}
+                            className="dropdown__notif__content__type">
+                            Plus tôt
+                        </h2>
+
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <CgProfile />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    vous invite à la fête de la musique de &nbsp;
+                                    <span>Bohème Bar</span>
+                                </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="test2"></span>
                         </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                vous invite à la fête de la musique de &nbsp;
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
+
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <CgProfile />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    vous invite à la fête de la musique de &nbsp;
+                                    <span>Bohème Bar</span>
+                                </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="test2"></span>
                         </div>
-                        <span className="test2"></span>
-                    </div>
-                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <CgProfile />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    vous invite à la fête de la musique de &nbsp;
+                                    <span>Bohème Bar</span>
+                                </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="test2"></span>
                         </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                vous invite à la fête de la musique de &nbsp;
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
+
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <CgProfile />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    vous invite à la fête de la musique de &nbsp;
+                                    <span>Bohème Bar</span>
+                                </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="test2"></span>
                         </div>
-                        <span className="test2"></span>
-                    </div>
-                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
+
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <CgProfile />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    <span className="test">
+                                        vous invite à la fête de la
+                                        musiqueggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                                        de &nbsp;
+                                    </span>
+                                    <span>Bohème Bar</span>
+                                </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="dropdown__notif__content__info__bubble"></span>
                         </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                vous invite à la fête de la musique de &nbsp;
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <CgProfile />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    vous invite à la fête de la musique de &nbsp;
+                                    <span>Bohème Bar</span>
+                                </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="test2"></span>
                         </div>
-                        <span className="test2"></span>
-                    </div>
-                    <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                        <div className="dropdown__notif__content__info__profil">
-                            <CgProfile />
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <CgProfile />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    vous invite à la fête de la musique de &nbsp;
+                                    <span>Bohème Bar</span>
+                                </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="test2"></span>
                         </div>
-                        <div className="dropdown__notif__content__info__desc">
-                            <span className="dropdown__notif__content__info__desc__content">
-                                <span>Jeff &nbsp;</span>
-                                vous invite à la fête de la musique de &nbsp;
-                                <span>Bohème Bar</span>
-                            </span>
-                            <span className="dropdown__notif__content__info__desc__time">
-                                Il y a 3 minutes
-                            </span>
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <CgProfile />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    vous invite à la fête de la musique de &nbsp;
+                                    <span>Bohème Bar</span>
+                                </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="test2"></span>
                         </div>
-                        <span className="test2"></span>
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <CgProfile />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    vous invite à la fête de la musique de &nbsp;
+                                    <span>Bohème Bar</span>
+                                </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="test2"></span>
+                        </div>
                     </div>
                 </div>
             </div>

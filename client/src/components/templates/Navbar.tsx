@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { AiFillHome, AiOutlineSearch } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
 import { IoMdNotifications, IoIosArrowDown } from 'react-icons/io';
@@ -11,47 +11,23 @@ import { useMediaQuery } from 'react-responsive';
 import LogoFb from '../../assets/logo-fb.svg';
 
 const dropdownTop = '52px';
-const dropdownRight = '7px';
+const dropdownRight = '12px';
 
 const Navbar = () => {
     const userID = useAppSelector((state) => state.user._id);
-    const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
-    const [isOpenNotif, setIsOpenNotif] = useState<boolean>(false);
-    const [isOpenProfileMenu, setIsOpenProfileMenu] = useState<boolean>(false);
-    const [valueInputSearch, setValueInputSearch] = useState<any>('');
-    const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
+    const isMobile = useMediaQuery({ query: '(max-width: 660px)' });
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    const [cursor, setCursor] = useState<number>(0);
-    const [isKeyPressed, setIsKeyPressed] = useState<boolean>(false);
-    const items = [
-        { id: 1, name: 'Jeff' },
-        { id: 2, name: 'Julie' },
-        { id: 3, name: 'Ky' },
-        { id: 4, name: 'Sophie' },
-    ];
-
-    const handleKeyDown = (e: any) => {
-        setIsKeyPressed(true);
-
-        // == UP
-        e.code === 'ArrowUp' && cursor > 0 && setCursor((prevCursor) => prevCursor - 1);
-        e.code === 'ArrowUp' && cursor <= 1 && setCursor(items.length);
-
-        // == DOWN
-        e.code === 'ArrowDown' &&
-            cursor <= items.length - 1 &&
-            setCursor((prevCursor) => prevCursor + 1);
-        e.code === 'ArrowDown' && cursor > 3 && setCursor(1);
-
-        // == Escape
-        e.code === 'Escape' && setIsOpenSearch(false);
-    };
+    const [isOpenSearch, setIsOpenSearch] = useState(false);
+    const [isOpenNotif, setIsOpenNotif] = useState(false);
+    const [isOpenProfileMenu, setIsOpenProfileMenu] = useState(false);
+    const [valueInputSearch, setValueInputSearch] = useState('');
 
     const isClassNameActive = (className: string, state: any) => {
         return state ? `${className} ${className}--active` : className;
     };
 
-    const handleChangeValueInputSearch = (e: any) => {
+    const handleChangeValueInputSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValueInputSearch(e.target.value);
         setIsOpenSearch(true);
     };
@@ -72,7 +48,7 @@ const Navbar = () => {
                         )}>
                         {!isOpenSearch && <AiOutlineSearch />}
                         <input
-                            onKeyDown={handleKeyDown}
+                            ref={inputRef}
                             className={isClassNameActive(
                                 'navbar__search__content__input',
                                 isOpenSearch
@@ -86,13 +62,11 @@ const Navbar = () => {
                     </label>
                 </div>
                 <NavSearch
-                    isKeyPressed={isKeyPressed}
-                    setIsKeyPressed={setIsKeyPressed}
-                    items={items}
-                    cursor={cursor}
-                    setCursor={setCursor}
+                    inputRef={inputRef}
                     isOpen={isOpenSearch}
                     setIsOpen={setIsOpenSearch}
+                    setValueInputSearch={setValueInputSearch}
+                    valueInputSearch={valueInputSearch}
                     top="0"
                     left="0"
                 />
@@ -116,7 +90,7 @@ const Navbar = () => {
                         to={`/profile/${userID}`}
                         className="navbar__settings__content__profile">
                         <CgProfile />
-                        {!isMobile && <span>Jeff</span>}
+                        <span>Jeff</span>
                     </CustomNavLink>
                     <button
                         className={isClassNameActive(
@@ -147,6 +121,9 @@ const Navbar = () => {
                 setIsOpen={setIsOpenProfileMenu}
                 top={dropdownTop}
                 right={dropdownRight}
+                isResponsive
+                maxWidthResponsive={640}
+                // maxWidthResponsive=''
             />
 
             <Notifications
@@ -154,6 +131,8 @@ const Navbar = () => {
                 setIsOpen={setIsOpenNotif}
                 top={dropdownTop}
                 right={dropdownRight}
+                isResponsive
+                maxWidthResponsive={640}
             />
         </div>
     );
