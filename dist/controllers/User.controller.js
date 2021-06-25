@@ -45,6 +45,7 @@ class UserController {
             const { userID, message } = req.body;
             const attachments = req.files;
             if (!mongoose_1.isValidObjectId(userID)) {
+                console.log(userID);
                 console.log('addPost() -> Invalid Object id');
                 res.sendStatus(400);
                 return;
@@ -59,26 +60,25 @@ class UserController {
                 for (let i = 0; i < attachments.length; i++) {
                     filesNameUploaded.push(yield fileHandler_1.default.uploadPictureAndVideos(userID, 
                     // @ts-ignore
-                    attachments[i]));
+                    attachments[i], 'posts'));
                 }
                 const photos = filesNameUploaded.filter((file) => file.genericFileType !== 'video');
                 const videos = filesNameUploaded.filter((file) => file.genericFileType !== 'image');
-                const posts = (yield user_model_1.default.findByIdAndUpdate(userID, {
+                let user = (yield user_model_1.default.findByIdAndUpdate(userID, {
                     $push: {
                         posts: {
-                            message: message,
+                            message,
                             photos,
                             videos,
                         },
                     },
-                }, { new: true }).select('posts -_id'));
-                if (!posts) {
+                }, { new: true }).select('posts'));
+                if (!user) {
                     console.log('addPost() -> User not find');
                     res.sendStatus(404);
                     return;
                 }
-                console.log(posts);
-                // res.status(200).send(posts[0]);
+                res.status(200).send(utils_1.getLastArrayElement(user.posts));
             }
             catch (err) {
                 console.log(err.message);

@@ -1,45 +1,30 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import { IUser } from '../../typescript/types';
 
-// TODO Rajouter dans le types IUser : friends / photos / posts / story / notifications / messenger + en Backend
-export interface IUser {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    birthday: {
-        day: string;
-        month: string;
-        year: string;
-        format: string;
-    };
-    gender: string;
-    createdAt?: Date;
-    updateAt?: Date;
-    isAuth: boolean;
-    isLoading: boolean;
-}
+// TODO Rajouter dans le types IUser : friends / images / posts / story / notifications / messenger + en Backend
 
-let initialState: IUser = {
-    _id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    birthday: {
-        day: '',
-        month: '',
-        year: '',
-        format: '',
-    },
-    gender: '',
-    createdAt: undefined,
-    updateAt: undefined,
-    isAuth: false,
-    isLoading: false,
-};
+// let initialState: IUser = {
+//     _id: '',
+//     firstName: '',
+//     lastName: '',
+//     email: '',
+//     password: '',
+//     birthday: {
+//         day: '',
+//         month: '',
+//         year: '',
+//         format: '',
+//     },
+//     gender: '',
+//     createdAt: '' as unknown as Date,
+//     updateAt: '' as unknown as Date,
+//     isAuth: false,
+//     isLoading: false,
+// };
+
+const initialState = {} as IUser;
 
 const userSlice = createSlice({
     name: 'user',

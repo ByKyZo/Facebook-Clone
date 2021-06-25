@@ -66,7 +66,8 @@ class AuthController {
                             return res.sendStatus(403);
                         }
                         console.log('good password');
-                        const token = jwtHandler_1.default.createToken({ user: userFindByEmail });
+                        // Create jwt token with userIDd
+                        const token = jwtHandler_1.default.createToken({ userID: userFindByEmail._id });
                         res.status(200).send({ token, user: userFindByEmail });
                     });
                 });
@@ -78,23 +79,25 @@ class AuthController {
         });
     }
     static rememberMe(req, res) {
-        if (!req.headers.authorization)
-            return res.sendStatus(401);
-        const token = req.headers.authorization.replace('Bearer', '').trim();
-        try {
-            const tokenDecoded = jwtHandler_1.default.verifyTokenAndDecode(token);
-            if (!tokenDecoded) {
-                console.log('remember me token invalid');
-                res.sendStatus(400);
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!req.headers.authorization)
+                return res.sendStatus(401);
+            const token = req.headers.authorization.replace('Bearer', '').trim();
+            try {
+                const tokenDecoded = jwtHandler_1.default.verifyTokenAndDecode(token);
+                if (!tokenDecoded) {
+                    console.log('remember me token invalid');
+                    res.sendStatus(400);
+                }
+                const userFindByToken = yield user_model_1.default.findById(tokenDecoded.userID);
+                const newToken = jwtHandler_1.default.createToken({ userID: tokenDecoded.userID });
+                res.status(200).send({ token: newToken, user: userFindByToken });
             }
-            const newToken = jwtHandler_1.default.createToken({ user: tokenDecoded.user });
-            console.log('remember me is good');
-            res.status(200).send({ token: newToken, user: tokenDecoded.user });
-        }
-        catch (err) {
-            console.log(err.message);
-            res.sendStatus(500);
-        }
+            catch (err) {
+                console.log(err.message);
+                res.sendStatus(500);
+            }
+        });
     }
 }
 exports.default = AuthController;

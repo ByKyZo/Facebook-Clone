@@ -105,6 +105,18 @@
     }
 }
 
+//@mixin padding($size) {
+//    @if ($size == tiny) {
+//        padding: 5px;
+//    } @else if ($size == small) {
+//        padding: 10px;
+//    } @else if ($size == medium) {
+//        padding: 15px;
+//    } @else if ($size == big) {
+//        padding: 20px;
+//    }
+//}
+
 @mixin display-direction-justify-align(
     $display: flex,
     $direction: row,
@@ -142,8 +154,7 @@
     }
 }
 
-@mixin svg($font-size, $color){
+@mixin svg($font-size, $color) {
     font-size: $font-size;
     color: $color;
 }
-

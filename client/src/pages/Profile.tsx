@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PageTemplate from '../components/templates/PageTemplate';
 import Head from '../components/layouts/Profile/global/Head';
 import ProfileNav from '../components/layouts/Profile/global/ProfileNav';

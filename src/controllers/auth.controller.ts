@@ -62,8 +62,8 @@ export default class AuthController {
                     }
 
                     console.log('good password');
-
-                    const token = jwtHandler.createToken({ user: userFindByEmail });
+                    // Create jwt token with userIDd
+                    const token = jwtHandler.createToken({ userID: userFindByEmail._id });
 
                     res.status(200).send({ token, user: userFindByEmail });
                 });
@@ -74,7 +74,7 @@ export default class AuthController {
         }
     }
 
-    public static rememberMe(req: Request, res: Response) {
+    public static async rememberMe(req: Request, res: Response) {
         if (!req.headers.authorization) return res.sendStatus(401);
 
         const token = req.headers.authorization.replace('Bearer', '').trim();
@@ -87,11 +87,11 @@ export default class AuthController {
                 res.sendStatus(400);
             }
 
-            const newToken = jwtHandler.createToken({ user: tokenDecoded.user });
+            const userFindByToken = await UserModel.findById(tokenDecoded.userID);
 
-            console.log('remember me is good');
+            const newToken = jwtHandler.createToken({ userID: tokenDecoded.userID });
 
-            res.status(200).send({ token: newToken, user: tokenDecoded.user });
+            res.status(200).send({ token: newToken, user: userFindByToken });
         } catch (err) {
             console.log(err.message);
             res.sendStatus(500);

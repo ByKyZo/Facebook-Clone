@@ -1,50 +1,60 @@
 import React, { useEffect, useRef, useState } from 'react';
 import socket from '../config/socket';
 import { useAppSelector } from '../redux/redux.hook';
-import axios from '../config/axios';
+import { useSocketFileUpload } from '../hooks/hooks';
+
+// const SOCKET_EVENT = 'react post';
+const SOCKET_EVENT = 'comment post';
+// const SOCKET_EVENT = 'react comment;
+// const SOCKET_EVENT = 'reply comment';
+// const SOCKET_EVENT = 'react reply';
+// const SOCKET_EVENT = 'comment post';
 
 const SocketPageTester = () => {
-    const inputFileRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [files, setFile] = useState<any[]>([]);
     const user = useAppSelector((state) => state.user);
-    const [files, setFiles] = useState<any[]>([]);
+    const { uploader, fileProgress } = useSocketFileUpload(socket, SOCKET_EVENT, (fileInfo) => {
+        return {
+            userID: user._id,
+            postID: '60cfb12fc1abe43fc8380708',
+            message: 'Message de test',
+            attachment: fileInfo,
+        };
+    });
 
     const handleSocketEmitter = () => {
-        // TODO ENVOYER LES SLICE FILE UN PAR PAR UN ET UPLOAD ENSUITE
-        // TODO Faire une 'boucle de socket' avec event : Start / Done / ?Upload?
-        // TODO Penser a decommenter le emit
-        const formData = new FormData();
-        formData.append('userID', user._id);
-        formData.append('message', 'Ceci est un message de post');
-        files.forEach((file) => {
-            formData.append('attachments', file);
+        uploader.upload(files, {
+            uploadTo: 'comment',
+            data: {
+                userID: user._id,
+                nbFilesSended: files.length,
+            },
         });
-        axios
-            .post('/user/post', formData)
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     };
+
+    useEffect(() => {
+        socket.on(SOCKET_EVENT, (data) => {
+            console.log(data);
+        });
+        socket.on('online', (userID) => {
+            console.log(`online : ${userID}`);
+        });
+        socket.on('offline', (userID) => {
+            console.log(`offline : ${userID}`);
+        });
+    }, []);
 
     return (
         <>
-            <div>
-                <input
-                    ref={inputFileRef}
-                    type="file"
-                    onChange={(e) => setFiles([...files, e.target.files![0]])}
-                />
-            </div>
-            {files.map((file, index) => {
-                return (
-                    <div key={index} style={{ marginBottom: '20px' }}>
-                        <div>{file.name}</div>
-                        <div>{file.type}</div>
-                    </div>
-                );
-            })}
+            <span>{fileProgress + '%'}</span>
+            {/*<input ref={inputRef} type="file" onChange={(e) => setFile(e.target.files)} />*/}
+            <input
+                ref={inputRef}
+                type="file"
+                // @ts-ignore
+                onChange={(e) => setFile((oldState) => [...oldState, ...e.target.files!])}
+            />
             <button
                 onClick={() => handleSocketEmitter()}
                 style={{ padding: '30px', margin: '50px', cursor: 'pointer' }}>

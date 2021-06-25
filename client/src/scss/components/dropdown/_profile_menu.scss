@@ -1,35 +1,14 @@
 .dropdown-profile-menu {
     @extend %dropdown-preset;
-    &__wrapper {
-        display: flex;
-        box-sizing: border-box;
-        transition: 0.3s;
-    }
 
     &__home {
         padding: 10px;
         box-sizing: border-box;
-        flex-shrink: 0;
-        width: 100%;
-        transition: right 0.3s;
-        position: fixed;
-        right: 0;
-
-        &--not-active {
-            right: 100%;
-            visibility: hidden;
-            pointer-events: none;
-        }
     }
 
     &__part {
         padding: 10px;
         box-sizing: border-box;
-        flex-shrink: 0;
-        width: 100%;
-        transition: left 0.3s;
-        position: fixed;
-        left: 0;
 
         &__head {
             @include display-direction-justify-align(flex, row, flex-start, center);
@@ -45,12 +24,6 @@
                 font-size: 1.4rem;
                 font-weight: 600;
             }
-        }
-
-        &--not-active {
-            left: 100%;
-            visibility: hidden;
-            pointer-events: none;
         }
     }
 

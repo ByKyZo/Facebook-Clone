@@ -2,7 +2,7 @@ import UserModel, { IUser, IUserPost } from '../models/user.model';
 import { Request } from 'express';
 import { Response } from 'express/ts4.0';
 import { isValidObjectId } from 'mongoose';
-import { isEmpty } from '../utils/utils';
+import { getLastArrayElement, isEmpty } from '../utils/utils';
 import FileHandler, { IFileUploadedInfo } from '../utils/fileHandler';
 
 export default class UserController {
@@ -37,6 +37,7 @@ export default class UserController {
         const attachments = req.files;
 
         if (!isValidObjectId(userID)) {
+            console.log(userID);
             console.log('addPost() -> Invalid Object id');
             res.sendStatus(400);
             return;
@@ -55,7 +56,8 @@ export default class UserController {
                     await FileHandler.uploadPictureAndVideos(
                         userID,
                         // @ts-ignore
-                        attachments[i]
+                        attachments[i],
+                        'posts'
                     )
                 );
             }
@@ -63,27 +65,27 @@ export default class UserController {
             const photos = filesNameUploaded.filter((file) => file.genericFileType !== 'video');
             const videos = filesNameUploaded.filter((file) => file.genericFileType !== 'image');
 
-            const posts = (await UserModel.findByIdAndUpdate(
+            let user = (await UserModel.findByIdAndUpdate(
                 userID,
                 {
                     $push: {
                         posts: {
-                            message: message,
+                            message,
                             photos,
                             videos,
                         },
                     },
                 },
                 { new: true }
-            ).select('posts -_id')) as IUserPost;
+            ).select('posts')) as IUser;
 
-            if (!posts) {
+            if (!user) {
                 console.log('addPost() -> User not find');
                 res.sendStatus(404);
                 return;
             }
-            console.log(posts);
-            // res.status(200).send(posts[0]);
+
+            res.status(200).send(getLastArrayElement<IUserPost>(user.posts));
         } catch (err) {
             console.log(err.message);
 

@@ -77,7 +77,7 @@ const NavSearch = ({
             setIsOpen={setIsOpen}
             isOpen={isOpen}
             className="dropdown__search">
-            <button className="dropdown__search__close">
+            <button className="dropdown__search__close" onClick={() => setIsOpen(false)}>
                 <BiArrowBack />
             </button>
             <h1 className="dropdown__search__title">Recherches récentes</h1>

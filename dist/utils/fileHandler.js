@@ -17,7 +17,7 @@ const stream_1 = require("stream");
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 class FileHandler {
-    static uploadPictureAndVideos(label, file) {
+    static uploadPictureAndVideos(label, file, directory) {
         return __awaiter(this, void 0, void 0, function* () {
             const pipelinee = util_1.promisify(stream_1.pipeline);
             const cleanLabel = label.replace(' ', '');
@@ -30,21 +30,20 @@ class FileHandler {
                 file.detectedMimeType === 'image/png' ||
                 file.detectedMimeType === 'image/gif' ||
                 file.detectedMimeType === 'image/webp') {
-                fileName = `${cleanLabel}${Math.floor(Math.random() * 1000)}${Date.now()}${file.detectedFileExtension}`;
-                uploadFilePath = path_1.default.join(__dirname, '..', 'upload', 'images', fileName);
                 genericFileType = 'image';
             }
             else if (file.detectedMimeType === 'video/mp4' ||
                 file.detectedMimeType === 'video/MP2T' ||
                 file.detectedMimeType === 'video/quicktime') {
-                fileName = `${cleanLabel}${Math.floor(Math.random() * 1000)}${Date.now()}${file.detectedFileExtension}`;
-                uploadFilePath = path_1.default.join(__dirname, '..', 'upload', 'videos', fileName);
                 genericFileType = 'video';
             }
             else {
-                throw Error('INVALID_TYPE : File must be of type png / jpg / jpeg / mp4');
+                throw Error('Invalid file type : type png / jpg / jpeg / mp4 only');
             }
+            fileName = `${cleanLabel}${Math.floor(Math.random() * 1000)}${Date.now()}${file.detectedFileExtension}`;
+            uploadFilePath = path_1.default.join(__dirname, '..', 'upload', directory, fileName);
             yield pipelinee(file.stream, fs_1.default.createWriteStream(uploadFilePath));
+            fileName = `${directory}/${fileName}`;
             return {
                 fileName,
                 genericFileType,
