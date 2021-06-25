@@ -45,7 +45,6 @@ const NavSearch = ({
                     return oldState;
                 });
             } else if (e.code === 'ArrowDown') {
-                console.log('arrow down');
                 setCursor((oldState) => {
                     oldState = 0;
                     item = document.querySelector(`[data-item-index="${oldState}"]`);

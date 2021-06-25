@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef, FormEvent } from 'react';
+import React, { useState, useRef } from 'react';
 import { AiFillHome, AiOutlineSearch } from 'react-icons/ai';
-import { CgProfile } from 'react-icons/cg';
 import { IoMdNotifications, IoIosArrowDown } from 'react-icons/io';
+import Profile from '../../assets/profile.jpg';
 import CustomNavLink from '../router/CustomNavLink';
 import ProfileMenu from '../dropdown/ProfileMenu/ProfileMenu';
 import Notifications from '../dropdown/Notifications/Notifications';
@@ -89,7 +89,7 @@ const Navbar = () => {
                         tabIndex={0}
                         to={`/profile/${userID}`}
                         className="navbar__settings__content__profile">
-                        <CgProfile />
+                        <img src={Profile} alt="profile" />
                         <span>Jeff</span>
                     </CustomNavLink>
                     <button
@@ -123,7 +123,6 @@ const Navbar = () => {
                 right={dropdownRight}
                 isResponsive
                 maxWidthResponsive={640}
-                // maxWidthResponsive=''
             />
 
             <Notifications

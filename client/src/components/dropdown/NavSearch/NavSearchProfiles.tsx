@@ -1,5 +1,5 @@
 import React from 'react';
-import { CgProfile } from 'react-icons/cg';
+import Profile from '../../../assets/profile.jpg';
 import { VscClose } from 'react-icons/vsc';
 
 interface IProps {
@@ -12,29 +12,28 @@ interface IProps {
 }
 
 const NavSearchProfiles = ({ name, index, length, cursor, setCursor, ...rest }: IProps) => {
-    const handleChangeByArrow = (e: any) => {
-        let test: any;
-        if (e.key === 'Enter') console.log('Keydown', name);
+    const handleChangeByArrow = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        let item: any;
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
             if (e.key === 'ArrowUp') {
                 if (cursor - 1 < 0) {
                     setCursor(length - 1);
-                    test = document.querySelector(`[data-item-index="${length - 1}"]`);
+                    item = document.querySelector(`[data-item-index="${length - 1}"]`);
                 } else {
                     setCursor(cursor - 1);
-                    test = document.querySelector(`[data-item-index="${cursor - 1}"]`);
+                    item = document.querySelector(`[data-item-index="${cursor - 1}"]`);
                 }
             }
             if (e.key === 'ArrowDown') {
                 if (cursor + 1 > length - 1) {
                     setCursor(0);
-                    test = document.querySelector(`[data-item-index="${0}"]`);
+                    item = document.querySelector(`[data-item-index="${0}"]`);
                 } else {
                     setCursor(cursor + 1);
-                    test = document.querySelector(`[data-item-index="${cursor + 1}"]`);
+                    item = document.querySelector(`[data-item-index="${cursor + 1}"]`);
                 }
             }
-            test.focus();
+            item.focus();
         }
     };
 
@@ -46,10 +45,12 @@ const NavSearchProfiles = ({ name, index, length, cursor, setCursor, ...rest }: 
             tabIndex={0}
             className={`dropdown__search__user__content`}>
             <div className="dropdown__search__user__content__profile">
-                <span>
-                    <CgProfile />
-                </span>
-                <div>{name}</div>
+                <img
+                    className="dropdown__search__user__content__profile__img"
+                    src={Profile}
+                    alt="profile"
+                />
+                <span className="dropdown__search__user__content__profile__name">{name}</span>
             </div>
             <button className="dropdown__search__user__content__delete">
                 <VscClose />
