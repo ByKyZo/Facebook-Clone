@@ -38,7 +38,14 @@
         // AFFICHE UN BOUTON DESACTIVE (sans hover + cursor (not allowed) + grisé)
     } @else if($button-type == disabled) {
         @include hover(disabled);
-        background: grey;
+        // @include border-radius(small);
+        // display: block;
+        // font-size: 1.2rem;
+        // font-weight: 600;
+        // color: $button-text;
+        // padding: $button-padding;
+        // overflow: hidden;
+        background:grey;
         cursor: not-allowed;
     }
 }
@@ -104,18 +111,6 @@
         border-radius: 9999px;
     }
 }
-
-//@mixin padding($size) {
-//    @if ($size == tiny) {
-//        padding: 5px;
-//    } @else if ($size == small) {
-//        padding: 10px;
-//    } @else if ($size == medium) {
-//        padding: 15px;
-//    } @else if ($size == big) {
-//        padding: 20px;
-//    }
-//}
 
 @mixin display-direction-justify-align(
     $display: flex,

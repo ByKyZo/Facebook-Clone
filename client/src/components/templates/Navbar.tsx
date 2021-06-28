@@ -89,7 +89,7 @@ const Navbar = () => {
                         tabIndex={0}
                         to={`/profile/${userID}`}
                         className="navbar__settings__content__profile">
-                        <img src={Profile} alt="profile" />
+                        <img src="https://picsum.photos/100/100" alt="profile" />
                         <span>Jeff</span>
                     </CustomNavLink>
                     <button

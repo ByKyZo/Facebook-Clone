@@ -6,7 +6,7 @@ const ProfileNav = () => {
     const userID = useAppSelector((state) => state.user._id);
 
     return (
-        <div>
+        <div style={{ marginTop: '15px', borderTop: '1px solid black' }}>
             <CustomLink style={{ margin: '10px', color: 'darkviolet' }} to={`/profile/${userID}`}>
                 Posts
             </CustomLink>
