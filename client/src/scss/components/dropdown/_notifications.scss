@@ -7,9 +7,9 @@
     box-sizing: border-box;
 
     &__wrapper {
-    @extend %dropdown-preset;
-    width:auto;
-        background-color: white;
+        @extend %dropdown-preset;
+        width:auto;
+        background-color: var(--color-white-00);
         display:  flex;
         flex-direction: column;
         padding: 0.3125rem 0;
@@ -41,13 +41,13 @@
         font-size: 1.4375rem;
         color: var(--color--black-10);
         margin-left: 0.9375rem;
+        margin-top: 10px;
     }
     &__content {
         &__item{
             @include display-direction-justify-align(flex, column, unset, unset);
-            margin-top: 0.5rem;
+            margin-top: 1.2rem;
         }
-
 
         &__type {
             margin-left: 0.9375rem;
@@ -64,10 +64,13 @@
             cursor: pointer;   
             overflow: hidden;
           
-            &__profil > svg {
-                font-size: 3.75rem;
+            &__profil {
+                @include border-radius(rounded);
+                width: 56px;
+                overflow: hidden;
                 margin-right: 0.5rem;
             }
+        
             &__desc {
                 @include display-direction-justify-align(flex, column, space-between, unset);
                 max-width: 65%;

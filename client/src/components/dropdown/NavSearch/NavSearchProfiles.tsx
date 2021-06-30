@@ -1,5 +1,4 @@
 import React from 'react';
-import Profile from '../../../assets/profile.jpg';
 import { VscClose } from 'react-icons/vsc';
 
 interface IProps {
@@ -47,7 +46,7 @@ const NavSearchProfiles = ({ name, index, length, cursor, setCursor, ...rest }: 
             <div className="dropdown__search__user__content__profile">
                 <img
                     className="dropdown__search__user__content__profile__img"
-                    src={Profile}
+                    src="https://picsum.photos/100/100"
                     alt="profile"
                 />
                 <span className="dropdown__search__user__content__profile__name">{name}</span>

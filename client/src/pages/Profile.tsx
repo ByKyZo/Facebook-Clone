@@ -1,6 +1,6 @@
 import React from 'react';
 import PageTemplate from '../components/templates/PageTemplate';
-import Head from '../components/layouts/Profile/global/Head';
+import Head from '../components/layouts/Profile/global/ProfileHead';
 import ProfileNav from '../components/layouts/Profile/global/ProfileNav';
 import Home from '../components/layouts/Profile/Home';
 import About from '../components/layouts/Profile/About';
@@ -47,8 +47,11 @@ const Profile = ({ currentNav }: IProps) => {
 
     return (
         <PageTemplate pageTitle={`${user.firstName} ${user.lastName}`}>
-            <Head />
-            <ProfileNav />
+            <div style={{ backgroundColor: 'grey' }}>
+                <Head />
+                <ProfileNav />
+            </div>
+
             <div style={{ color: 'red', fontSize: '3rem', textAlign: 'center' }}>
                 {currentNavRender()}
             </div>

@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { AiFillHome, AiOutlineSearch } from 'react-icons/ai';
 import { IoMdNotifications, IoIosArrowDown } from 'react-icons/io';
-import Profile from '../../assets/profile.jpg';
 import CustomNavLink from '../router/CustomNavLink';
 import ProfileMenu from '../dropdown/ProfileMenu/ProfileMenu';
 import Notifications from '../dropdown/Notifications/Notifications';
@@ -56,7 +55,7 @@ const Navbar = () => {
                             type="text"
                             value={valueInputSearch}
                             onChange={handleChangeValueInputSearch}
-                            placeholder={isMobile && !isOpenSearch ? '' : 'Rechercher sur Facebook'}
+                            placeholder={isMobile && !isOpenSearch ? '' : 'Search Facebook'}
                             onClick={() => setIsOpenSearch(true)}
                         />
                     </label>
@@ -89,7 +88,7 @@ const Navbar = () => {
                         tabIndex={0}
                         to={`/profile/${userID}`}
                         className="navbar__settings__content__profile">
-                        <img src={Profile} alt="profile" />
+                        <img src="https://picsum.photos/100/100" alt="profile" />
                         <span>Jeff</span>
                     </CustomNavLink>
                     <button
