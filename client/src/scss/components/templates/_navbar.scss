@@ -77,9 +77,10 @@
               display: block;
           }  
             
-        @media screen and (max-width: 660px) {
+        @media (max-width: 660px) {
             position: absolute;
             height: 20px;
+
         }
             &::placeholder {
                 color: var(--color-black-10);
@@ -104,6 +105,16 @@
                     height: 3px;
                     background-color: var(--color-blue-60);
                 }
+                > div {
+                    &:hover{
+                        @include hover(disabled);
+                    } 
+
+                        svg {
+                            stroke: transparent !important;
+                            fill: var(--color-blue-60) !important;
+                        }
+                }
             }
             > div {
                 @include hover();
@@ -116,38 +127,39 @@
              
                 > svg {
                     fill: transparent;
-                    stroke-width: 44px;
+                    stroke : var(--color-black-10);
+                    stroke-width: 52px;
                 }
             }
 
-            &--active {  
-                &:hover{
-                    // background-color: trn !important;
-                }           
-                svg {
-                    stroke-width: 15px !important ;
-                    fill: var(--color-blue-60) !important;
-                }
-            }
+  
         }
     }
     &__settings__content {
         @include display-direction-justify-align(flex, row, unset, center);
 
         &__profile {
-            @include display-direction-justify-align(flex, row, unset, center);
+            @include display-direction-justify-align(flex, row, center, center);
             @include border-radius(rounded);
             @include button();
+            margin-right: 8px;
             overflow: hidden;
-            margin-right: 20px;
             transition: 0.3s;
-            padding: 4px 12px 4px 3px;
-            height: 100%;
+            padding:0 8px;
+            height: 40px;
             z-index: 1;
 
-            @media screen and (max-width: 660px) {
-                padding-right: 0;
+            @media screen and (max-width: 640px) {
+                padding: 0;
+                width: 40px;
             }
+
+            img {
+                  @include border-radius(rounded);
+                  width: 28px;
+                  height: 28px;  
+            }
+            
             &--active {
                 background-color: var(--color-blue-10);
                 color: var(--color-blue-60);
@@ -156,17 +168,17 @@
                 }
             }
             span {
-                font-weight: 600
+                font-weight: 600;
+                margin-left: 8px;
+                    margin-right: 3px;
+                @media screen and (max-width: 640px) {
+                        display: none;
+                }
             }
 
             svg {
                 @include svg(28px, --color-grey--00);
-                margin-right: 10px;
-                
-            
-                @media screen and (max-width: 660px) {
-                    margin-right: 4px;
-                }
+    
             }
         }
         &__notif,

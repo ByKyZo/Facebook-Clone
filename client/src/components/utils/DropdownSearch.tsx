@@ -7,10 +7,6 @@ export interface IDropDownSearch {
     setIsOpen: (arg: boolean) => void;
     top: string;
     left: string;
-    cursor: number;
-    setCursor: any;
-    isKeyPressed: any;
-    setIsKeyPressed: any;
     right?: string;
     bottom?: string;
     children?: JSX.Element | JSX.Element[];
@@ -27,10 +23,6 @@ const DropdownSearch = ({
     setIsOpen,
     top,
     left,
-    cursor,
-    setCursor,
-    isKeyPressed,
-    setIsKeyPressed,
     right,
     bottom,
     children,
@@ -76,8 +68,6 @@ const DropdownSearch = ({
         const handleClickOutside = (e: any) => {
             if (dropdownContentRef.current && !dropdownContentRef.current.contains(e.target))
                 setIsOpen(false);
-            setCursor(0);
-            setIsKeyPressed(false);
         };
         document.addEventListener('mousedown', handleClickOutside, true);
         return () => {

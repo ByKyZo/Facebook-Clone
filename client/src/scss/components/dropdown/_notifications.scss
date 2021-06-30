@@ -1,12 +1,17 @@
 .dropdown__notif {
-
+    width: 360px;
+    background-color: transparent;
     height: 100%;
     position: fixed !important;
     padding-bottom: 70px;
     box-sizing: border-box;
 
     &__wrapper {
-        @extend %dropdown-preset;
+    @extend %dropdown-preset;
+    width:auto;
+        background-color: white;
+        display:  flex;
+        flex-direction: column;
         padding: 0.3125rem 0;
         box-sizing: border-box;
         height: 100% ;
@@ -38,8 +43,12 @@
         margin-left: 0.9375rem;
     }
     &__content {
-        @include display-direction-justify-align(flex, column, unset, unset);
-        margin-top: 0.5rem;
+        &__item{
+            @include display-direction-justify-align(flex, column, unset, unset);
+            margin-top: 0.5rem;
+        }
+
+
         &__type {
             margin-left: 0.9375rem;
             font-weight: 600;
