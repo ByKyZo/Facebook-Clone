@@ -80,7 +80,7 @@ const NavSearch = ({
             <button className="dropdown__search__close" onClick={() => setIsOpen(false)}>
                 <BiArrowBack />
             </button>
-            <h1 className="dropdown__search__title">Recherches récentes</h1>
+            <h1 className="dropdown__search__title">Recent Searches</h1>
             {items.map((item: any, index: any) => {
                 return (
                     <NavSearchProfiles

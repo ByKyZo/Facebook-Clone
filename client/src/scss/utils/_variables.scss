@@ -29,6 +29,7 @@
 
     --overlay-alpha-80: rgb(244 244 244 / 0.8);
 
+    --color-divider: #ced0d4;
     --color-hover: 0, 0, 0;
     --color-hover-opacity: 0.06;
 }
@@ -59,6 +60,7 @@ html[data-darkmode='on'] {
 
     --overlay-alpha-80: rgb(11 11 11 / 80%);
 
+    --color-divider: #3e4042;
     --color-hover: 255, 255, 255;
     --color-hover-opacity: 0.12;
 }

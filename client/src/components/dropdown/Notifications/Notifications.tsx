@@ -1,7 +1,5 @@
 import React from 'react';
 import Dropdown, { IDropdownProps } from '../../utils/Dropdown';
-import { CgProfile } from 'react-icons/cg';
-// import IDropdownProps
 
 const Notifications = ({ ...rest }: IDropdownProps) => {
     return (
@@ -13,11 +11,11 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                 <div className="dropdown__notif__content">
                     {/* NOUVEAU */}
                     <div className="dropdown__notif__content__item">
-                        <h2 className="dropdown__notif__content__type">Nouveau</h2>
+                        <h2 className="dropdown__notif__content__type">New</h2>
 
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
-                                <CgProfile />
+                                <img src="https://picsum.photos/100/100" alt="" />
                             </div>
                             <div className="dropdown__notif__content__info__desc">
                                 <span className="dropdown__notif__content__info__desc__content">
@@ -37,12 +35,12 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         <h2
                             style={{ marginTop: '10px' }}
                             className="dropdown__notif__content__type">
-                            Plus tôt
+                            Earlier
                         </h2>
 
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
-                                <CgProfile />
+                                <img src="https://picsum.photos/100/100" alt="" />
                             </div>
                             <div className="dropdown__notif__content__info__desc">
                                 <span className="dropdown__notif__content__info__desc__content">
@@ -59,7 +57,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
 
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
-                                <CgProfile />
+                                <img src="https://picsum.photos/100/100" alt="" />
                             </div>
                             <div className="dropdown__notif__content__info__desc">
                                 <span className="dropdown__notif__content__info__desc__content">
@@ -75,24 +73,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         </div>
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
-                                <CgProfile />
-                            </div>
-                            <div className="dropdown__notif__content__info__desc">
-                                <span className="dropdown__notif__content__info__desc__content">
-                                    <span>Jeff &nbsp;</span>
-                                    vous invite à la fête de la musique de &nbsp;
-                                    <span>Bohème Bar</span>
-                                </span>
-                                <span className="dropdown__notif__content__info__desc__time">
-                                    Il y a 3 minutes
-                                </span>
-                            </div>
-                            <span className="test2"></span>
-                        </div>
-
-                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
-                            <div className="dropdown__notif__content__info__profil">
-                                <CgProfile />
+                                <img src="https://picsum.photos/100/100" alt="" />
                             </div>
                             <div className="dropdown__notif__content__info__desc">
                                 <span className="dropdown__notif__content__info__desc__content">
@@ -109,7 +90,24 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
 
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
-                                <CgProfile />
+                                <img src="https://picsum.photos/100/100" alt="" />
+                            </div>
+                            <div className="dropdown__notif__content__info__desc">
+                                <span className="dropdown__notif__content__info__desc__content">
+                                    <span>Jeff &nbsp;</span>
+                                    vous invite à la fête de la musique de &nbsp;
+                                    <span>Bohème Bar</span>
+                                </span>
+                                <span className="dropdown__notif__content__info__desc__time">
+                                    Il y a 3 minutes
+                                </span>
+                            </div>
+                            <span className="test2"></span>
+                        </div>
+
+                        <div role="button" tabIndex={0} className="dropdown__notif__content__info">
+                            <div className="dropdown__notif__content__info__profil">
+                                <img src="https://picsum.photos/100/100" alt="" />
                             </div>
                             <div className="dropdown__notif__content__info__desc">
                                 <span className="dropdown__notif__content__info__desc__content">
@@ -129,7 +127,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         </div>
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
-                                <CgProfile />
+                                <img src="https://picsum.photos/100/100" alt="" />
                             </div>
                             <div className="dropdown__notif__content__info__desc">
                                 <span className="dropdown__notif__content__info__desc__content">
@@ -145,7 +143,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         </div>
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
-                                <CgProfile />
+                                <img src="https://picsum.photos/100/100" alt="" />
                             </div>
                             <div className="dropdown__notif__content__info__desc">
                                 <span className="dropdown__notif__content__info__desc__content">
@@ -161,7 +159,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         </div>
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
-                                <CgProfile />
+                                <img src="https://picsum.photos/100/100" alt="" />
                             </div>
                             <div className="dropdown__notif__content__info__desc">
                                 <span className="dropdown__notif__content__info__desc__content">
@@ -177,7 +175,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         </div>
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
-                                <CgProfile />
+                                <img src="https://picsum.photos/100/100" alt="" />
                             </div>
                             <div className="dropdown__notif__content__info__desc">
                                 <span className="dropdown__notif__content__info__desc__content">
