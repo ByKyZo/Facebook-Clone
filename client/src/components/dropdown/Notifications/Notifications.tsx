@@ -11,7 +11,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                 <div className="dropdown__notif__content">
                     {/* NOUVEAU */}
                     <div className="dropdown__notif__content__item">
-                        <h2 className="dropdown__notif__content__type">Nouveau</h2>
+                        <h2 className="dropdown__notif__content__type">New</h2>
 
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
@@ -35,7 +35,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                         <h2
                             style={{ marginTop: '10px' }}
                             className="dropdown__notif__content__type">
-                            Plus tôt
+                            Earlier
                         </h2>
 
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">

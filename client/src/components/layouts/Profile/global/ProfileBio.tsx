@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface IProps {
     isOpenBioUpdate: boolean;
@@ -38,12 +38,16 @@ const ProfileBio = ({
         setIsOpenBioUpdate(false);
     };
 
+    useEffect(() => {
+        setAreaValue(biographyValue);
+    }, [biographyValue]);
+
     return (
         <div className="bio">
             <textarea
                 disabled={isOpenBioUpdate ? true : false}
                 placeholder="Describe who you are"
-                defaultValue={biographyValue}
+                value={areaValue}
                 onChange={(e) => setAreaValue(e.target.value)}
                 cols={30}
                 rows={3}
