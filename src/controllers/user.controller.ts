@@ -50,20 +50,25 @@ export default class UserController {
         }
 
         try {
-            const filesNameUploaded: IFileUploadedInfo[] = [];
-            for (let i = 0; i < attachments.length; i++) {
-                filesNameUploaded.push(
-                    await FileHandler.uploadPictureAndVideos(
-                        userID,
-                        // @ts-ignore
-                        attachments[i],
-                        'posts'
-                    )
-                );
-            }
+            let photos;
+            let videos;
 
-            const photos = filesNameUploaded.filter((file) => file.genericFileType !== 'video');
-            const videos = filesNameUploaded.filter((file) => file.genericFileType !== 'image');
+            if (!isEmpty(attachments)) {
+                const filesNameUploaded: IFileUploadedInfo[] = [];
+                for (let i = 0; i < attachments.length; i++) {
+                    filesNameUploaded.push(
+                        await FileHandler.uploadPictureAndVideos(
+                            userID,
+                            // @ts-ignore
+                            attachments[i],
+                            'posts'
+                        )
+                    );
+                }
+
+                photos = filesNameUploaded.filter((file) => file.genericFileType !== 'video');
+                videos = filesNameUploaded.filter((file) => file.genericFileType !== 'image');
+            }
 
             let user = (await UserModel.findByIdAndUpdate(
                 userID,

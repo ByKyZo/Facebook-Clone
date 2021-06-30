@@ -56,14 +56,18 @@ class UserController {
                 return;
             }
             try {
-                const filesNameUploaded = [];
-                for (let i = 0; i < attachments.length; i++) {
-                    filesNameUploaded.push(yield fileHandler_1.default.uploadPictureAndVideos(userID, 
-                    // @ts-ignore
-                    attachments[i], 'posts'));
+                let photos;
+                let videos;
+                if (!utils_1.isEmpty(attachments)) {
+                    const filesNameUploaded = [];
+                    for (let i = 0; i < attachments.length; i++) {
+                        filesNameUploaded.push(yield fileHandler_1.default.uploadPictureAndVideos(userID, 
+                        // @ts-ignore
+                        attachments[i], 'posts'));
+                    }
+                    photos = filesNameUploaded.filter((file) => file.genericFileType !== 'video');
+                    videos = filesNameUploaded.filter((file) => file.genericFileType !== 'image');
                 }
-                const photos = filesNameUploaded.filter((file) => file.genericFileType !== 'video');
-                const videos = filesNameUploaded.filter((file) => file.genericFileType !== 'image');
                 let user = (yield user_model_1.default.findByIdAndUpdate(userID, {
                     $push: {
                         posts: {

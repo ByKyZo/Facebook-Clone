@@ -21,20 +21,23 @@ const Modal = ({ children, title, className, closeTimeoutMS, onRequestClose, ...
             onRequestClose={onRequestClose}
             className={`__global-modal ${className}`}
             closeTimeoutMS={closeTimeoutMS || 200}>
-            <div className="__global-modal__head">
-                <h2 className="__global-modal__head__title">{title}</h2>
-                <div
-                    role="button"
-                    tabIndex={0}
-                    className="__global-modal__head__btn-close"
-                    onKeyDown={(e) => handleKeyDown(e, onRequestClose)}
-                    onClick={onRequestClose}>
-                    <div>
-                        <CgClose />
+            {title && (
+                <div className="__global-modal__head">
+                    <h2 className="__global-modal__head__title">{title}</h2>
+                    <div
+                        role="button"
+                        tabIndex={0}
+                        className="__global-modal__head__btn-close"
+                        onKeyDown={(e) => handleKeyDown(e, onRequestClose)}
+                        onClick={onRequestClose}>
+                        <div>
+                            {/*<i />*/}
+                            <CgClose />
+                        </div>
                     </div>
                 </div>
-            </div>
-            {children}
+            )}
+            <div className="__global-modal__content">{children}</div>
         </ReactModal>
     );
 };

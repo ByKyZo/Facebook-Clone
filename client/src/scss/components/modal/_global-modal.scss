@@ -9,6 +9,9 @@
     @include border-radius(medium);
     margin: 0px 8px;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2), 0 0 0 0.7px var(--color-black-15);
+    @media (max-width: 640px) {
+        border-radius: 0;
+    }
 
     &__head {
         @include display-direction-justify-align(fullcenter);
@@ -28,6 +31,15 @@
             transform: translateY(-50%);
 
             div {
+                i {
+                    background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yw/r/VZV0lAr5pKn.png);
+                    background-position: 0px -452px;
+                    background-size: auto;
+                    width: 20px;
+                    height: 20px;
+                    background-repeat: no-repeat;
+                    display: inline-block;
+                }
                 @include button();
                 @include border-radius(rounded);
                 @include display-direction-justify-align(fullcenter);
@@ -39,6 +51,10 @@
                 overflow: hidden;
             }
         }
+    }
+
+    &__content {
+        //padding: 16px;
     }
 }
 
