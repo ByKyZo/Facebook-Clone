@@ -1,12 +1,12 @@
-.head {
+.profile-head {
     max-width: 940px;
     margin: 0 auto;
     background-color: var(--color-white-00);
 
     &__content {
         position: relative;
-       
-        &__background{
+
+        &__background {
             @include border-radius(medium);
             cursor: pointer;
             background-size: cover;
@@ -14,16 +14,15 @@
             width: 100%;
             height: 450px;
 
-            @media(max-width : 660px) {
-                height: 350px ;
+            @media (max-width: 660px) {
+                height: 350px;
             }
-            @media(max-width : 450px) {
-                height: 250px ;
+            @media (max-width: 450px) {
+                height: 250px;
             }
-            @media(max-width : 340px) {
-                height: 170px ;
+            @media (max-width: 340px) {
+                height: 170px;
             }
-            
         }
         &__profile {
             cursor: pointer;
@@ -32,7 +31,6 @@
             left: 50%;
             transform: translateX(-50%);
             box-sizing: border-box;
-          
 
             &__logo {
                 @include border-radius(rounded);
@@ -44,29 +42,29 @@
                     @include border-radius(rounded);
                     width: 100%;
                     height: 100%;
-    
+
                     &:hover {
                         filter: contrast(82%);
                     }
                 }
-                 
-            &__upload {
-                @include display-direction-justify-align(flex, row, center, center);
-                @include border-radius(rounded);
-                @include hover();
-                overflow: hidden;
-                position: absolute;
-                bottom: 7%;
-                right: 6%;
-                background-color: var(--color-black-15);
-                width: 36px;
-                height: 36px;
+
+                &__upload {
+                    @include display-direction-justify-align(flex, row, center, center);
+                    @include border-radius(rounded);
+                    @include hover();
+                    overflow: hidden;
+                    position: absolute;
+                    bottom: 7%;
+                    right: 6%;
+                    background-color: var(--color-black-15);
+                    width: 36px;
+                    height: 36px;
 
                     &__image {
-                        font-size: 20px;    
+                        font-size: 20px;
                     }
                 }
-            } 
+            }
         }
         &__bio {
             margin: 30px auto 10px;
@@ -74,7 +72,7 @@
             width: 300px;
             text-align: center;
 
-            @media(max-width : 660px) {
+            @media (max-width: 660px) {
                 margin-top: 14px;
                 width: 260px;
             }
@@ -96,7 +94,7 @@
                 font-weight: 600;
                 margin-top: 10px;
                 margin-bottom: 9px;
-        
+
                 &:hover {
                     text-decoration: underline;
                 }

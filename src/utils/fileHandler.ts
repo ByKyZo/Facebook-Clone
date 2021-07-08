@@ -5,7 +5,7 @@ import fs from 'fs';
 import { getGenericFileType } from './utils';
 
 export interface IFileUploadedInfo {
-    fileName: string;
+    path: string;
     genericFileType: string;
 }
 
@@ -48,10 +48,8 @@ export default class FileHandler {
 
         await pipelinee(file.stream, fs.createWriteStream(uploadFilePath));
 
-        fileName = `${directory}/${fileName}`;
-
         return {
-            fileName,
+            path: `${directory}/${fileName}`,
             genericFileType,
         };
     }

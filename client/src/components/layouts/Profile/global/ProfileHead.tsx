@@ -15,29 +15,31 @@ const Head = () => {
     //*TODO : resolve variable backgroud bio ?
 
     return (
-        <div className="head">
-            <div tabIndex={0} className="head__content">
+        <div className="profile-head">
+            <div tabIndex={0} className="profile-head__content">
                 <img
-                    className="head__content__background"
+                    className="profile-head__content__background"
                     src="https://picsum.photos/680/400"
                     alt="cover"
                 />
-                <div tabIndex={0} className="head__content__profile">
-                    <div className="head__content__profile__logo">
+                <div tabIndex={0} className="profile-head__content__profile">
+                    <div className="profile-head__content__profile__logo">
                         <img
-                            className="head__content__profile__logo__image"
+                            className="profile-head__content__profile__logo__image"
                             src="https://picsum.photos//168"
                             alt=""
                         />
-                        <div className="head__content__profile__logo__upload">
-                            <MdPhotoCamera className="head__content__profile__logo__upload__image" />
+                        <div className="profile-head__content__profile__logo__upload">
+                            <MdPhotoCamera className="profile-head__content__profile__logo__upload__image" />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="head__content__bio">
-                <h1 className="head__content__bio__name">Jeff Lrc</h1>
-                <span className="head__content__bio__content">{!isOpenBio && biographyValue}</span>
+            <div className="profile-head__content__bio">
+                <h1 className="profile-head__content__bio__name">Jeff Lrc</h1>
+                <span className="profile-head__content__bio__content">
+                    {!isOpenBio && biographyValue}
+                </span>
                 {isOpenBio ? (
                     <ProfileBio
                         isOpenBioUpdate={isOpenBioUpdate}
@@ -48,13 +50,15 @@ const Head = () => {
                     />
                 ) : biographyValue ? (
                     <div
-                        className="head__content__bio__action"
+                        className="profile-head__content__bio__action"
                         style={{ marginTop: '5px' }}
                         onClick={handleEditBio}>
                         Edit
                     </div>
                 ) : (
-                    <div className="head__content__bio__action" onClick={() => setIsOpenBio(true)}>
+                    <div
+                        className="profile-head__content__bio__action"
+                        onClick={() => setIsOpenBio(true)}>
                         Add bio
                     </div>
                 )}

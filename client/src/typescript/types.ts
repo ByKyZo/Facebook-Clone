@@ -33,8 +33,7 @@ export interface IUserComment extends IComment {
 export interface IUserPost {
     _id: string;
     message: string;
-    photos: IAttachment[];
-    videos: IAttachment[];
+    attachments: IAttachment[];
     reactions: IReactions;
     comments: IUserComment[];
     createdAt: Date;

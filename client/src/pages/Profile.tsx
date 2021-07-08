@@ -49,15 +49,8 @@ const Profile = ({ currentNav }: IProps) => {
         <PageTemplate pageTitle={`${user.firstName} ${user.lastName}`}>
             <Head />
             <ProfileNav />
-            <div className="profile__wrapper">{currentNavRender()}</div>
-            <div style={{ backgroundColor: 'grey' }}>
-                <Head />
-                <ProfileNav />
-            </div>
 
-            <div style={{ color: 'red', fontSize: '3rem', textAlign: 'center' }}>
-                {currentNavRender()}
-            </div>
+            <div className="profile__wrapper">{currentNavRender()}</div>
         </PageTemplate>
     );
 };

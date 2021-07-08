@@ -1,7 +1,6 @@
-import mongoose from 'mongoose';
-import { NextFunction } from 'express';
 import bcrypt from 'bcrypt';
-import * as Mongoose from 'mongoose';
+import { NextFunction } from 'express';
+import mongoose from 'mongoose';
 
 // TODO RAJOUTER SHARE DANS PHOTO ET POST
 // TODO RASSEMEBLE PHOTO EST POST
@@ -33,8 +32,9 @@ export interface IUserComment extends mongoose.Document {
 
 export interface IUserPost extends mongoose.Document {
     message: string;
-    photos: string[];
-    videos: string[];
+    // photos: string[];
+    // videos: string[];
+    attachments: string[];
     reactions: IReactions;
     comments: IUserComment[];
 
@@ -143,20 +143,9 @@ const UserSchema = new mongoose.Schema(
                     message: {
                         type: String,
                     },
-                    photos: [
+                    attachments: [
                         {
-                            fileName: {
-                                type: String,
-                            },
-                            genericFileType: {
-                                type: String,
-                                enum: ['image', 'video'],
-                            },
-                        },
-                    ],
-                    videos: [
-                        {
-                            fileName: {
+                            path: {
                                 type: String,
                             },
                             genericFileType: {

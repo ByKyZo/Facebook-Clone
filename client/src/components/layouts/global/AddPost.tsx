@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AddPostModal from '../../templates/modal/AddPostModal';
 import { isEmpty } from '../../../utils/utils';
 
 const AddPost = () => {
+    const textRef = useRef<HTMLSpanElement>(null);
+    const textParentRef = useRef<HTMLDivElement>(null);
     const [isOpenAddPost, setIsOpenAddPost] = useState(false);
     const [attachments, setAttachments] = useState<File[]>([]);
     const [message, setMessage] = useState({
@@ -38,12 +40,15 @@ const AddPost = () => {
                     />
                     {/*<div className="addpost__head__profile"></div>*/}
                     <div
+                        ref={textParentRef}
                         role="button"
                         onKeyDown={handleKeyDown}
                         tabIndex={0}
                         className="addpost__head__btn"
                         onClick={() => setIsOpenAddPost(true)}>
-                        <span>{message.text ? message.text : "What's on your mind?"}</span>
+                        <span ref={textRef}>
+                            {message.text ? message.text : "What's on your mind?"}
+                        </span>
                     </div>
                 </div>
                 <div className="addpost__btns">

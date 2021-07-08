@@ -1,9 +1,14 @@
 import express from 'express';
-import UserController from '../controllers/user.controller';
 import multer from 'multer';
+import UserController from '../controllers/user.controller';
 
 const router = express.Router();
-const upload = multer();
+// TODO Revoir le max size
+const upload = multer({
+    limits: {
+        fileSize: 9999999999999,
+    },
+});
 
 router.get('/:id', UserController.getUser);
 

@@ -75,7 +75,7 @@ server.use(express_1.default.urlencoded({ extended: true }));
 // **** ROUTES ****
 server.use('/api/auth', auth_routes_1.default);
 server.use('/api/user', user_routes_1.default);
-server.use('/upload', express_1.default.static(path.join(__dirname, '..', 'dist', 'upload')));
+server.use('/api/upload', express_1.default.static(path.join(__dirname, '..', 'dist', 'upload')));
 // **** SERVER LISTENER ****
 httpServer.listen(PORT, () => {
     console.log(`listen on port ${PORT}`);

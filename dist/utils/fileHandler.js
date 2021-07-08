@@ -43,9 +43,8 @@ class FileHandler {
             fileName = `${cleanLabel}${Math.floor(Math.random() * 1000)}${Date.now()}${file.detectedFileExtension}`;
             uploadFilePath = path_1.default.join(__dirname, '..', 'upload', directory, fileName);
             yield pipelinee(file.stream, fs_1.default.createWriteStream(uploadFilePath));
-            fileName = `${directory}/${fileName}`;
             return {
-                fileName,
+                path: `${directory}/${fileName}`,
                 genericFileType,
             };
         });

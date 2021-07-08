@@ -58,7 +58,7 @@ server.use(express.urlencoded({ extended: true }));
 // **** ROUTES ****
 server.use('/api/auth', AuthRoutes);
 server.use('/api/user', UserRoutes);
-server.use('/upload', express.static(path.join(__dirname, '..', 'dist', 'upload')));
+server.use('/api/upload', express.static(path.join(__dirname, '..', 'dist', 'upload')));
 
 // **** SERVER LISTENER ****
 httpServer.listen(PORT, () => {

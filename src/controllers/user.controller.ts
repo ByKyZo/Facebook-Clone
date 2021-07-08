@@ -1,9 +1,9 @@
-import UserModel, { IUser, IUserPost } from '../models/user.model';
 import { Request } from 'express';
 import { Response } from 'express/ts4.0';
 import { isValidObjectId } from 'mongoose';
-import { getLastArrayElement, isEmpty } from '../utils/utils';
+import UserModel, { IUser, IUserPost } from '../models/user.model';
 import FileHandler, { IFileUploadedInfo } from '../utils/fileHandler';
+import { getLastArrayElement, isEmpty } from '../utils/utils';
 
 export default class UserController {
     public static async getUser(req: Request, res: Response) {
@@ -50,13 +50,11 @@ export default class UserController {
         }
 
         try {
-            let photos;
-            let videos;
+            let attachmentsUploaded: IFileUploadedInfo[] = [];
 
             if (!isEmpty(attachments)) {
-                const filesNameUploaded: IFileUploadedInfo[] = [];
                 for (let i = 0; i < attachments.length; i++) {
-                    filesNameUploaded.push(
+                    attachmentsUploaded.push(
                         await FileHandler.uploadPictureAndVideos(
                             userID,
                             // @ts-ignore
@@ -65,9 +63,6 @@ export default class UserController {
                         )
                     );
                 }
-
-                photos = filesNameUploaded.filter((file) => file.genericFileType !== 'video');
-                videos = filesNameUploaded.filter((file) => file.genericFileType !== 'image');
             }
 
             let user = (await UserModel.findByIdAndUpdate(
@@ -76,8 +71,7 @@ export default class UserController {
                     $push: {
                         posts: {
                             message,
-                            photos,
-                            videos,
+                            attachments: attachmentsUploaded,
                         },
                     },
                 },

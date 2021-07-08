@@ -1,19 +1,25 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Modal from '../../utils/Modal';
-import ReactModal from 'react-modal';
 import ContentEditable from 'react-contenteditable';
-import { insertSpecialCharacter, isEmpty } from '../../../utils/utils';
-import { getActiveClassName } from '../../../utils/utils';
-import axios from '../../../config/axios';
-import { useAppSelector } from '../../../redux/redux.hook';
+import { CgPlayButtonO } from 'react-icons/cg';
 import { GrEmoji } from 'react-icons/gr';
 import { MdEdit, MdLibraryAdd } from 'react-icons/md';
+import ReactModal from 'react-modal';
+import axios from '../../../config/axios';
+import { useAppSelector } from '../../../redux/redux.hook';
+import {
+    getActiveClassName,
+    getGenericFileType,
+    handleAttachmentPreviewSize,
+    handlePostFontSizeReduce,
+    insertCharacterInContentEditable,
+    isEmpty,
+} from '../../../utils/utils';
+import Modal from '../../utils/Modal';
 
-// TODO Rendre la modal responsive avec les preview (ajuster la taille la preview en responsive (leger decalage))
-// TODO Faire la preview des video (+ avec l'icon play)
-// TODO Ouvrir l'explorateur de fichier en cliquant sur bouton hover des attachments
+// TODO Faire un composant pour le content editable avec feature : assigner des touches a des actions ,
+
+// TODO Faire un controller video custom ? + intersection observer le play / pause de la video
 // TODO Pouvoir cliquer sur edit all et ajouter une legende (caption) / supprimer un attachments
-
 interface IProps extends ReactModal.Props {
     message: {
         text: string;
@@ -22,6 +28,11 @@ interface IProps extends ReactModal.Props {
     setMessage: React.Dispatch<React.SetStateAction<{ text: string; html: string }>>;
     attachments: File[];
     setAttachments: React.Dispatch<any>;
+}
+
+interface IAttachmentPreview {
+    genericFileType: string;
+    url: string;
 }
 
 const AddPostModal = ({
@@ -33,13 +44,15 @@ const AddPostModal = ({
     setAttachments,
     ...rest
 }: IProps) => {
+    const MAX_PREVIEW = 5;
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const contentEditableRef = useRef<HTMLDivElement>(null);
+    const attachmentPreviewParent = useRef<HTMLDivElement>(null);
     const userID = useAppSelector((state) => state.user._id);
     const [isLoadingCreatePost, setIsLoadingCreatePost] = useState(false);
-    const [attachmentPreviews, setAttachmentPreviews] = useState<string[]>([]);
+    const [attachmentPreviews, setAttachmentPreviews] = useState<IAttachmentPreview[]>([]);
     const [inputMessageRef, setInputMessageRef] = useState<HTMLDivElement | null>(null);
     const inputMessageRefCallback = useCallback((node) => setInputMessageRef(node), []);
-    const MAX_PREVIEW = 5;
 
     const handleFocusContentEditable = () => {
         if (!inputMessageRef) return;
@@ -69,10 +82,25 @@ const AddPostModal = ({
     const isPossibleCreatePost = (): boolean => {
         return !!(message.text || !isEmpty(attachments));
     };
-
     const handleAddPost = (closeModal: any) => {
         if (!inputMessageRef) return;
         if (!isPossibleCreatePost()) return;
+
+        // TODO Faire une regex pour avoir seulement un retour de ligne (<div><br></div>);
+        // TODO Penser a decommenter axios ...
+
+        // setMessage((oldState) => {
+        //     return {
+        //         ...oldState,
+        //         html: oldState.html
+        //             .replaceAll(/<div><br><\/div>*/gm, '$1__$/n')
+        //             .replaceAll(/__\$\/n*/gm, '<div><br></div>'),
+        //     };
+        // });
+        // console.log(
+        //     message.html.replaceAll(/<div><br><\/div>*/gm, '$&')
+        //     // .replace(/__\$\/n*/gm, 'TORTO')
+        // );
 
         const formData = new FormData();
         formData.append('userID', userID);
@@ -109,33 +137,14 @@ const AddPostModal = ({
         handleSetMessage('html', e.target.value);
     };
 
-    const handleInputPressedEnter = (e: React.KeyboardEvent<HTMLLabelElement>) => {
-        if (e.key === 'Enter' && fileInputRef.current) fileInputRef.current.click();
+    const openFileInput = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
     };
 
-    const handlePicturePreviewSize = (pictureIndex: number): string => {
-        const length = attachmentPreviews.length;
-        let classNameSupp = '';
-        if (length <= 2) {
-            classNameSupp = 'big';
-        } else if (length <= 4) {
-            if (pictureIndex > 0) {
-                classNameSupp = 'medium';
-                if (length > 3) {
-                    classNameSupp = 'small';
-                }
-            } else {
-                classNameSupp = 'big';
-            }
-        } else {
-            if (pictureIndex < 2) {
-                classNameSupp = 'big-max';
-            } else {
-                classNameSupp = 'medium-max';
-            }
-        }
-
-        return `modal-addpost__content__attachement-preview__item modal-addpost__content__attachement-preview__item--${classNameSupp}`;
+    const handleInputPressedEnter = (e: React.KeyboardEvent<HTMLLabelElement>) => {
+        if (e.key === 'Enter') openFileInput();
     };
 
     useEffect(() => {
@@ -147,11 +156,15 @@ const AddPostModal = ({
     useEffect(() => {
         if (isEmpty(attachments)) return;
 
-        let attachmentURL: string[] = [];
-        attachments.forEach((attachment) => {
-            attachmentURL.push(URL.createObjectURL(attachment));
+        let attachmentPreviews: IAttachmentPreview[] = [];
+        attachments.forEach((attachment, index) => {
+            attachmentPreviews.push({
+                genericFileType: getGenericFileType(attachment.type),
+                url: URL.createObjectURL(attachment),
+            });
         });
-        setAttachmentPreviews(attachmentURL);
+
+        setAttachmentPreviews(attachmentPreviews);
     }, [attachments]);
 
     return (
@@ -178,9 +191,41 @@ const AddPostModal = ({
                         handleFocusContentEditable();
                     }}>
                     <ContentEditable
+                        id="js-post-content-editable"
                         onClick={(e) => e.stopPropagation()}
+                        onPaste={(e) => {
+                            e.preventDefault();
+                            const clipboardDataText = e.clipboardData.getData('text/plain');
+
+                            const contentEditableEl = document.querySelector(
+                                '#js-post-content-editable'
+                            )!;
+
+                            insertCharacterInContentEditable(
+                                contentEditableEl,
+                                'text',
+                                clipboardDataText
+                            );
+                        }}
+                        onKeyDown={(e) => {
+                            const contentEditableEl = document.querySelector(
+                                '#js-post-content-editable'
+                            )!;
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                console.log('Enter');
+                                insertCharacterInContentEditable(
+                                    contentEditableEl,
+                                    'htmlElement',
+                                    'clipboardDataText'
+                                );
+                            }
+                        }}
                         innerRef={inputMessageRefCallback}
                         spellCheck={false}
+                        style={{
+                            fontSize: handlePostFontSizeReduce(message.text, attachments),
+                        }}
                         className="modal-addpost__content__input"
                         placeholder="Test"
                         html={message.html}
@@ -193,45 +238,67 @@ const AddPostModal = ({
                             <GrEmoji />
                         </button>
                     </div>
-                    {!isEmpty(attachmentPreviews) && (
-                        <div
-                            className={`modal-addpost__content__attachement-preview ${
-                                attachmentPreviews.length >= MAX_PREVIEW
-                                    ? 'modal-addpost__content__attachement-preview--max-preview'
-                                    : ''
-                            }`}>
-                            {attachmentPreviews.map((attachmentPreview, index) => {
-                                if (index < MAX_PREVIEW)
-                                    return (
-                                        <div
-                                            key={index}
-                                            className={handlePicturePreviewSize(index)}>
+                    {/* TODO Regler fix la prob de ref en retard */}
+                    {/* {!isEmpty(attachmentPreviews) && ( */}
+                    <div
+                        ref={attachmentPreviewParent}
+                        style={{ border: isEmpty(attachmentPreviews) ? 'none' : '' }}
+                        className="modal-addpost__content__attachement-preview">
+                        {attachmentPreviews.map((attachmentPreview, index) => {
+                            if (index < MAX_PREVIEW)
+                                return (
+                                    <div
+                                        key={index}
+                                        style={handleAttachmentPreviewSize(
+                                            index,
+                                            attachmentPreviews,
+                                            attachmentPreviewParent
+                                        )}>
+                                        {attachmentPreview.genericFileType === 'video' && (
+                                            <div className="modal-addpost__content__attachement-preview__item__video">
+                                                <video
+                                                    src={attachmentPreview.url}
+                                                    style={{
+                                                        height: '100%',
+                                                        width: '100%',
+                                                        objectFit: 'cover',
+                                                    }}
+                                                />
+                                                <span>
+                                                    <CgPlayButtonO />
+                                                </span>
+                                            </div>
+                                        )}
+                                        {attachmentPreview.genericFileType === 'image' && (
                                             <img
-                                                className={handlePicturePreviewSize(index)}
-                                                src={attachmentPreview}
+                                                style={{
+                                                    height: '100%',
+                                                    width: '100%',
+                                                    objectFit: 'cover',
+                                                }}
+                                                src={attachmentPreview.url}
                                                 alt="post attachment preview"
                                             />
-                                            {attachmentPreviews.length > MAX_PREVIEW &&
-                                                index === 4 && (
-                                                    <span className="modal-addpost__content__attachement-preview__display-more-max-previews">
-                                                        +{attachmentPreviews.length - MAX_PREVIEW}
-                                                    </span>
-                                                )}
-                                        </div>
-                                    );
-                            })}
-                            <div className="modal-addpost__content__attachement-preview__menu">
-                                <button>
-                                    <MdEdit />
-                                    <span>Edit All</span>
-                                </button>
-                                <button>
-                                    <MdLibraryAdd />
-                                    <span>Add Photos/Videos</span>
-                                </button>
-                            </div>
+                                        )}
+                                        {attachmentPreviews.length > MAX_PREVIEW && index === 4 && (
+                                            <span className="modal-addpost__content__attachement-preview__display-more-max-previews">
+                                                +{attachmentPreviews.length - MAX_PREVIEW}
+                                            </span>
+                                        )}
+                                    </div>
+                                );
+                        })}
+                        <div className="modal-addpost__content__attachement-preview__menu">
+                            <button>
+                                <MdEdit />
+                                <span>Edit All</span>
+                            </button>
+                            <button onClick={() => openFileInput()}>
+                                <MdLibraryAdd />
+                                <span>Add Photos/Videos</span>
+                            </button>
                         </div>
-                    )}
+                    </div>
                 </div>
                 {/*<div className="modal-addpost__content__wrapper__scrollbar-placeholder"></div>*/}
             </div>

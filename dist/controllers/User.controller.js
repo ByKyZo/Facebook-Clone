@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_model_1 = __importDefault(require("../models/user.model"));
 const mongoose_1 = require("mongoose");
-const utils_1 = require("../utils/utils");
+const user_model_1 = __importDefault(require("../models/user.model"));
 const fileHandler_1 = __importDefault(require("../utils/fileHandler"));
+const utils_1 = require("../utils/utils");
 class UserController {
     static getUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -56,24 +56,19 @@ class UserController {
                 return;
             }
             try {
-                let photos;
-                let videos;
+                let attachmentsUploaded = [];
                 if (!utils_1.isEmpty(attachments)) {
-                    const filesNameUploaded = [];
                     for (let i = 0; i < attachments.length; i++) {
-                        filesNameUploaded.push(yield fileHandler_1.default.uploadPictureAndVideos(userID, 
+                        attachmentsUploaded.push(yield fileHandler_1.default.uploadPictureAndVideos(userID, 
                         // @ts-ignore
                         attachments[i], 'posts'));
                     }
-                    photos = filesNameUploaded.filter((file) => file.genericFileType !== 'video');
-                    videos = filesNameUploaded.filter((file) => file.genericFileType !== 'image');
                 }
                 let user = (yield user_model_1.default.findByIdAndUpdate(userID, {
                     $push: {
                         posts: {
                             message,
-                            photos,
-                            videos,
+                            attachments: attachmentsUploaded,
                         },
                     },
                 }, { new: true }).select('posts'));

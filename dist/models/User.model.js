@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const ReactionsSchemaTypes = {
     like: {
         type: Number,
@@ -83,20 +83,9 @@ const UserSchema = new mongoose_1.default.Schema({
             message: {
                 type: String,
             },
-            photos: [
+            attachments: [
                 {
-                    fileName: {
-                        type: String,
-                    },
-                    genericFileType: {
-                        type: String,
-                        enum: ['image', 'video'],
-                    },
-                },
-            ],
-            videos: [
-                {
-                    fileName: {
+                    path: {
                         type: String,
                     },
                     genericFileType: {

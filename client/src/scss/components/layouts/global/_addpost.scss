@@ -4,6 +4,8 @@
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
     padding: 12px 16px;
 
+    margin-bottom: 16px;
+
     &__head {
         height: 40px;
         display: flex;
@@ -15,6 +17,7 @@
             background: var(--color-blue-60);
             margin-right: 8px;
             flex-shrink: 0;
+            user-select: none;
         }
 
         &__btn {
@@ -29,6 +32,16 @@
             width: 100%;
             //font-size: 1.1rem;
             padding: 0 12px;
+
+            span {
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                display: -webkit-box;
+                //text-overflow: ellipsis;
+                word-break: break-word;
+                line-height: 20px;
+                //color: red;
+            }
         }
     }
 

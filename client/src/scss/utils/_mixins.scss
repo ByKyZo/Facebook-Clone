@@ -38,13 +38,13 @@
         // AFFICHE UN BOUTON DESACTIVE (sans hover + cursor (not allowed) + grisé)
     } @else if($button-type == disabled) {
         @include hover(disabled);
-        background:grey;
+        background: grey;
         cursor: not-allowed;
     }
 
     &:disabled {
         @include hover(disabled);
-        background:grey;
+        background: grey;
         cursor: not-allowed;
         background-color: var(--color-white-05);
         color: var(--color-divider);
