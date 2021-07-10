@@ -8,6 +8,7 @@ import NavSearch from '../dropdown/NavSearch/NavSearch';
 import { useAppSelector } from '../../redux/redux.hook';
 import { useMediaQuery } from 'react-responsive';
 import LogoFb from '../../assets/logo-fb.svg';
+import ToolTip from '../utils/ToolTip';
 
 const dropdownTop = '52px';
 const dropdownRight = '12px';
@@ -16,6 +17,10 @@ const Navbar = () => {
     const userID = useAppSelector((state) => state.user._id);
     const isMobile = useMediaQuery({ query: '(max-width: 660px)' });
     const inputRef = useRef<HTMLInputElement>(null);
+
+    const [referenceHome, setReferenceHome] = useState<HTMLDivElement | null>(null);
+    const [referenceNotif, setReferenceNotif] = useState<HTMLButtonElement | null>(null);
+    const [referenceAccount, setReferenceAccount] = useState<HTMLButtonElement | null>(null);
 
     const [isOpenSearch, setIsOpenSearch] = useState(false);
     const [isOpenNotif, setIsOpenNotif] = useState(false);
@@ -70,7 +75,7 @@ const Navbar = () => {
                     left="0"
                 />
             </div>
-            <div className="navbar__navigation__content">
+            <div ref={setReferenceHome} className="navbar__navigation__content">
                 <CustomNavLink
                     exact
                     to="/"
@@ -80,6 +85,8 @@ const Navbar = () => {
                         <AiFillHome className="navbar__navigation__content__item__home" />
                     </div>
                 </CustomNavLink>
+                {/* TOOLTIP HOME */}
+                <ToolTip children="Home" reference={referenceHome} placement="bottom" posY={7} />
             </div>
             <div className="navbar__settings">
                 <div className="navbar__settings__content">
@@ -92,6 +99,7 @@ const Navbar = () => {
                         <span>Jeff</span>
                     </CustomNavLink>
                     <button
+                        ref={setReferenceNotif}
                         className={isClassNameActive(
                             'navbar__settings__content__notif',
                             isOpenNotif
@@ -100,9 +108,17 @@ const Navbar = () => {
                             setIsOpenNotif(true);
                         }}>
                         <IoMdNotifications />
+                        {/* TOOLTIP NOTIF*/}
                     </button>
+                    <ToolTip
+                        children="Notifications"
+                        reference={referenceNotif}
+                        placement="bottom"
+                        posY={11}
+                    />
 
                     <button
+                        ref={setReferenceAccount}
                         className={isClassNameActive(
                             'navbar__settings__content__arrow',
                             isOpenProfileMenu
@@ -112,6 +128,13 @@ const Navbar = () => {
                         }}>
                         <IoIosArrowDown />
                     </button>
+                    {/* TOOLTIP ACCOUNT */}
+                    <ToolTip
+                        children="Account"
+                        reference={referenceAccount}
+                        placement="bottom"
+                        posY={11}
+                    />
                 </div>
             </div>
 
