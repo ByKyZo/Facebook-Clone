@@ -18,7 +18,7 @@ const Navbar = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 660px)' });
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const [referenceHome, setReferenceHome] = useState<HTMLDivElement | null>(null);
+    const [referenceHome, setReferenceHome] = useState<HTMLAnchorElement | null>(null);
     const [referenceNotif, setReferenceNotif] = useState<HTMLButtonElement | null>(null);
     const [referenceAccount, setReferenceAccount] = useState<HTMLButtonElement | null>(null);
 
@@ -75,8 +75,9 @@ const Navbar = () => {
                     left="0"
                 />
             </div>
-            <div ref={setReferenceHome} className="navbar__navigation__content">
+            <div className="navbar__navigation__content">
                 <CustomNavLink
+                    innerRef={setReferenceHome}
                     exact
                     to="/"
                     className="navbar__navigation__content__item"
@@ -86,7 +87,12 @@ const Navbar = () => {
                     </div>
                 </CustomNavLink>
                 {/* TOOLTIP HOME */}
-                <ToolTip children="Home" reference={referenceHome} placement="bottom" posY={7} />
+                <ToolTip
+                    children="Home"
+                    reference={referenceHome}
+                    placement="bottom"
+                    mode="hover"
+                />
             </div>
             <div className="navbar__settings">
                 <div className="navbar__settings__content">
@@ -114,7 +120,7 @@ const Navbar = () => {
                         children="Notifications"
                         reference={referenceNotif}
                         placement="bottom"
-                        posY={11}
+                        mode="hover"
                     />
 
                     <button
@@ -133,7 +139,7 @@ const Navbar = () => {
                         children="Account"
                         reference={referenceAccount}
                         placement="bottom"
-                        posY={11}
+                        mode="hover"
                     />
                 </div>
             </div>

@@ -58,12 +58,13 @@ const Dropdown = ({
         transformOrigin: 'top',
         transform: 'scale(0.95)',
         zIndex: '9999',
+        opacity: '0',
     };
 
     const transitionStyles = {
         entering: {
-            opacity: '0',
-            transform: 'scale(0.98)',
+            opacity: '1',
+            transform: 'scale(1)',
         },
         entered: {
             opacity: '1',
@@ -71,11 +72,11 @@ const Dropdown = ({
         },
         exiting: {
             opacity: '0',
-            transform: 'scale(0.98)',
+            transform: 'scale(0.95)',
         },
         exited: {
             opacity: '0',
-            transform: 'scale(0.98)',
+            transform: 'scale(0.95)',
         },
     };
 
@@ -113,7 +114,7 @@ const Dropdown = ({
     const handleStyleResponsive = () => {
         return isResponsive && isBreakPoint
             ? {
-                    top: top,
+                  top: top,
                   //   right: rightResponsive,
                   //   bottom: bottomResponsive,
                   //   left: leftResponsive,
