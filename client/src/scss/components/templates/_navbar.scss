@@ -212,55 +212,61 @@
 }
 
 #tooltip {
-    background: #333;
-    color: white;
-    font-weight: bold;
-    padding: 10px 14px;
-    font-size: 13px;
-    border-radius: 4px;
+    background-color: var(--color-black-05);
+    color: var(--color-white-00);
+    padding: 10px 11px;
+    font-size: 12.5px;
+    border-radius: 9px;
     display: block;
   }
 
   #arrow {
     position: absolute;
     display : inline-block;
-    // height : 0;
-    // width : 0;
-    // background-color: red;
     height : 12px;
     width : 12px;
   }
 
   #tooltip[data-popper-placement^='top'] > #arrow {
     bottom: -4px;
-
+    background-color: var(--color-black-05);
+    background-color: var(--color-black-10);
+    clip-path: polygon(50% 60%, 100% 0, 0 0);
   }
 
   #tooltip[data-popper-placement^='bottom'] > #arrow {
     top: -11px;
-    background-color: red;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    background-color: var(--color-black-05);
+    clip-path: polygon(50% 60%, 0% 100%, 100% 100%);
   }
 
   #tooltip[data-popper-placement^='left'] > #arrow {
     right: -4px;
+    background-color: var(--color-black-05);
+    clip-path: polygon(50% 60%, 0 100%, 0 0);
   }
 
   #tooltip[data-popper-placement^='right'] > #arrow {
     left: -4px;
+    background-color: var(--color-black-05);
+    clip-path: polygon(50% 60%, 100% 0, 100% 100%);
   }
   
 .tooltip-enter {
     opacity: 0;
 }
 .tooltip-enter-active {
-    opacity: 1;
-    transition: opacity 200ms;
+    opacity: .8;
+    transition: opacity 200ms ; 
+}
+.tooltip-enter-done {
+    opacity: .8;
 }
 .tooltip-exit {
-    opacity: 1;
+    opacity: .8;
 }
 .tooltip-exit-active {
     opacity: 0;
     transition: opacity 200ms;
 }
+

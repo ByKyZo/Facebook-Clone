@@ -1,25 +1,24 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
-interface IToolTip {
+interface ITooltip {
     children: string;
     reference: HTMLElement | null;
     placement: VariationPlacement;
     offset?: [number, number];
-    isActiveClick?: boolean;
-    forceVisible?: boolean;
+    activeArrow?: boolean;
     mode: TooltipMode;
 }
 
-const ToolTip = ({
+const Tooltip = ({
     reference,
     children,
     placement,
     offset,
-    forceVisible,
-    isActiveClick = false,
-}: IToolTip) => {
+    mode,
+    activeArrow = false,
+}: ITooltip) => {
     const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
     const [arrowElement, setArrowElement] = useState<HTMLDivElement | null>(null);
     const [isVisible, setIsVisible] = useState(false);
@@ -29,7 +28,7 @@ const ToolTip = ({
             {
                 name: 'offset',
                 options: {
-                    offset: offset || [0, 12],
+                    offset: offset || [0, 7],
                 },
             },
             {
@@ -41,7 +40,6 @@ const ToolTip = ({
 
     useEffect(() => {
         // == ne fait rien
-        // console.log(isActiveClick);
         if (!reference) return;
         // isActiveClick
         //     ? reference.addEventListener('onClick', () => {
@@ -52,39 +50,40 @@ const ToolTip = ({
         //           popperElement.style.visibility = 'hidden';
         //           popperElement.removeAttribute('data-show');
         //       });
-        reference.addEventListener('mouseenter', () => {
-            setIsVisible(true);
-        });
-        reference.addEventListener('mouseleave', () => {
-            setIsVisible(false);
-        });
-    }, [reference, isActiveClick]);
+        console.log(reference);
+        if (mode === 'hover') {
+            reference.addEventListener('mouseenter', () => {
+                setIsVisible(true);
+            });
+            reference.addEventListener('mouseleave', () => {
+                setIsVisible(false);
+            });
+        } else if (mode === 'click') {
+            reference.addEventListener('click', () => {
+                setIsVisible(!isVisible);
+            });
+        }
+    }, [reference, mode]);
 
     const duration = 200;
 
     return (
-        <CSSTransition
-            unmountOnExit
-            in={forceVisible || isVisible}
-            timeout={duration}
-            classNames="tooltip">
+        <CSSTransition unmountOnExit in={isVisible} timeout={duration} classNames="tooltip">
             <div
                 id="tooltip"
                 ref={setPopperElement}
                 style={{ ...styles.popper }}
                 {...attributes.popper}>
                 {children}
-                {/* {
-    
-                    } */}
-                <div id="arrow" ref={setArrowElement} style={{ ...styles.arrow }} />
+                {activeArrow && (
+                    <div id="arrow" ref={setArrowElement} style={{ ...styles.arrow }} />
+                )}
             </div>
         </CSSTransition>
     );
 };
 
 type TooltipMode = 'hover' | 'click';
-
 type VariationPlacement =
     | 'top'
     | 'top-start'
@@ -102,4 +101,4 @@ type VariationPlacement =
     | 'auto-start'
     | 'auto-end';
 
-export default ToolTip;
+export default Tooltip;

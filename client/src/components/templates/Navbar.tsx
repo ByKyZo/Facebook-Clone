@@ -8,7 +8,7 @@ import NavSearch from '../dropdown/NavSearch/NavSearch';
 import { useAppSelector } from '../../redux/redux.hook';
 import { useMediaQuery } from 'react-responsive';
 import LogoFb from '../../assets/logo-fb.svg';
-import ToolTip from '../utils/ToolTip';
+import Button from '../utils/Button';
 
 const dropdownTop = '52px';
 const dropdownRight = '12px';
@@ -17,10 +17,6 @@ const Navbar = () => {
     const userID = useAppSelector((state) => state.user._id);
     const isMobile = useMediaQuery({ query: '(max-width: 660px)' });
     const inputRef = useRef<HTMLInputElement>(null);
-
-    const [referenceHome, setReferenceHome] = useState<HTMLAnchorElement | null>(null);
-    const [referenceNotif, setReferenceNotif] = useState<HTMLButtonElement | null>(null);
-    const [referenceAccount, setReferenceAccount] = useState<HTMLButtonElement | null>(null);
 
     const [isOpenSearch, setIsOpenSearch] = useState(false);
     const [isOpenNotif, setIsOpenNotif] = useState(false);
@@ -77,7 +73,7 @@ const Navbar = () => {
             </div>
             <div className="navbar__navigation__content">
                 <CustomNavLink
-                    innerRef={setReferenceHome}
+                    tooltip="Home"
                     exact
                     to="/"
                     className="navbar__navigation__content__item"
@@ -86,13 +82,6 @@ const Navbar = () => {
                         <AiFillHome className="navbar__navigation__content__item__home" />
                     </div>
                 </CustomNavLink>
-                {/* TOOLTIP HOME */}
-                <ToolTip
-                    children="Home"
-                    reference={referenceHome}
-                    placement="bottom"
-                    mode="hover"
-                />
             </div>
             <div className="navbar__settings">
                 <div className="navbar__settings__content">
@@ -104,8 +93,8 @@ const Navbar = () => {
                         <img src="https://picsum.photos/100/100" alt="profile" />
                         <span>Jeff</span>
                     </CustomNavLink>
-                    <button
-                        ref={setReferenceNotif}
+                    <Button
+                        tooltip="Notifications"
                         className={isClassNameActive(
                             'navbar__settings__content__notif',
                             isOpenNotif
@@ -114,17 +103,10 @@ const Navbar = () => {
                             setIsOpenNotif(true);
                         }}>
                         <IoMdNotifications />
-                        {/* TOOLTIP NOTIF*/}
-                    </button>
-                    <ToolTip
-                        children="Notifications"
-                        reference={referenceNotif}
-                        placement="bottom"
-                        mode="hover"
-                    />
+                    </Button>
 
-                    <button
-                        ref={setReferenceAccount}
+                    <Button
+                        tooltip="Account"
                         className={isClassNameActive(
                             'navbar__settings__content__arrow',
                             isOpenProfileMenu
@@ -133,14 +115,7 @@ const Navbar = () => {
                             setIsOpenProfileMenu(true);
                         }}>
                         <IoIosArrowDown />
-                    </button>
-                    {/* TOOLTIP ACCOUNT */}
-                    <ToolTip
-                        children="Account"
-                        reference={referenceAccount}
-                        placement="bottom"
-                        mode="hover"
-                    />
+                    </Button>
                 </div>
             </div>
 

@@ -1,18 +1,33 @@
 import React from 'react';
+import { useState } from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
+import Tooltip from '../utils/Tooltip';
 
-const CustomNavLink = ({ children, style, ...rest }: NavLinkProps) => {
+interface IProps extends NavLinkProps {
+    tooltip?: string;
+}
+
+const CustomNavLink = ({ children, style, tooltip, ...rest }: IProps) => {
+    const [triggerEl, setTriggerEl] = useState<HTMLAnchorElement | null>(null);
+
     return (
-        <NavLink {...rest} style={{ color: 'inherit', textDecoration: 'inherit', ...style }}>
-            {children}
-        </NavLink>
-        //       <ToolTip
-        //       children={label}
-        //       reference={referenceNotif}
-        //       placement="bottom"
-        //       mode="hover"
-        //   />
-        // <Button tooltip='Ouvre les livres'>ICON_LIVRE</Button>
+        <>
+            <NavLink
+                ref={setTriggerEl}
+                {...rest}
+                style={{ color: 'inherit', textDecoration: 'inherit', ...style }}>
+                {children}
+            </NavLink>
+            {tooltip && (
+                <Tooltip
+                    children={tooltip}
+                    reference={triggerEl}
+                    placement="bottom"
+                    mode="hover"
+                    activeArrow
+                />
+            )}
+        </>
     );
 };
 
