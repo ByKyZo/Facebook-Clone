@@ -14,6 +14,7 @@ const NavSearchProfiles = ({ name, index, length, cursor, setCursor, ...rest }: 
     const handleChangeByArrow = (e: React.KeyboardEvent<HTMLDivElement>) => {
         let item: any;
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            e.preventDefault();
             if (e.key === 'ArrowUp') {
                 if (cursor - 1 < 0) {
                     setCursor(length - 1);
@@ -38,7 +39,7 @@ const NavSearchProfiles = ({ name, index, length, cursor, setCursor, ...rest }: 
 
     return (
         <div
-            onKeyDown={handleChangeByArrow}
+            onKeyDown={(e) => handleChangeByArrow(e)}
             role="button"
             data-item-index={index}
             tabIndex={0}

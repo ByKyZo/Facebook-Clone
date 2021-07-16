@@ -9,6 +9,7 @@ import { useAppSelector } from '../../redux/redux.hook';
 import { useMediaQuery } from 'react-responsive';
 import LogoFb from '../../assets/logo-fb.svg';
 import Button from '../utils/Button';
+import { useRefUpdate } from '../../hooks/hooks';
 
 const dropdownTop = '52px';
 const dropdownRight = '12px';
@@ -17,6 +18,8 @@ const Navbar = () => {
     const userID = useAppSelector((state) => state.user._id);
     const isMobile = useMediaQuery({ query: '(max-width: 660px)' });
     const inputRef = useRef<HTMLInputElement>(null);
+    // const [notifBtnRef , setnotifBtnRef] = useState<HTMLElement>(null);
+    const [notifBtnRef, setNotifBtnRef] = useRefUpdate<HTMLElement>();
 
     const [isOpenSearch, setIsOpenSearch] = useState(false);
     const [isOpenNotif, setIsOpenNotif] = useState(false);
@@ -53,6 +56,11 @@ const Navbar = () => {
                                 'navbar__search__content__input',
                                 isOpenSearch
                             )}
+                            onKeyDown={(e) => {
+                                if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                                    e.preventDefault();
+                                }
+                            }}
                             type="text"
                             value={valueInputSearch}
                             onChange={handleChangeValueInputSearch}
@@ -94,6 +102,7 @@ const Navbar = () => {
                         <span>Jeff</span>
                     </CustomNavLink>
                     <Button
+                        innerRef={setNotifBtnRef}
                         tooltip="Notifications"
                         className={isClassNameActive(
                             'navbar__settings__content__notif',
@@ -129,6 +138,7 @@ const Navbar = () => {
             />
 
             <Notifications
+                triggerRefProps={notifBtnRef}
                 isOpen={isOpenNotif}
                 setIsOpen={setIsOpenNotif}
                 top={dropdownTop}

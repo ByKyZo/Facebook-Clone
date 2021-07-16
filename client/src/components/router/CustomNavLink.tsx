@@ -19,13 +19,7 @@ const CustomNavLink = ({ children, style, tooltip, ...rest }: IProps) => {
                 {children}
             </NavLink>
             {tooltip && (
-                <Tooltip
-                    children={tooltip}
-                    reference={triggerEl}
-                    placement="bottom"
-                    mode="hover"
-                    activeArrow
-                />
+                <Tooltip children={tooltip} reference={triggerEl} placement="bottom" mode="hover" />
             )}
         </>
     );

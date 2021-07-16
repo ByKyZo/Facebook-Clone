@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import e from 'cors';
+import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
+import { useComponentUnmount } from '../../hooks/hooks';
 interface ITooltip {
-    children: string;
+    className?: string;
+    children: any;
     reference: HTMLElement | null;
     placement: VariationPlacement;
     offset?: [number, number];
@@ -13,6 +16,7 @@ interface ITooltip {
 
 const Tooltip = ({
     reference,
+    className,
     children,
     placement,
     offset,
@@ -38,45 +42,51 @@ const Tooltip = ({
         ],
     });
 
+    useComponentUnmount(popperElement, setIsVisible, [reference]);
+
     useEffect(() => {
         // == ne fait rien
         if (!reference) return;
-        // isActiveClick
-        //     ? reference.addEventListener('onClick', () => {
-        //           popperElement.style.visibility = 'visible';
-        //           //   popperElement.setAttribute('data-show', '');
-        //       })
-        //     : reference.addEventListener('onClick', () => {
-        //           popperElement.style.visibility = 'hidden';
-        //           popperElement.removeAttribute('data-show');
-        //       });
-        console.log(reference);
+
+        const handleVisible = () => {
+            setIsVisible(true);
+        };
+        const handleInvisible = () => {
+            setIsVisible(false);
+        };
+        const handleToggleVisible = () => {
+            setIsVisible(!isVisible);
+        };
+
         if (mode === 'hover') {
-            reference.addEventListener('mouseenter', () => {
-                setIsVisible(true);
-            });
-            reference.addEventListener('mouseleave', () => {
-                setIsVisible(false);
-            });
+            reference.addEventListener('mouseenter', handleVisible);
+            reference.addEventListener('mouseleave', handleInvisible);
         } else if (mode === 'click') {
-            reference.addEventListener('click', () => {
-                setIsVisible(!isVisible);
-            });
+            reference.addEventListener('mousedown', handleToggleVisible);
         }
-    }, [reference, mode]);
+        return () => {
+            reference.removeEventListener('mouseenter', handleVisible);
+            reference.removeEventListener('mouseleave', handleInvisible);
+            reference.removeEventListener('mousedown', handleToggleVisible);
+        };
+    }, [reference, mode, isVisible]);
+
+    // useEffect(() => {
+
+    // }, []);
 
     const duration = 200;
 
     return (
         <CSSTransition unmountOnExit in={isVisible} timeout={duration} classNames="tooltip">
             <div
-                id="tooltip"
+                className={className ? className : 'tooltip-preset'}
                 ref={setPopperElement}
                 style={{ ...styles.popper }}
                 {...attributes.popper}>
                 {children}
                 {activeArrow && (
-                    <div id="arrow" ref={setArrowElement} style={{ ...styles.arrow }} />
+                    <div className="arrow" ref={setArrowElement} style={{ ...styles.arrow }}></div>
                 )}
             </div>
         </CSSTransition>

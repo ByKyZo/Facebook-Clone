@@ -1,11 +1,34 @@
 // @ts-ignore
 import SocketIOFileClient from 'socket.io-file-client';
-import { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { toastCatchError } from '../utils/utils';
 import SocketIO from 'socket.io';
 import { IFileInfo } from '../typescript/types';
 
+/**
+ *
+ * @returns Ref qui fait des rendu
+ */
+export const useRefUpdate = <T extends unknown>(): [
+    T | null,
+    React.Dispatch<React.SetStateAction<T | null>>
+] => {
+    const [stateRef, setStateRef] = useState<T | null>(null);
+    const setRef = useCallback((node) => {
+        if (node) {
+            setStateRef(node);
+        }
+    }, []);
+    return [stateRef, setRef];
+};
 // TODO Check pour clean up le use effect
+/**
+ *
+ * @param socket Instance du socket
+ * @param event Event du socket
+ * @param data Data du socket
+ * @returns [Un object uploader , la progression du telechargement du fichier]
+ */
 export const useSocketFileUpload = (
     socket: SocketIO.Socket,
     event: string,
@@ -41,4 +64,47 @@ export const useSocketFileUpload = (
     });
 
     return { uploader: uploader, fileProgress: Math.floor(fileProgress) };
+};
+
+/**
+ *
+ * @param htmlElement Element de référence
+ * @param setIsOpen Fonction qui gere le rendu de l'element
+ * @param htmlElementsIgnore Tableau d'element à ignorer
+ * - Demonter (close) le composant en cliquant dehors ou en pressant le touche Echap
+ * - Peut ignorer des elements
+ */
+export const useComponentUnmount = (
+    htmlElement: HTMLElement | null,
+    setIsOpen: React.Dispatch<boolean>,
+    htmlElementsIgnore?: [HTMLElement | null | undefined]
+) => {
+    useEffect(() => {
+        const handleCloseOnClickOutside = (e: any) => {
+            if (htmlElement && !htmlElement.contains(e.target)) {
+                if (htmlElementsIgnore) {
+                    htmlElementsIgnore.forEach((htmlElementIgnore) => {
+                        if (htmlElementIgnore !== e.target) {
+                            setIsOpen(false);
+                        }
+                    });
+                } else {
+                    setIsOpen(false);
+                }
+            }
+        };
+        const handleCloseOnPressEchap = (e: KeyboardEvent) => {
+            if (e.code === 'Escape') {
+                setIsOpen(false);
+            }
+        };
+
+        window.addEventListener('mousedown', handleCloseOnClickOutside, true);
+        window.addEventListener('keydown', handleCloseOnPressEchap, true);
+
+        return () => {
+            window.removeEventListener('mousedown', handleCloseOnClickOutside, true);
+            window.removeEventListener('keydown', handleCloseOnPressEchap, true);
+        };
+    }, [htmlElement, htmlElementsIgnore, setIsOpen]);
 };

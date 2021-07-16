@@ -1,9 +1,18 @@
 import React from 'react';
+import { useRef } from 'react';
+import { useRefUpdate } from '../../../hooks/hooks';
 import Dropdown, { IDropdownProps } from '../../utils/Dropdown';
 
-const Notifications = ({ ...rest }: IDropdownProps) => {
+interface IProps extends IDropdownProps {
+    triggerRefProps: HTMLElement | null;
+}
+
+const Notifications = ({ triggerRefProps, ...rest }: IProps) => {
+    // const notifRef = useRef<HTMLDivElement>(null);
+    // const [notifRef, setNotifRef] = useRefUpdate<HTMLDivElement>();
+
     return (
-        <Dropdown {...rest} contentClass="dropdown__notif">
+        <Dropdown {...rest} contentRef={triggerRefProps} contentClass="dropdown__notif">
             <div className="dropdown__notif__wrapper">
                 <h1 className="dropdown__notif__title" style={{ height: '50px' }}>
                     Notifications
@@ -27,7 +36,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                                     Il y a 3 minutes
                                 </span>
                             </div>
-                            <span className="test2"></span>
+                            <span className="notifRef2"></span>
                         </div>
                     </div>
                     {/* PLUS TOT */}
@@ -52,7 +61,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                                     Il y a 3 minutes
                                 </span>
                             </div>
-                            <span className="test2"></span>
+                            <span className="notifRef2"></span>
                         </div>
 
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
@@ -69,7 +78,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                                     Il y a 3 minutes
                                 </span>
                             </div>
-                            <span className="test2"></span>
+                            <span className="notifRef2"></span>
                         </div>
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
@@ -85,7 +94,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                                     Il y a 3 minutes
                                 </span>
                             </div>
-                            <span className="test2"></span>
+                            <span className="notifRef2"></span>
                         </div>
 
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
@@ -102,7 +111,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                                     Il y a 3 minutes
                                 </span>
                             </div>
-                            <span className="test2"></span>
+                            <span className="notifRef2"></span>
                         </div>
 
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
@@ -112,7 +121,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                             <div className="dropdown__notif__content__info__desc">
                                 <span className="dropdown__notif__content__info__desc__content">
                                     <span>Jeff &nbsp;</span>
-                                    <span className="test">
+                                    <span className="notifRef">
                                         vous invite à la fête de la
                                         musiqueggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                                         de &nbsp;
@@ -139,7 +148,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                                     Il y a 3 minutes
                                 </span>
                             </div>
-                            <span className="test2"></span>
+                            <span className="notifRef2"></span>
                         </div>
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
@@ -155,7 +164,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                                     Il y a 3 minutes
                                 </span>
                             </div>
-                            <span className="test2"></span>
+                            <span className="notifRef2"></span>
                         </div>
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
@@ -171,7 +180,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                                     Il y a 3 minutes
                                 </span>
                             </div>
-                            <span className="test2"></span>
+                            <span className="notifRef2"></span>
                         </div>
                         <div role="button" tabIndex={0} className="dropdown__notif__content__info">
                             <div className="dropdown__notif__content__info__profil">
@@ -187,7 +196,7 @@ const Notifications = ({ ...rest }: IDropdownProps) => {
                                     Il y a 3 minutes
                                 </span>
                             </div>
-                            <span className="test2"></span>
+                            <span className="notifRef2"></span>
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,10 @@
 .profile-head {
     background-color: var(--color-white-00);
-
+ 
     &__content {
         @include display-direction-justify-align(flex, column, unset, center);
+        margin: 0 auto;
+        max-width: 1250px;
         position: relative;
 
         &__background {
@@ -10,7 +12,6 @@
             cursor: pointer;
             object-fit: cover;
             background-position: center;
-            max-width: 1250px;
             width: 100%;
             height: 450px;
 

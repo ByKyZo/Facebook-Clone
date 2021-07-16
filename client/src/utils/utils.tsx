@@ -193,3 +193,16 @@ export const handleAttachmentPreviewSize = (
 export const handlePostFontSizeReduce = (message: string, attachments: any[]) => {
     return message.length > 85 || !isEmpty(attachments) ? '1rem' : '1.4rem';
 };
+
+export const closeOnClickOutside = (
+    ref: React.RefObject<HTMLElement>,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+    const handleCloseModal = (e: any) => {
+        if (!ref.current) return () => setIsOpen(false);
+
+        !ref.current.contains(e.target) && setIsOpen(false);
+    };
+
+    window.addEventListener('mousedown', handleCloseModal);
+};

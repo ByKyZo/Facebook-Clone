@@ -1,0 +1,47 @@
+.tooltip-profile {
+    @include border-radius(big);
+    background-color: var(--color-white-00);
+    border:  1px solid var(--color-divider);
+    box-shadow: 0 12px 28px 0 var(--color-white-05),0 2px 4px 0 var(--color-white-05),inset 0 0 0 1px var(--color-white-00);
+    font-size: 15px;
+    padding: 8px;
+    width: 320px;
+
+    svg {
+       font-size: 1.4rem;
+       margin-right: 10px;
+    }
+
+    a {
+        @include display-direction-justify-align(vrcenter);
+        @include border-radius(small);
+        @include hover();
+        overflow: hidden;
+        padding: 8px;
+    }
+}
+
+.tooltip-profile[data-popper-placement^='top'] > .arrow {
+    bottom: -17px;
+    background-color: var(--color-white-00);
+    clip-path: polygon(50% 60%, 100% 0, 0 0);
+
+  }
+
+  .tooltip-profile[data-popper-placement^='bottom'] > .arrow {
+    top: -17px;
+    background-color: var(--color-white-00);
+    clip-path: polygon(50% 60%, 0% 100%, 100% 100%);
+  }
+
+  .tooltip-preset[data-popper-placement^='left'] > .arrow {
+    right: -17px;
+    background-color: var(--color-white-00);
+    clip-path: polygon(50% 60%, 0 100%, 0 0);
+  }
+
+  .tooltip-preset[data-popper-placement^='right'] > .arrow {
+    left: -17px;
+    background-color: var(--color-white-00);
+    clip-path: polygon(50% 60%, 100% 0, 100% 100%);
+  }

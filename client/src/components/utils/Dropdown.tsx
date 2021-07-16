@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Transition } from 'react-transition-group';
-import { isEmpty } from '../../utils/utils';
 import FocusTrap from 'focus-trap-react';
+import { useComponentUnmount, useRefUpdate } from '../../hooks/hooks';
 // @mixin placeholder-responsive{
 //     position: fixed !important;
 //     left : 50%;
@@ -13,7 +13,8 @@ export interface IDropdownProps {
     isOpen: boolean;
     setIsOpen: (arg: boolean) => void;
     children?: JSX.Element | JSX.Element[];
-    contentRef?: React.RefObject<HTMLInputElement>;
+    // contentRef?: React.RefObject<HTMLElement>;
+    contentRef?: HTMLElement | null;
     contentClass?: string;
     notCloseOnRefs?: React.RefObject<HTMLInputElement>;
     isResponsive?: boolean;
@@ -48,8 +49,10 @@ const Dropdown = ({
     bottomResponsive,
     leftResponsive,
 }: IDropdownProps) => {
-    const dropdownContentRef = useRef<HTMLDivElement>(null);
-    const currentRef = isVertical ? dropdownContentRef : contentRef;
+    const [dropdownRef, setDropdownRef] = useRefUpdate<HTMLDivElement>();
+
+    useComponentUnmount(dropdownRef, setIsOpen, [contentRef]);
+
     const isBreakPoint = useMediaQuery({ query: `(max-width: ${maxWidthResponsive}px)` });
     const duration = 100;
     const defaultStyle = {
@@ -80,37 +83,6 @@ const Dropdown = ({
         },
     };
 
-    useEffect(() => {
-        if (!isOpen || !currentRef?.current) return;
-        const handleCloseDropDown = (e: any) => {
-            if (isEmpty(notCloseOnRefs) || !notCloseOnRefs?.current) {
-                if (!currentRef.current) return setIsOpen(false);
-                !currentRef.current.contains(e.target) && setIsOpen(false);
-            } else {
-                if (!currentRef.current || !notCloseOnRefs.current) return setIsOpen(false);
-                if (
-                    !currentRef.current.contains(e.target) &&
-                    !notCloseOnRefs.current.contains(e.target)
-                ) {
-                    setIsOpen(false);
-                }
-            }
-        };
-        document.addEventListener('mousedown', handleCloseDropDown);
-        document.addEventListener('touchstart', handleCloseDropDown);
-
-        if (!isOpen) {
-            document.removeEventListener('mousedown', handleCloseDropDown);
-            document.addEventListener('touchstart', handleCloseDropDown);
-        }
-    }, [isOpen, setIsOpen, currentRef, notCloseOnRefs]);
-
-    const closeOneEscape = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        if (e.key === 'Escape') {
-            setIsOpen(false);
-        }
-    };
-
     const handleStyleResponsive = () => {
         return isResponsive && isBreakPoint
             ? {
@@ -135,9 +107,9 @@ const Dropdown = ({
                     <FocusTrap active={isOpen}>
                         <div
                             className={contentClass}
-                            onKeyDown={(e) => closeOneEscape(e)}
                             // @ts-ignore
-                            ref={isVertical && dropdownContentRef}
+                            // ref={dropdownContentRef}
+                            ref={setDropdownRef}
                             style={{
                                 ...defaultStyle,
                                 // @ts-ignore

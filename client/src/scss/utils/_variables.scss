@@ -19,6 +19,8 @@
 
     --color-black-00: #000000;
     --color-black-05: #050505;
+    --color-black-05-rgb: 5, 5, 5;
+
     --color-black-10: #65676b;
     --color-black-15: #e4e6eb;
 
@@ -36,6 +38,7 @@
 
 html[data-darkmode='on'] {
     --color-blue-05: #ecf3ff;
+    --color-black-05-rgb: 235, 242, 255;
     --color-blue-10: #2e4058;
     --color-blue-30: #aac9ff;
     --color-blue-40: #77a7ff;
@@ -53,7 +56,6 @@ html[data-darkmode='on'] {
     --color-black-20: #18191a;
 
     --color-white-00: #242526; // White
-    //--color-white-05: #565656;
     --color-white-05: #18191a;
 
     --comment-background: #3a3b3c;

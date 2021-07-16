@@ -48,7 +48,7 @@ const Profile = ({ currentNav }: IProps) => {
     return (
         <PageTemplate pageTitle={`${user.firstName} ${user.lastName}`}>
             <Head />
-            <ProfileNav />
+            {/* <ProfileNav /> */}
 
             <div className="profile__wrapper">{currentNavRender()}</div>
         </PageTemplate>
