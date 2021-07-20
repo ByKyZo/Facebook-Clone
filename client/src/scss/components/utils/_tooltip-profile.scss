@@ -6,42 +6,18 @@
     font-size: 15px;
     padding: 8px;
     width: 320px;
+    z-index: 99;
 
-    svg {
-       font-size: 1.4rem;
-       margin-right: 10px;
-    }
-
-    a {
+    &__content {
         @include display-direction-justify-align(vrcenter);
         @include border-radius(small);
         @include hover();
         overflow: hidden;
         padding: 8px;
+
+        svg {
+          font-size: 1.4rem;
+          margin-right: 10px;
+       }
     }
 }
-
-.tooltip-profile[data-popper-placement^='top'] > .arrow {
-    bottom: -17px;
-    background-color: var(--color-white-00);
-    clip-path: polygon(50% 60%, 100% 0, 0 0);
-
-  }
-
-  .tooltip-profile[data-popper-placement^='bottom'] > .arrow {
-    top: -17px;
-    background-color: var(--color-white-00);
-    clip-path: polygon(50% 60%, 0% 100%, 100% 100%);
-  }
-
-  .tooltip-preset[data-popper-placement^='left'] > .arrow {
-    right: -17px;
-    background-color: var(--color-white-00);
-    clip-path: polygon(50% 60%, 0 100%, 0 0);
-  }
-
-  .tooltip-preset[data-popper-placement^='right'] > .arrow {
-    left: -17px;
-    background-color: var(--color-white-00);
-    clip-path: polygon(50% 60%, 100% 0, 100% 100%);
-  }

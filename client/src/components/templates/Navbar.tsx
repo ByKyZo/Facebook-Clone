@@ -18,8 +18,8 @@ const Navbar = () => {
     const userID = useAppSelector((state) => state.user._id);
     const isMobile = useMediaQuery({ query: '(max-width: 660px)' });
     const inputRef = useRef<HTMLInputElement>(null);
-    // const [notifBtnRef , setnotifBtnRef] = useState<HTMLElement>(null);
     const [notifBtnRef, setNotifBtnRef] = useRefUpdate<HTMLElement>();
+    const [menuBtnRef, setMenuBtnRef] = useRefUpdate<HTMLElement>();
 
     const [isOpenSearch, setIsOpenSearch] = useState(false);
     const [isOpenNotif, setIsOpenNotif] = useState(false);
@@ -108,27 +108,44 @@ const Navbar = () => {
                             'navbar__settings__content__notif',
                             isOpenNotif
                         )}
-                        onClick={() => {
-                            setIsOpenNotif(true);
-                        }}>
+                        onMouseDown={() => {
+                            console.log('mouse down notif');
+                            setIsOpenNotif((oldState) => !oldState);
+                        }}
+                        // onClick={() => {
+                        //     setIsOpenNotif((oldState) => {
+                        //         console.log('toggle notif');
+
+                        //         return !oldState;
+                        //     });
+                        // }}
+                    >
                         <IoMdNotifications />
                     </Button>
 
                     <Button
+                        innerRef={(ref) => setMenuBtnRef(ref)}
                         tooltip="Account"
                         className={isClassNameActive(
                             'navbar__settings__content__arrow',
                             isOpenProfileMenu
                         )}
-                        onClick={() => {
-                            setIsOpenProfileMenu(true);
-                        }}>
+                        onMouseDown={() => {
+                            console.log('mouse down notif');
+                            setIsOpenProfileMenu((oldState) => !oldState);
+                        }}
+                        // onClick={() => {
+                        //     console.log('toggle menu');
+                        //     setIsOpenProfileMenu((oldState) => !oldState);
+                        // }}
+                    >
                         <IoIosArrowDown />
                     </Button>
                 </div>
             </div>
 
             <ProfileMenu
+                triggerRefProps={menuBtnRef}
                 isOpen={isOpenProfileMenu}
                 setIsOpen={setIsOpenProfileMenu}
                 top={dropdownTop}
@@ -138,7 +155,7 @@ const Navbar = () => {
             />
 
             <Notifications
-                triggerRefProps={notifBtnRef}
+                htmlElementIgnore={[notifBtnRef]}
                 isOpen={isOpenNotif}
                 setIsOpen={setIsOpenNotif}
                 top={dropdownTop}

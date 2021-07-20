@@ -68,6 +68,7 @@
             }
         }
         &__bio {
+            box-sizing: border-box;
             margin: 30px auto 10px;
             padding: 6px;
             width: 300px;
@@ -85,8 +86,10 @@
                 margin-bottom: 5px;
             }
             &__content {
+                display: block;
                 font-size: 1.0625rem;
                 color: var(--color-black-10);
+                margin: 8px 0 8px;
             }
             &__action {
                 font-size: 0.9375rem;

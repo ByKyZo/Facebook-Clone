@@ -6,6 +6,10 @@ import NestedMenu from '../../utils/NestedMenu/NestedMenu';
 import NestedMenuItem from '../../utils/NestedMenu/NestedMenuItem';
 import ProfileMenuHome from './menuPart/ProfileMenuHome';
 
+interface IProps extends IDropdownProps {
+    triggerRefProps?: HTMLElement | null;
+}
+
 export enum Menu {
     HOME = 'home',
     SETTING_AND_PRIVACY = 'SETTING_AND_PRIVACY',
@@ -14,10 +18,11 @@ export enum Menu {
 
 // TODO Créer composant template qui gere automatiquement (avec des data attribute , object , enum etc...)
 
-const ProfileMenu = ({ isOpen, setIsOpen, ...rest }: IDropdownProps) => {
+const ProfileMenu = ({ isOpen, setIsOpen, triggerRefProps, ...rest }: IProps) => {
     return (
         <Dropdown
             {...rest}
+            htmlElementIgnore={[triggerRefProps]}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             contentClass="dropdown-profile-menu">

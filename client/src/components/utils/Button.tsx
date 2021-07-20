@@ -1,38 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { createRef } from 'react';
 import { useState } from 'react';
 import Tooltip from '../utils/Tooltip';
 
 interface IProps extends React.HTMLAttributes<HTMLButtonElement> {
     tooltip?: string;
     innerRef?: (htmlELement: HTMLElement | null) => void;
+    // innerRef?: (htmlELement: any) => void;
 }
 
-const Button = ({ children, style, tooltip, innerRef, onClick, className, ...rest }: IProps) => {
+const Button = ({ children, style, tooltip, innerRef, className, ...rest }: IProps) => {
     const [triggerEl, setTriggerEl] = useState<HTMLButtonElement | null>(null);
 
-    const handlePressEnter = (e: any, onClick: any) => {
-        if (e.code === 13) {
-            onClick();
-            console.log(e.code);
-        }
-    };
-    useEffect(() => {
+    // const btnRef = createRef<HTMLButtonElement>();
+
+    // console.log('create ref', btnRef);
+    // console.log('use ref', triggerEl);
+
+    const innnerRefCallback = useCallback(() => {
         if (innerRef) {
             innerRef(triggerEl);
         }
-    }, [innerRef]);
-    // const handle;
+    }, [innerRef, triggerEl]);
 
-    console.log(onClick);
+    useEffect(() => {
+        innnerRefCallback();
+    }, [innnerRefCallback]);
+
     return (
         <>
-            <button
-                {...rest}
-                className={className}
-                ref={(ref) => setTriggerEl}
-                onKeyDown={(e) => handlePressEnter(e, onClick)}
-                onClick={onClick}>
-                {children}
+            <button {...rest} className={className} ref={(node) => setTriggerEl(node)}>
+                <div style={{ pointerEvents: 'none' }}>{children}</div>
             </button>
             {tooltip && (
                 <Tooltip children={tooltip} reference={triggerEl} placement="bottom" mode="hover" />

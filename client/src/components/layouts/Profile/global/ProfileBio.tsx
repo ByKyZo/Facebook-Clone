@@ -30,7 +30,7 @@ const ProfileBio = ({
 
     const handleSaveBio = () => {
         setBiographyValue(areaValue);
-        setIsOpenBioUpdate(true);
+        areaValue !== '' ? setIsOpenBioUpdate(true) : setIsOpenBio(false);
     };
 
     const handleIgnorePublishShare = () => {

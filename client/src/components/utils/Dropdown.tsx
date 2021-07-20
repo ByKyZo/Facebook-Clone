@@ -11,10 +11,10 @@ import { useComponentUnmount, useRefUpdate } from '../../hooks/hooks';
 // }
 export interface IDropdownProps {
     isOpen: boolean;
-    setIsOpen: (arg: boolean) => void;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     children?: JSX.Element | JSX.Element[];
-    // contentRef?: React.RefObject<HTMLElement>;
-    contentRef?: HTMLElement | null;
+    // htmlElementIgnore?: React.RefObject<HTMLElement>;
+    htmlElementIgnore?: [HTMLElement | null | undefined];
     contentClass?: string;
     notCloseOnRefs?: React.RefObject<HTMLInputElement>;
     isResponsive?: boolean;
@@ -32,7 +32,7 @@ export interface IDropdownProps {
 
 const Dropdown = ({
     children,
-    contentRef,
+    htmlElementIgnore,
     contentClass,
     notCloseOnRefs,
     isOpen,
@@ -50,8 +50,9 @@ const Dropdown = ({
     leftResponsive,
 }: IDropdownProps) => {
     const [dropdownRef, setDropdownRef] = useRefUpdate<HTMLDivElement>();
+    // console.log(isOpen);
 
-    useComponentUnmount(dropdownRef, setIsOpen, [contentRef]);
+    useComponentUnmount(dropdownRef, setIsOpen, htmlElementIgnore);
 
     const isBreakPoint = useMediaQuery({ query: `(max-width: ${maxWidthResponsive}px)` });
     const duration = 100;
@@ -108,7 +109,7 @@ const Dropdown = ({
                         <div
                             className={contentClass}
                             // @ts-ignore
-                            // ref={dropdownContentRef}
+                            // ref={dropdownhtmlElementIgnore}
                             ref={setDropdownRef}
                             style={{
                                 ...defaultStyle,

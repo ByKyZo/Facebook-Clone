@@ -1,7 +1,7 @@
 // @ts-ignore
 import SocketIOFileClient from 'socket.io-file-client';
 import React, { useCallback, useEffect, useState } from 'react';
-import { toastCatchError } from '../utils/utils';
+import { isEmpty, toastCatchError } from '../utils/utils';
 import SocketIO from 'socket.io';
 import { IFileInfo } from '../typescript/types';
 
@@ -76,7 +76,7 @@ export const useSocketFileUpload = (
  */
 export const useComponentUnmount = (
     htmlElement: HTMLElement | null,
-    setIsOpen: React.Dispatch<boolean>,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
     htmlElementsIgnore?: [HTMLElement | null | undefined]
 ) => {
     useEffect(() => {
@@ -85,9 +85,11 @@ export const useComponentUnmount = (
                 if (htmlElementsIgnore) {
                     htmlElementsIgnore.forEach((htmlElementIgnore) => {
                         if (htmlElementIgnore !== e.target) {
+                            console.log('close');
                             setIsOpen(false);
                         }
                     });
+                    console.log('dont close');
                 } else {
                     setIsOpen(false);
                 }
@@ -98,12 +100,10 @@ export const useComponentUnmount = (
                 setIsOpen(false);
             }
         };
-
-        window.addEventListener('mousedown', handleCloseOnClickOutside, true);
+        window.addEventListener('click', handleCloseOnClickOutside, true);
         window.addEventListener('keydown', handleCloseOnPressEchap, true);
-
         return () => {
-            window.removeEventListener('mousedown', handleCloseOnClickOutside, true);
+            window.removeEventListener('click', handleCloseOnClickOutside, true);
             window.removeEventListener('keydown', handleCloseOnPressEchap, true);
         };
     }, [htmlElement, htmlElementsIgnore, setIsOpen]);

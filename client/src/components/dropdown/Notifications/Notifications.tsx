@@ -1,18 +1,9 @@
 import React from 'react';
-import { useRef } from 'react';
-import { useRefUpdate } from '../../../hooks/hooks';
 import Dropdown, { IDropdownProps } from '../../utils/Dropdown';
 
-interface IProps extends IDropdownProps {
-    triggerRefProps: HTMLElement | null;
-}
-
-const Notifications = ({ triggerRefProps, ...rest }: IProps) => {
-    // const notifRef = useRef<HTMLDivElement>(null);
-    // const [notifRef, setNotifRef] = useRefUpdate<HTMLDivElement>();
-
+const Notifications = ({ ...rest }: IDropdownProps) => {
     return (
-        <Dropdown {...rest} contentRef={triggerRefProps} contentClass="dropdown__notif">
+        <Dropdown {...rest} contentClass="dropdown__notif">
             <div className="dropdown__notif__wrapper">
                 <h1 className="dropdown__notif__title" style={{ height: '50px' }}>
                     Notifications
