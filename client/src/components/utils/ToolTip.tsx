@@ -12,6 +12,7 @@ import { useComponentUnmount } from '../../hooks/hooks';
 
 interface ITooltip {
     isOpen?: boolean;
+    setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
     className?: string;
     children: any;
     reference: HTMLElement | null;
@@ -23,6 +24,7 @@ interface ITooltip {
 
 const Tooltip = ({
     isOpen,
+    setIsOpen,
     reference,
     className,
     children,
@@ -58,6 +60,12 @@ const Tooltip = ({
             setIsInnerOpen(isOpen);
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (setIsOpen !== undefined) {
+            setIsOpen(isInnerOpen);
+        }
+    }, [isInnerOpen, setIsOpen]);
 
     useComponentUnmount(popperElement, setIsInnerOpen, [reference]);
 

@@ -26,6 +26,7 @@
             }
         }
         &__profile {
+            user-select: none;
             cursor: pointer;
             position: absolute;
             bottom: -3%;

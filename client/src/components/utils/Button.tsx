@@ -11,12 +11,6 @@ interface IProps extends React.HTMLAttributes<HTMLButtonElement> {
 
 const Button = ({ children, style, tooltip, innerRef, className, ...rest }: IProps) => {
     const [triggerEl, setTriggerEl] = useState<HTMLButtonElement | null>(null);
-
-    // const btnRef = createRef<HTMLButtonElement>();
-
-    // console.log('create ref', btnRef);
-    // console.log('use ref', triggerEl);
-
     const innnerRefCallback = useCallback(() => {
         if (innerRef) {
             innerRef(triggerEl);

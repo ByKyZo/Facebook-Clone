@@ -46,20 +46,27 @@ const Head = () => {
                         ref={setLogoProfileElement}
                         onClick={() => setIsOpenTooltipProfile(!isOpenTooltipProfile)}
                         className="profile-head__content__profile">
-                        <div className="profile-head__content__profile__logo">
+                        <div
+                            style={{ pointerEvents: 'none' }}
+                            className="profile-head__content__profile__logo">
                             <img
                                 className="profile-head__content__profile__logo__image"
                                 src="https://picsum.photos//168"
                                 alt=""
                             />
-                            <div className="profile-head__content__profile__logo__upload">
-                                <MdPhotoCamera className="profile-head__content__profile__logo__upload__image" />
-                            </div>
+                        </div>
+                        <div
+                            onClick={(e) => {
+                                e.stopPropagation();
+                            }}
+                            className="profile-head__content__profile__logo__upload">
+                            <MdPhotoCamera className="profile-head__content__profile__logo__upload__image" />
                         </div>
                         {/* Tooltip profile */}
 
                         <Tooltip
                             isOpen={isOpenTooltipProfile}
+                            setIsOpen={setIsOpenTooltipProfile}
                             className="tooltip-profile"
                             reference={logoProfileElement}
                             placement="bottom"

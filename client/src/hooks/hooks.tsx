@@ -85,11 +85,14 @@ export const useComponentUnmount = (
                 if (htmlElementsIgnore) {
                     htmlElementsIgnore.forEach((htmlElementIgnore) => {
                         if (htmlElementIgnore !== e.target) {
+                            // console.log('html ignore', htmlElementIgnore);
+                            // console.log('target', e.target);
+
                             console.log('close');
-                            setIsOpen(false);
+                            return setIsOpen(false);
                         }
+                        console.log('dont close');
                     });
-                    console.log('dont close');
                 } else {
                     setIsOpen(false);
                 }

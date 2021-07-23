@@ -3,17 +3,11 @@ import { useMediaQuery } from 'react-responsive';
 import { Transition } from 'react-transition-group';
 import FocusTrap from 'focus-trap-react';
 import { useComponentUnmount, useRefUpdate } from '../../hooks/hooks';
-// @mixin placeholder-responsive{
-//     position: fixed !important;
-//     left : 50%;
-//     transform: translateX(-50%);
-//     width: 95%;
-// }
+
 export interface IDropdownProps {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     children?: JSX.Element | JSX.Element[];
-    // htmlElementIgnore?: React.RefObject<HTMLElement>;
     htmlElementIgnore?: [HTMLElement | null | undefined];
     contentClass?: string;
     notCloseOnRefs?: React.RefObject<HTMLInputElement>;

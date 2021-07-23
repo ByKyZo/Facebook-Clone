@@ -11,6 +11,10 @@ import LogoFb from '../../assets/logo-fb.svg';
 import Button from '../utils/Button';
 import { useRefUpdate } from '../../hooks/hooks';
 
+// TODO Trouver le probleme du toggle sur le onClick des dropdown
+// TODO Trouver le probleme du toggle sur le onClick des dropdown
+// TODO Trouver le probleme du toggle sur le onClick des dropdown
+
 const dropdownTop = '52px';
 const dropdownRight = '12px';
 
@@ -18,7 +22,8 @@ const Navbar = () => {
     const userID = useAppSelector((state) => state.user._id);
     const isMobile = useMediaQuery({ query: '(max-width: 660px)' });
     const inputRef = useRef<HTMLInputElement>(null);
-    const [notifBtnRef, setNotifBtnRef] = useRefUpdate<HTMLElement>();
+    // const [notifBtnRef, setNotifBtnRef] = useState<HTMLElement | null>(null);
+    const [notifBtnRef, setNotifBtnRef] = useState<HTMLElement | null>(null);
     const [menuBtnRef, setMenuBtnRef] = useRefUpdate<HTMLElement>();
 
     const [isOpenSearch, setIsOpenSearch] = useState(false);
@@ -108,17 +113,19 @@ const Navbar = () => {
                             'navbar__settings__content__notif',
                             isOpenNotif
                         )}
-                        onMouseDown={() => {
-                            console.log('mouse down notif');
+                        onMouseDown={(e) => {
+                            console.log('toggle mousedown notif', e.target);
                             setIsOpenNotif((oldState) => !oldState);
                         }}
-                        // onClick={() => {
-                        //     setIsOpenNotif((oldState) => {
-                        //         console.log('toggle notif');
-
-                        //         return !oldState;
-                        //     });
+                        // onMouseUp={(e) => {
+                        //     console.log('toggle mouseup notif', e.target);
+                        //     setIsOpenNotif((oldState) => !oldState);
                         // }}
+                        // onClick={(e) => {
+                        //     console.log('toggle click notif', e.target);
+                        //     setIsOpenNotif((oldState) => !oldState);
+                        // }}
+                        //
                     >
                         <IoMdNotifications />
                     </Button>
