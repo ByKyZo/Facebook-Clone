@@ -1,0 +1,68 @@
+// TODO Revoir les variables
+// Copié coller sur le site fb et changer le nom des variables utiles
+/**
+ * --surface-background: #242526; -> item component (profile)
+ * --web-wash: #18191A; -> app background
+ *
+ */
+
+:root {
+    --color-blue-05: #ecf3ff;
+    --color-blue-10: #e2ecfd;
+    --color-blue-30: #aac9ff;
+    --color-blue-40: #77a7ff;
+    --color-blue-60: #1877f2; // Primary
+    --color-blue-70: #2851a3;
+    --color-blue-80: #1d3c78;
+
+    --color-green-55: #42b72a;
+
+    --color-black-00: #000000;
+    --color-black-05: #050505;
+    --color-black-05-rgb: 5, 5, 5;
+
+    --color-black-10: #65676b;
+    --color-black-15: #e4e6eb;
+
+    --color-white-00: #ffffff; // White
+    --color-white-05: #f0f2f5;
+
+    --comment-background: #f0f2f5;
+
+    --overlay-alpha-80: rgb(244 244 244 / 0.8);
+
+    --color-divider: #ced0d4;
+    --color-hover: 0, 0, 0;
+    --color-hover-opacity: 0.06;
+}
+
+html[data-darkmode='on'] {
+    --color-blue-05: #ecf3ff;
+    --color-black-05-rgb: 235, 242, 255;
+    --color-blue-10: #2e4058;
+    --color-blue-30: #aac9ff;
+    --color-blue-40: #77a7ff;
+    --color-blue-60: #1877f2; // Primary
+    --color-blue-70: #2851a3;
+    --color-blue-80: #1d3c78;
+
+    --color-green-55: #42b72a;
+
+    --color-black-00: #ffffff;
+    --color-black-05: #e4e6eb;
+    --color-black-10: #b0b3b8;
+    --color-black-15: #4e4f50;
+    --color-black-17: #3a3b3c;
+    --color-black-20: #18191a;
+
+    --color-white-00: #242526; // White
+    --color-white-05: #18191a;
+
+    --comment-background: #3a3b3c;
+
+    --overlay-alpha-80: rgb(11 11 11 / 80%);
+
+    --color-divider: #3e4042;
+    --color-hover: 255, 255, 255;
+    --color-hover-opacity: 0.12;
+}

@@ -1,0 +1,66 @@
+.dropdown__search{
+    width: 320px;
+    background-color: var(--color-white-00);
+    box-shadow: 0px 2px 2.1px var(--color-white-05);
+    @include border-radius(big);
+    padding-bottom: 0.625rem;
+    z-index: 5;
+
+    &__close {
+        @include button();
+        @include border-radius(rounded);
+        position: absolute;
+        padding: 0.375rem;
+        top: 0.8125rem;
+        left: 1.25rem;
+        color: var(--color-black-10);
+        font-size: 1.3rem;
+        overflow: hidden;
+    }
+    &__title {
+        display: flex;
+        align-items: center;
+        font-size: 1.0625rem;
+        color: var(--color--black-10);
+        padding-left: 0.625rem;
+        height: 50px;
+        margin-top: 3.125rem;
+    }
+
+    &__user__content {
+        @include display-direction-justify-align(flex, row, space-between, center);
+        @include border-radius(big);
+        @include hover();
+        overflow: hidden;
+        cursor: pointer;
+        height: 50px;
+        margin: 0 0.625rem;
+        padding: 0 0.625rem;
+        border: 2px solid transparent;
+        box-sizing: border-box;
+
+        > button { 
+            @include border-radius(rounded);
+            @include button(icon);
+
+        }
+        &__delete svg {  
+            font-size: 1.125rem ;
+            color: var(--color-black-10);
+        }
+        &__profile {
+            @include display-direction-justify-align(flex, row, unset, center);
+            
+            &__img {
+                @include border-radius(rounded);
+                width: 36px;
+                height: 36px;
+                margin-right: 0.625rem;
+            }
+            &__name {
+                font-size: 0.875rem;
+            }
+        }
+    }
+}
+

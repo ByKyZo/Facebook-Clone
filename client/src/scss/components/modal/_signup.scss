@@ -1,0 +1,124 @@
+.signup-modal {
+    @include border-radius('medium');
+    max-width: 432px;
+    margin: 0 12px;
+    background: var(--color-white-00);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.2s;
+
+    &__head {
+        padding: 16px;
+        position: relative;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+        &__title {
+            display: block;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        &__label {
+            display: block;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        &__btn-close {
+            @include button(icon);
+            @include border-radius(rounded);
+            position: absolute;
+            right: 12px;
+            top: 12px;
+        }
+    }
+
+    &__form {
+        padding: 16px;
+
+        &__names {
+            display: flex;
+        }
+
+        &__input {
+            @include border-radius('tiny');
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.04);
+            padding: 12px;
+            width: 100%;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+
+            &--name {
+                margin-right: 14px;
+            }
+        }
+
+        &__select {
+            @include border-radius('tiny');
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px !important;
+            font-size: 0.9rem;
+        }
+
+        &__label {
+            display: inline-block;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+        }
+
+        &__birthday {
+            &__wrapper {
+                display: flex;
+
+                select {
+                    &:nth-child(2) {
+                        margin: 0 16px;
+                    }
+                }
+            }
+        }
+
+        &__gender {
+            &__wrapper {
+                display: flex;
+                > div {
+                    @include display-direction-justify-align(flex, row, flex-end, center);
+                    @include border-radius('tiny');
+                    height: 36px;
+                    box-sizing: border-box;
+                    width: 100%;
+                    border: 1px solid rgba(0, 0, 0, 0.3);
+                    padding: 8px;
+                    font-size: 0.9rem;
+                    position: relative;
+
+                    > label {
+                        top: 50%;
+                        left: 0;
+                        transform: translateY(-50%);
+                        position: absolute;
+                        width: 100%;
+                        line-height: 29px;
+                        padding-left: 12px;
+                        box-sizing: border-box;
+                    }
+
+                    &:nth-child(1) {
+                        margin-right: 16px;
+                    }
+                }
+            }
+        }
+
+        &__btn-submit {
+            @include button('text');
+            background: var(--color-green-55);
+            height: 36px;
+            font-weight: 600;
+            padding: 0 50px;
+            margin: 26px auto 10px;
+        }
+    }
+}

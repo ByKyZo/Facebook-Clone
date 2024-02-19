@@ -1,0 +1,169 @@
+@mixin button(
+    // POSSIBLE VALUE : text / icon / reset / disabled
+    $button-type: reset,
+    // POSSIBLE VALUE : dark / light / disabled (les valeurs de mixin hover quoi :p)
+    $button-hover-type: dark,
+    // POSSIBLE VALUE : any
+    $button-text: white,
+    // POSSIBLE VALUE : any
+    $button-padding: 14px
+) {
+    user-select: none;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    // SI LE BUTTON CONTIENT DU TEXTE (ou icon + text possible)
+    @if ($button-type == text) {
+        @include hover($button-hover-type);
+        @include border-radius(small);
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 600;
+        transition: 0.3s ease;
+        color: $button-text;
+        padding: $button-padding;
+        overflow: hidden;
+        // SI LE BUTTON CONTIENT UN ICON
+    } @else if ($button-type == icon) {
+        @include hover($button-hover-type);
+        display: flex;
+        font-size: 2rem;
+        overflow: hidden;
+        padding: 2px;
+        flex-shrink: 0;
+        // SI JUSTE BESOIN D'UN BUTTON RESET (enleve le hover par default du button)
+    } @else if($button-type == reset) {
+        display: flex;
+        @include hover($button-hover-type);
+        // AFFICHE UN BOUTON DESACTIVE (sans hover + cursor (not allowed) + grisé)
+    } @else if($button-type == disabled) {
+        @include hover(disabled);
+        background: grey;
+        cursor: not-allowed;
+    }
+
+    &:disabled {
+        @include hover(disabled);
+        background: grey;
+        cursor: not-allowed;
+        background-color: var(--color-white-05);
+        color: var(--color-divider);
+    }
+}
+
+@mixin hover($type: dark) {
+    position: relative;
+    z-index: 1;
+    // RIEN A COMPRENDRE VALEUR PAR DEFAUT DU BEFORE POUR QU'IL PRENNE LA TAILLE DE SON PARENT :)
+    &:before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: -1;
+        background: transparent;
+        pointer-events: none;
+        transition: background 0.2s ease;
+    }
+    &:hover,
+    // ACTIVE LE HOVER SI TAB FOCUS (le :focus ne le fait pas)
+    &:focus-visible {
+        &:before {
+            // APPLIQUE UN FILTRE DE COULEUR BLACK SUR BOUTON
+            @if ($type == dark) {
+                background: rgba(var(--color-hover), var(--color-hover-opacity));
+                // APPLIQUE UN FILTRE DE COULEUR WHITE SUR BOUTON
+            } @else if($type == light) {
+                background: rgba(white, var(--color-hover-opacity));
+                // DESACTIVE LE HOVER
+            } @else if ($type == disabled) {
+                background: transparent !important;
+            }
+        }
+    }
+    // IDEM QUE POUR LE HOVER MAIS AVEC DES VALEURS PLUS SOMBRE AU CLICK
+    &:active {
+        &:before {
+            @if ($type == dark) {
+                background: rgba(var(--color-hover), calc(var(--color-hover-opacity) * 2));
+            } @else if($type == light) {
+                background: rgba(white, calc(var(--color-hover-opacity) * 2));
+            } @else if ($type == disabled) {
+                background: transparent !important;
+            }
+        }
+    }
+}
+
+@mixin border-radius($size) {
+    @if ($size == tiny) {
+        border-radius: 3px;
+    } @else if ($size == small) {
+        border-radius: 6px;
+    } @else if ($size == medium) {
+        border-radius: 9px;
+    } @else if ($size == big) {
+        border-radius: 12px;
+    } @else if($size == rounded) {
+        border-radius: 9999px;
+    }
+}
+
+@mixin display-direction-justify-align(
+    $display: flex,
+    $direction: row,
+    $justify: stretch,
+    $align: stretch
+) {
+    // CENTRE DANS TOUT LE SENS
+    @if ($display == 'fullcenter') {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // CENTRE VERTICALEMENT (vr = vertical)
+    } @else if($display == 'vrcenter') {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        // CENTRE HORIZONTALEMENT (hr = horizontal)
+    } @else if($display == 'hrcenter') {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    } @else {
+        display: $display;
+        flex-direction: $direction;
+        justify-content: $justify;
+        align-items: $align;
+    }
+}
+
+// A REVOIR BANCALE
+@mixin focus($focus-color: var(--color-blue-60)) {
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 1px $focus-color, 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@mixin svg($font-size, $color) {
+    font-size: $font-size;
+    color: $color;
+}
+
+// @mixin arrowTooltip($position){
+
+//     @if($position == 'top') {
+//         bottom: -25px;
+//         border-top: 10px solid var(--color-divider);
+//         border-bottom: 15px solid transparent;
+//     } @else if($position == 'bottom') {
+//         top: -25px;
+//         border-top: 15px solid transparent;
+//         border-bottom: 10px solid var(--color-divider) ;
+//     }
+// }

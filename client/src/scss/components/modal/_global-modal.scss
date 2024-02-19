@@ -1,0 +1,102 @@
+@import './signup';
+@import './addpost/global-addpost';
+
+/**
+* MODAL HEAD
+**/
+
+.__global-modal {
+    @include border-radius(medium);
+    margin: 0px 8px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2), 0 0 0 0.7px var(--color-black-15);
+    @media (max-width: 640px) {
+        border-radius: 0;
+    }
+
+    &__head {
+        @include display-direction-justify-align(fullcenter);
+        height: 60px;
+        position: relative;
+        box-shadow: 0 0.4px 0 var(--color-black-15);
+
+        &__title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        &__btn-close {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            div {
+                i {
+                    background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yw/r/VZV0lAr5pKn.png);
+                    background-position: 0px -452px;
+                    background-size: auto;
+                    width: 20px;
+                    height: 20px;
+                    background-repeat: no-repeat;
+                    display: inline-block;
+                }
+                @include button();
+                @include border-radius(rounded);
+                @include display-direction-justify-align(fullcenter);
+                height: 36px;
+                width: 36px;
+                background: var(--color-black-15);
+                font-size: 1.6rem;
+                color: var(--color-black-10);
+                overflow: hidden;
+            }
+        }
+    }
+
+    &__content {
+        //padding: 16px;
+    }
+}
+
+.ReactModal__Body--open {
+    overflow: hidden;
+}
+
+/**
+* MODAL OVERLAY ANIMATION CONFIG
+**/
+.ReactModal__Overlay {
+    background: var(--overlay-alpha-80) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+}
+
+/**
+* MODAL CONTENT ANIMATION CONFIG
+**/
+.ReactModal__Content {
+    background: var(--color-white-00) !important;
+    transform: scale(0.4);
+    transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ReactModal__Content--after-open {
+    transform: scale(1);
+}
+
+.ReactModal__Content--before-close {
+    transform: scale(0.4);
+    opacity: 0;
+}

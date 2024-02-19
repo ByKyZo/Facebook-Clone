@@ -1,0 +1,11 @@
+%dropdown-preset {
+    @include border-radius(medium);
+    //padding: 10px;
+    background: var(--color-white-00);
+    // TODO Enlever la width
+    
+    width: 360px;
+    overflow: hidden;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--color-black-15);
+}

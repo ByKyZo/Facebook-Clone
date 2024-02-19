@@ -1,0 +1,14 @@
+@import 'utils/global-utils';
+@import 'components/global-components';
+@import 'pages/global-pages';
+
+html {
+    font-family: 'Poppins', sans-serif;
+    > * {
+        color: var(--color-black-05);
+    }
+}
+
+body {
+    background-color: var(--color-white-05);
+}
